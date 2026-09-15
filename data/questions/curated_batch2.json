@@ -1,0 +1,1602 @@
+[
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "Hardly _____ the international treaty been ratified when legal objections were raised by member states.",
+    "choices": [
+      "had",
+      "did",
+      "was",
+      "has"
+    ],
+    "correctIndex": 0,
+    "explanation": "Inversi negatif waktu: frasa 'Hardly had + S + V3' berpasangan dengan 'when' untuk peristiwa yang langsung disusul peristiwa lain.",
+    "learningTip": "Pola baku: Hardly had + S + V3 ... when + Simple Past.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "Were the central bank _____ benchmark interest rates prematurely, inflationary pressure could intensify.",
+    "choices": [
+      "lower",
+      "lowered",
+      "lowering",
+      "to lower"
+    ],
+    "correctIndex": 3,
+    "explanation": "Inversi Second Conditional formal: 'Were + subjek + to-infinitive' digunakan untuk pengandaian kondisi masa depan.",
+    "learningTip": "Pola inversi kondisional formal: Were + S + to + V1.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The supreme judicial council decreed that the contested regulation _____ null and void immediately.",
+    "choices": [
+      "was declared",
+      "is declared",
+      "be declared",
+      "declares"
+    ],
+    "correctIndex": 2,
+    "explanation": "Mandative Subjunctive pasif: setelah kata kerja penetapan hukum 'decreed that', bentuk kata kerja klausa adalah 'be + V3' ('be declared').",
+    "learningTip": "Bentuk pasif dari subjunctive mood selalu memakai 'be + past participle' tanpa to atau infleksi tenses.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "So volatile _____ that institutional investors withdrew substantial capital from emerging markets.",
+    "choices": [
+      "the currency became",
+      "did the currency become",
+      "became the currency",
+      "was the currency became"
+    ],
+    "correctIndex": 1,
+    "explanation": "Inversi 'So + adjective' di awal kalimat: auxiliary 'did' diletakkan sebelum subjek 'the currency' mendahului kata kerja dasar 'become'.",
+    "learningTip": "Pola inversi penekanan: So + adjective + auxiliary + S + V + that...",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The epidemiologist spoke with authority, _____ conducted longitudinal trials across three continents.",
+    "choices": [
+      "having",
+      "to have",
+      "had",
+      "have"
+    ],
+    "correctIndex": 0,
+    "explanation": "Participle clause penjelas: 'having conducted' (perfect participle) menerangkan kualifikasi yang telah diperoleh sebelumnya.",
+    "learningTip": "Gunakan perfect participle (-ing) untuk menerangkan latar belakang tindakan yang mendahului kalimat utama.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "It is imperative that every participating delegate _____ strictly to the non-disclosure agreements.",
+    "choices": [
+      "will adhere",
+      "adheres",
+      "adhered",
+      "adhere"
+    ],
+    "correctIndex": 3,
+    "explanation": "Pola subjunctive setelah kata sifat formal 'It is imperative that': kata kerja wajib berbentuk bare infinitive 'adhere'.",
+    "learningTip": "Pola: It is essential / imperative / crucial that + S + V1 (tanpa -s).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "Much _____ economists debate the mechanism, the positive correlation between education and income is undeniable.",
+    "choices": [
+      "since",
+      "though",
+      "as",
+      "while"
+    ],
+    "correctIndex": 2,
+    "explanation": "Frasa konsesif 'Much as...' berfungsi setara dengan 'Although... very much' ('Meskipun para ekonom banyak mendebatkan...').",
+    "learningTip": "Kuasai konjungsi konsesif tingkat tinggi: 'Much as + S + V' bermakna 'Meskipun sangat...'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "Had it not been for the philanthropist's endowment, the laboratory _____ its groundbreaking research.",
+    "choices": [
+      "discontinued",
+      "would have discontinued",
+      "had discontinued",
+      "will discontinue"
+    ],
+    "correctIndex": 1,
+    "explanation": "Inversi Third Conditional negatif: 'Had it not been for...' berpasangan dengan 'would have + V3' di klausa utama.",
+    "learningTip": "Pola inversi 'Had it not been for [noun]' setara dengan 'If it had not been for [noun]'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The symposium attendees, few of _____ had prior background in quantum computing, found the seminar illuminating.",
+    "choices": [
+      "whom",
+      "which",
+      "who",
+      "them"
+    ],
+    "correctIndex": 0,
+    "explanation": "Setelah preposisi 'of' yang merujuk pada orang ('attendees'), pronoun yang digunakan adalah 'whom' ('few of whom').",
+    "learningTip": "Gunakan 'quantifier + of whom' untuk orang dan 'quantifier + of which' untuk benda.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The experimental apparatus was calibrated _____ extreme precision to eliminate measurement bias.",
+    "choices": [
+      "for",
+      "in",
+      "by",
+      "with"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kolokasi preposisi cara: 'calibrated with extreme precision' (dikalibrasi dengan ketepatan tinggi).",
+    "learningTip": "Perhatikan adverbial prepositional phrase: with precision, with care, with ease.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "Little _____ the archaeological team realize that the cavern housed prehistoric cave paintings.",
+    "choices": [
+      "was",
+      "had",
+      "did",
+      "would"
+    ],
+    "correctIndex": 2,
+    "explanation": "Adverbial negatif 'Little' di awal kalimat memicu inversi: kata bantu 'did' mendahului subjek 'the archaeological team'.",
+    "learningTip": "'Little did someone know/realize' adalah pola inversi klasik untuk menyatakan ketidaktahuan sama sekali.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The dean commended the faculty members, all of _____ contributions had elevated the university's ranking.",
+    "choices": [
+      "whom",
+      "whose",
+      "which",
+      "who"
+    ],
+    "correctIndex": 1,
+    "explanation": "Relative pronoun kepemilikan 'whose' digunakan sebelum kata benda 'contributions' ('all of whose contributions').",
+    "learningTip": "Pola: all of whose + noun menunjukkan kepemilikan anggota dalam kelompok.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "Only when the peer-review process is finalized _____ the editorial board authorize public dissemination.",
+    "choices": [
+      "will",
+      "is",
+      "did",
+      "can"
+    ],
+    "correctIndex": 0,
+    "explanation": "Setelah klausa pembatas waktu 'Only when...', klausa utama mengalami inversi: modal 'will' mendahului subjek 'the editorial board'.",
+    "learningTip": "Pola: Only when / Only after + S + V, [auxiliary + S + V].",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The proposed corporate restructuring is expected _____ by the board of governors next quarter.",
+    "choices": [
+      "to approve",
+      "approving",
+      "approve",
+      "to be approved"
+    ],
+    "correctIndex": 3,
+    "explanation": "Bentuk pasif infinitive 'to be approved' tepat karena subjek 'restructuring' menerima aksi persetujuan.",
+    "learningTip": "Pola pasif: expect / anticipate + something + to be + V3.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "No amount of public relations spin could _____ for the company's catastrophic environmental negligence.",
+    "choices": [
+      "substitute",
+      "reconcile",
+      "compensate",
+      "rectify"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Compensate for' adalah kolokasi frasa verba yang berarti mengganti rugi atau menebus kesalahan.",
+    "learningTip": "Kolokasi phrasal verb: compensate for a loss / mistake / deficit.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The sociologist observed that the more egalitarian a society is, _____ the reported levels of collective happiness.",
+    "choices": [
+      "higher",
+      "the higher",
+      "more high",
+      "the highest"
+    ],
+    "correctIndex": 1,
+    "explanation": "Double comparative: kedua sisi kalimat harus sejajar menggunakan bentuk 'The + comparative' ('The more egalitarian..., the higher...').",
+    "learningTip": "Pastikan struktur komparatif berimbang: The + comparative ..., the + comparative ...",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The government official denied _____ any classified memoranda to unauthorized media representatives.",
+    "choices": [
+      "having leaked",
+      "to leak",
+      "leaked",
+      "leak"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kata kerja 'deny' diikuti gerund atau perfect gerund ('having leaked') untuk merujuk pada tindakan lampau yang disangkal.",
+    "learningTip": "Verba yang diikuti gerund: deny, admit, avoid, consider + V-ing / having V3.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The research fellow worked relentlessly, _____ sleep in order to meet the grant submission deadline.",
+    "choices": [
+      "forgone",
+      "forwent",
+      "to forgo",
+      "forgoing"
+    ],
+    "correctIndex": 3,
+    "explanation": "Participle clause aktif (-ing): 'forgoing sleep' menerangkan kondisi tindakan penyerta yang dilakukan subjek saat bekerja.",
+    "learningTip": "Gunakan present participle (-ing) sebagai participle clause untuk aksi yang menyertai klausa utama.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "Scarcely _____ the aircraft touched down when emergency rescue vehicles escorted it off the runway.",
+    "choices": [
+      "was",
+      "has",
+      "had",
+      "did"
+    ],
+    "correctIndex": 2,
+    "explanation": "Inversi negatif: 'Scarcely had + S + V3 ... when' menyatakan aksi yang baru saja terjadi ketika disusul aksi lain.",
+    "learningTip": "Pola baku: Scarcely had + S + V3 ... when + Simple Past.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "grammar",
+    "prompt": "The policy debate centred on the degree _____ state intervention is justified in a free-market economy.",
+    "choices": [
+      "in which",
+      "to which",
+      "for which",
+      "at which"
+    ],
+    "correctIndex": 1,
+    "explanation": "Frasa 'the degree to which' adalah konstruksi formal baku untuk menyatakan 'sejauh mana' atau 'tingkat di mana'.",
+    "learningTip": "Kolokasi frasa relative: the extent to which, the degree to which.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Be that _____ it may, the empirical veracity of the macroeconomic theorem warrants deeper interrogation.",
+    "choices": [
+      "as",
+      "though",
+      "if",
+      "so"
+    ],
+    "correctIndex": 0,
+    "explanation": "Idiom konsesif formal: 'Be that as it may' adalah ungkapan baku tingkat tinggi yang bermakna 'Meski demikian / Kendati demikian'.",
+    "learningTip": "Kuasai ungkapan konsesif idiomatis C2: 'Be that as it may' setara dengan 'Nevertheless / Nonetheless'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Were it not for the clandestine benefactor's intervention, the historic observatory _____ demolition.",
+    "choices": [
+      "will face",
+      "had faced",
+      "faced",
+      "would have faced"
+    ],
+    "correctIndex": 3,
+    "explanation": "Bentuk kondisional formal 'Were it not for...' mengandaikan kondisi lampau dan berpasangan dengan 'would have + V3'.",
+    "learningTip": "'Were it not for' bermakna 'If it were not for' atau 'Jika bukan karena'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Come _____ may, the international coalition reaffirmed its immutable commitment to maritime sovereignty.",
+    "choices": [
+      "how",
+      "which",
+      "what",
+      "that"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ungkapan fixed subjunctive C2: 'Come what may' adalah idiom sastra formal yang bermakna 'Apa pun yang akan terjadi'.",
+    "learningTip": "Idiom baku: 'Come what may' = whatever happens.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "The philosopher argued that virtue is its own reward, _____ cynical contemporary observers might contend.",
+    "choices": [
+      "whichever",
+      "whatever",
+      "wherever",
+      "whenever"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata ganti penghubung konsesif 'whatever' berfungsi sebagai objek dari 'might contend' ('apa pun yang mungkin diperdebatkan...').",
+    "learningTip": "Gunakan 'whatever' untuk klausa konsesif yang bermakna 'no matter what'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Far _____ it from me to criticize the tribunal's findings, but several evidentiary discrepancies persist.",
+    "choices": [
+      "be",
+      "is",
+      "was",
+      "being"
+    ],
+    "correctIndex": 0,
+    "explanation": "Ungkapan formulaik subjunctive: 'Far be it from me to...' adalah bentuk retorika sopan formal untuk menyatakan keengganan sebelum mengkritik.",
+    "learningTip": "Pola baku C2: 'Far be it from me to + V1' adalah ekspresi kesopanan formal.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Not one of the surviving manuscripts _____ any mention of the cataclysmic volcanic eruption.",
+    "choices": [
+      "have made",
+      "make",
+      "are making",
+      "makes"
+    ],
+    "correctIndex": 3,
+    "explanation": "Subjek kalimat adalah 'Not one' (tunggal mutlak), sehingga kata kerja yang gramatikal dalam ragam formal adalah 'makes'.",
+    "learningTip": "'Not one of + plural noun' secara presisi tata bahasa membutuhkan kata kerja singular.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Suffice it _____ that the diplomatic repercussions of the summit will reverberate for decades.",
+    "choices": [
+      "said",
+      "saying",
+      "to say",
+      "say"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ungkapan formulaik C2: 'Suffice it to say that...' adalah bentuk baku yang bermakna 'Cukuplah dikatakan bahwa...'.",
+    "learningTip": "Fixed expression: 'Suffice it to say that...' digunakan untuk meringkas implikasi besar.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "The defendant stood accused of perjury, an offense for _____ the statute prescribed severe penal servitude.",
+    "choices": [
+      "whom",
+      "which",
+      "that",
+      "what"
+    ],
+    "correctIndex": 1,
+    "explanation": "Setelah preposisi 'for' yang merujuk pada kata benda 'an offense' (tindak pidana), pronoun yang tepat adalah 'which'.",
+    "learningTip": "Gunakan 'preposisi + which' untuk relative clause formal yang merujuk pada benda/kejahatan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Try as they _____, the negotiators could not reconcile the fundamentally incompatible territorial claims.",
+    "choices": [
+      "might",
+      "could",
+      "should",
+      "would"
+    ],
+    "correctIndex": 0,
+    "explanation": "Konstruksi konsesif inversi C2: 'Try as they might' adalah pola baku sastra/akademik yang bermakna 'Betapapun kerasnya mereka berusaha'.",
+    "learningTip": "Pola baku: 'Try as S might, ...' = However hard they tried.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "The theoretical physicist postulated a hypothetical realm wherein the laws of thermodynamics _____ inapplicable.",
+    "choices": [
+      "are being",
+      "will be",
+      "had been",
+      "would be"
+    ],
+    "correctIndex": 3,
+    "explanation": "Dalam klausa pengandaian hipotetis ('wherein...'), modal 'would be' mencerminkan status teoritis yang belum terbukti secara empiris.",
+    "learningTip": "'Wherein' adalah adverb relatif formal yang bermakna 'di mana / in which'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "The archivist handled the thirteenth-century parchment as though it _____ spun from fragile glass.",
+    "choices": [
+      "is",
+      "was",
+      "were",
+      "has been"
+    ],
+    "correctIndex": 2,
+    "explanation": "Subjunctive pengandaian setelah 'as though': bentuk yang tepat adalah 'were' untuk situasi hipotetis yang bertentangan dengan kenyataan.",
+    "learningTip": "Gunakan 'were' setelah as if / as though untuk situasi imajinatif tak nyata.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "On no account _____ the preservation chamber's hermetic seal be compromised during the restoration.",
+    "choices": [
+      "shall",
+      "must",
+      "can",
+      "ought"
+    ],
+    "correctIndex": 1,
+    "explanation": "Inversi larangan mutlak: 'On no account must + S + be compromised' adalah pola inversi kewajiban tertinggi.",
+    "learningTip": "'On no account must...' menyatakan larangan keras yang tidak boleh dilanggar sama sekali.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Lest the fragile truce _____ jeopardized, both sovereign states agreed to withdraw heavy artillery.",
+    "choices": [
+      "be",
+      "was",
+      "is",
+      "being"
+    ],
+    "correctIndex": 0,
+    "explanation": "Konjungsi formal 'lest' (agar jangan sampai) secara tata bahasa diikuti oleh present subjunctive tanpa infleksi: 'lest ... be jeopardized'.",
+    "learningTip": "'Lest' diikuti bentuk bare subjunctive (be / base verb) untuk menyatakan pencegahan akibat buruk.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "The monograph offered an exhaustive critique, the cornerstone of _____ was a deconstruction of positivism.",
+    "choices": [
+      "what",
+      "whom",
+      "that",
+      "which"
+    ],
+    "correctIndex": 3,
+    "explanation": "Frasa relatif kepemilikan formal: 'the cornerstone of which' merujuk kembali pada 'an exhaustive critique'.",
+    "learningTip": "Pola: noun + of which merujuk pada konsep atau karya tulis akademik.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Should the diplomatic demarche prove futile, the prime minister _____ with targeted trade sanctions.",
+    "choices": [
+      "had proceeded",
+      "proceeded",
+      "will proceed",
+      "would have proceeded"
+    ],
+    "correctIndex": 2,
+    "explanation": "Inversi First Conditional: 'Should + S + V1' setara dengan 'If + S + V1', sehingga klausa utama memakai future 'will proceed'.",
+    "learningTip": "Pola: Should + S + V1 ..., S + will + V1 (inversi pengandaian formal masa depan).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "The historian's magnum opus is less an indictment of imperialism _____ an inquiry into bureaucratic complacency.",
+    "choices": [
+      "as",
+      "than",
+      "or",
+      "but"
+    ],
+    "correctIndex": 1,
+    "explanation": "Konstruksi perbandingan kontras: 'less X than Y' (bukan sekadar X melainkan lebih merupakan Y).",
+    "learningTip": "Struktur retorika C2: 'less [A] than [B]' digunakan untuk mengoreksi penafsiran yang keliru.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "The witness claimed to _____ seen the suspect fleeing the estate in the early hours of dawn.",
+    "choices": [
+      "have",
+      "be",
+      "having",
+      "had"
+    ],
+    "correctIndex": 0,
+    "explanation": "Perfect Infinitive: 'claimed to have seen' digunakan untuk menyatakan bahwa tindakan melihat terjadi sebelum waktu klaim.",
+    "learningTip": "Pola: claim / appear / seem + to have + V3 menyatakan aksi yang telah selesai di masa lampau.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "The magistrate ruled that the defendant's confession had been obtained _____ duress.",
+    "choices": [
+      "by",
+      "in",
+      "with",
+      "under"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kolokasi hukum baku: 'under duress' berarti dalam keadaan terpaksa atau berada di bawah tekanan ancaman fisik/psikologis.",
+    "learningTip": "Legal collocation: obtain a confession under duress = di bawah paksaan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "To such an extent _____ the ecosystem degraded that natural regeneration was deemed impossible.",
+    "choices": [
+      "did",
+      "was",
+      "had",
+      "has"
+    ],
+    "correctIndex": 2,
+    "explanation": "Inversi derajat akibat: 'To such an extent had + S + V3 that...' membalik auxiliary sebelum subjek untuk penekanan keparahan.",
+    "learningTip": "Pola: To such an extent + aux + S + V + that...",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "grammar",
+    "prompt": "Whatever _____ the immediate political fallout, the treaty establishes a permanent precedent for global commons.",
+    "choices": [
+      "is",
+      "be",
+      "was",
+      "are"
+    ],
+    "correctIndex": 1,
+    "explanation": "Subjunctive konsesif: 'Whatever be the fallout' adalah bentuk sastra formal untuk 'Whatever the fallout may be'.",
+    "learningTip": "Gunakan bare subjunctive 'be' dalam klausa konsesif formal C2.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: [Scarcely] the parliamentary committee [had] [tabled] the contentious white paper when opposition lawmakers demanded a [referendum].",
+    "choices": [
+      "Scarcely",
+      "had",
+      "tabled",
+      "referendum"
+    ],
+    "correctIndex": 1,
+    "explanation": "Adverbial negatif 'Scarcely' di awal kalimat memicu inversi: kata bantu 'had' harus diletakkan mendahului subjek ('Scarcely had the committee tabled...').",
+    "learningTip": "Pola inversi: Scarcely had + S + V3 ... when.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The international tribunal [decreed] that sovereign nations [refrains] from deploying [unmanned] maritime drones in contested territorial [waters].",
+    "choices": [
+      "decreed",
+      "refrains",
+      "unmanned",
+      "waters"
+    ],
+    "correctIndex": 1,
+    "explanation": "Setelah kata kerja penetapan hukum 'decreed that', bentuk kata kerja dalam klausa mandative subjunctive harus berbentuk dasar murni ('refrain'), bukan 'refrains'.",
+    "learningTip": "Mandative subjunctive tidak pernah diberi akhiran -s pada kata kerja.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The meta-analysis demonstrated that the pharmacological intervention was [substantially] [more] efficacious [as] conventional chemotherapy [regimens].",
+    "choices": [
+      "substantially",
+      "more",
+      "as",
+      "regimens"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bentuk perbandingan lebih ('more efficacious') wajib dipasangkan dengan kata sambung pembanding 'than', bukan 'as'.",
+    "learningTip": "Setelah comparative degree (more / -er), gunakan 'than'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The university senate convened an extraordinary session to [discuss] [about] the systemic [implications] of generative AI on academic [integrity].",
+    "choices": [
+      "discuss",
+      "about",
+      "implications",
+      "integrity"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata kerja transitif 'discuss' langsung diikuti objek tanpa preposisi 'about' ('discuss the systemic implications').",
+    "learningTip": "Kata kerja seperti discuss, consider, examine tidak membutuhkan preposisi 'about'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: [Having saw] the contradictory histological [slides], the chief pathologist ordered an immediate molecular [biopsy] of the [tissue].",
+    "choices": [
+      "Having saw",
+      "slides",
+      "biopsy",
+      "tissue"
+    ],
+    "correctIndex": 0,
+    "explanation": "Bentuk Perfect Participle mewajibkan pemakaian past participle (V3: 'Having seen'), bukan past simple 'Having saw'.",
+    "learningTip": "Pola Perfect Participle: Having + V3.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The longitudinal survey revealed that [fewer] than five percent of rural [households] possessed adequate access to high-speed [telecommunications] [infrastructures].",
+    "choices": [
+      "fewer",
+      "households",
+      "telecommunications",
+      "infrastructures"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kata 'infrastructure' dalam konteks formal merupakan kata benda massa yang tidak dihitung (uncountable), sehingga bentuk yang tepat adalah 'infrastructure', bukan 'infrastructures'.",
+    "learningTip": "Perhatikan kata benda massa institusional yang tidak memakai akhiran jamak -s.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The lead econometrician [which] devised the dynamic pricing model was [awarded] the central bank's annual medal for [analytical] [distinction].",
+    "choices": [
+      "which",
+      "devised",
+      "awarded",
+      "analytical"
+    ],
+    "correctIndex": 0,
+    "explanation": "Subjek 'The lead econometrician' adalah manusia, sehingga relative pronoun yang tepat adalah 'who', bukan 'which'.",
+    "learningTip": "Gunakan 'who' untuk orang dan 'which' untuk benda/institusi non-manusia.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The advisory council [insisted] that the corporate [conglomerate] [discloses] its full carbon emission footprint across all subsidiary supply [chains].",
+    "choices": [
+      "insisted",
+      "conglomerate",
+      "discloses",
+      "chains"
+    ],
+    "correctIndex": 2,
+    "explanation": "Klausa mandative subjunctive setelah 'insisted that' membutuhkan kata kerja dasar tanpa akhiran ('disclose'), bukan 'discloses'.",
+    "learningTip": "Subjunctive mood: S + insist that + S + base verb (V1 murni).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The theoretical paradigm articulated by the guest [lecturer] seemed entirely [coherent] and [logically] to the attending doctoral [candidates].",
+    "choices": [
+      "lecturer",
+      "coherent",
+      "logically",
+      "candidates"
+    ],
+    "correctIndex": 2,
+    "explanation": "Setelah linking verb 'seemed', kata penjelas harus berupa kata sifat predicative ('logical'), sejajar dengan 'coherent', bukan adverb 'logically'.",
+    "learningTip": "Linking verbs (seem, appear, look, sound) diikuti adjective, bukan adverb.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The consortium spent several [fiscal] quarters [to formulate] an exhaustive protocol to counteract maritime [smuggling] [syndicates].",
+    "choices": [
+      "fiscal",
+      "to formulate",
+      "smuggling",
+      "syndicates"
+    ],
+    "correctIndex": 1,
+    "explanation": "Pola verba 'spend time' diikuti gerund ('formulating'), bukan to-infinitive 'to formulate'.",
+    "learningTip": "Pola: spend + time/money + V-ing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The senior climatologist has been [monitoring] permafrost thaw rates in the Siberian tundra [since] twenty-five [consecutive] [years].",
+    "choices": [
+      "monitoring",
+      "since",
+      "consecutive",
+      "years"
+    ],
+    "correctIndex": 1,
+    "explanation": "Untuk menyatakan rentang durasi total ('twenty-five consecutive years'), preposisi yang tepat adalah 'for', bukan 'since'.",
+    "learningTip": "Gunakan 'for' untuk periode rentang waktu dan 'since' untuk patokan titik awal.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The archaeological foundation maintains [comprehensive] [researches] and petrographic catalogues detailing Bronze Age trade [routes] through the [Levant].",
+    "choices": [
+      "comprehensive",
+      "researches",
+      "routes",
+      "Levant"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata 'research' dalam konteks akademik standar bersifat uncountable dan tidak dijamakkan menjadi 'researches'.",
+    "learningTip": "'Research' adalah uncountable noun; gunakan 'research studies' jika membutuhkan bentuk terhitung.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Neither the principal [architect] nor the urban [planners] [was] aware that the seismic fault line traversed the designated construction [site].",
+    "choices": [
+      "architect",
+      "planners",
+      "was",
+      "site"
+    ],
+    "correctIndex": 2,
+    "explanation": "Pada struktur 'neither... nor', kata kerja mengikuti subjek terdekat yaitu 'urban planners' (jamak), sehingga kata kerja yang benar adalah 'were'.",
+    "learningTip": "Cocokkan bentuk kata kerja dengan subjek terdekat pada correlative conjunctions.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The supreme court judge [considers] the statutory [amendment] to be immensely [advantageous] for judicial [fairly].",
+    "choices": [
+      "considers",
+      "amendment",
+      "advantageous",
+      "fairly"
+    ],
+    "correctIndex": 3,
+    "explanation": "Setelah kata sifat 'judicial', dibutuhkan kata benda yaitu 'fairness' (keadilan), bukan adverb 'fairly'.",
+    "learningTip": "Pastikan kelas kata yang dibutuhkan sesuai dengan posisinya dalam frasa benda (noun phrase).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The executive steering [committee] resolved the contentious budgetary dispute by [themself] before [approaching] institutional [stakeholders].",
+    "choices": [
+      "committee",
+      "themself",
+      "approaching",
+      "stakeholders"
+    ],
+    "correctIndex": 1,
+    "explanation": "Bentuk reflexive pronoun untuk subjek jamak 'the executive steering committee' adalah 'themselves', bukan 'themself'.",
+    "learningTip": "Reflexive pronoun untuk third person plural adalah 'themselves'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: [Hardly] the prime [minister] had [concluded] his address when dissident parliamentarians called for a vote of no [confidence].",
+    "choices": [
+      "Hardly",
+      "minister",
+      "concluded",
+      "confidence"
+    ],
+    "correctIndex": 0,
+    "explanation": "Ketika 'Hardly' diletakkan di awal kalimat, posisi auxiliary harus dibalik mendahului subjek ('Hardly had the prime minister concluded...').",
+    "learningTip": "Inversi negatif: Hardly had + S + V3.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The diplomatic protocol stipulated that each [plenipotentiary] [remains] in the plenary hall until the bilateral accords are [formally] [executed].",
+    "choices": [
+      "plenipotentiary",
+      "remains",
+      "formally",
+      "executed"
+    ],
+    "correctIndex": 1,
+    "explanation": "Setelah verba tuntutan formal 'stipulated that', klausa mandative subjunctive membutuhkan kata kerja dasar murni 'remain', bukan 'remains'.",
+    "learningTip": "Mandative subjunctive tidak menerima akhiran orang ketiga tunggal (-s).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The more exhaustively the epistemological [foundations] of the theory were scrutinized, the [most] [glaring] its underlying paradoxes [appeared].",
+    "choices": [
+      "foundations",
+      "most",
+      "glaring",
+      "appeared"
+    ],
+    "correctIndex": 1,
+    "explanation": "Pola double comparative berimbang membutuhkan bentuk komparatif di kedua sisi ('the more glaring', bukan 'the most').",
+    "learningTip": "Struktur berimbang: The + comparative ..., the + comparative ...",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The appellate court [decreed] that the state regulatory agency [made] the utility corporation [to reimburse] all affected municipal [consumers].",
+    "choices": [
+      "decreed",
+      "made",
+      "to reimburse",
+      "consumers"
+    ],
+    "correctIndex": 2,
+    "explanation": "Causative aktif 'make' diikuti bare infinitive tanpa to ('reimburse'), bukan 'to reimburse'.",
+    "learningTip": "Kata kerja causative make/let aktif selalu diikuti bare infinitive (V1 polos).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The historic botanical repository houses [irreplaceable] herbarium [specimens] and vast [researches] into extinct Alpine flora [taxa].",
+    "choices": [
+      "irreplaceable",
+      "specimens",
+      "researches",
+      "taxa"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata 'research' bersifat uncountable dan tidak dijamakkan menjadi 'researches'. Bentuk yang tepat adalah 'research'.",
+    "learningTip": "'Research' adalah mass noun; gunakan 'research studies' jika membutuhkan bentuk jamak.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The board of [governors], in consultation with external financial [auditors], [were] unanimous in declaring the institution's fiscal reserve [insolvent].",
+    "choices": [
+      "governors",
+      "auditors",
+      "were",
+      "insolvent"
+    ],
+    "correctIndex": 2,
+    "explanation": "Inti subjek kalimat adalah 'The board of governors' (entitas tunggal). Dengan demikian kata kerja yang baku dalam konteks formal adalah 'was', bukan 'were'.",
+    "learningTip": "Perhatikan subject-verb agreement pada collective noun formal.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The geopolitical symposium [convened] at the [palace] of nations promptly [in] Friday morning to draft the multilateral disarmament [charter].",
+    "choices": [
+      "convened",
+      "palace",
+      "in",
+      "charter"
+    ],
+    "correctIndex": 2,
+    "explanation": "Keterangan waktu yang diawali nama hari spesifik ('Friday morning') membutuhkan preposisi 'on', bukan 'in'.",
+    "learningTip": "Gunakan 'on' untuk hari spesifik (on Friday morning).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The constitutional scholar delivered a [masterclass] that [had] an indelible [affect] upon the jurisprudence of the nascent [republic].",
+    "choices": [
+      "masterclass",
+      "had",
+      "affect",
+      "republic"
+    ],
+    "correctIndex": 2,
+    "explanation": "Frasa 'had an indelible...' membutuhkan kata benda yaitu 'effect' (dampak/pengaruh), bukan kata kerja 'affect'.",
+    "learningTip": "Affect (verb) = mempengaruhi; Effect (noun) = pengaruh/dampak.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The international task force [instituted] draconian maritime [interdictions] to prevent foreign trawlers [to] plundering protected pelagic [reserves].",
+    "choices": [
+      "instituted",
+      "interdictions",
+      "to",
+      "reserves"
+    ],
+    "correctIndex": 2,
+    "explanation": "Pola verba 'prevent' adalah 'prevent someone from doing something', sehingga preposisi yang benar adalah 'from', bukan 'to'.",
+    "learningTip": "Pola: prevent + object + from + V-ing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Empirical measurements proved that the superconducting maglev prototype was [markedly] [more] energy-efficient [as] traditional locomotive [systems].",
+    "choices": [
+      "markedly",
+      "more",
+      "as",
+      "systems"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bentuk komparatif 'more energy-efficient' berpasangan dengan kata hubung pembanding 'than', bukan 'as'.",
+    "learningTip": "Setelah comparative (more / -er), gunakan 'than'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The security director [insisted] that visiting [researchers] [wears] dosimeter badges whenever inspecting the subterranean isotope [vault].",
+    "choices": [
+      "insisted",
+      "researchers",
+      "wears",
+      "vault"
+    ],
+    "correctIndex": 2,
+    "explanation": "Klausa mandative subjunctive setelah 'insisted that' membutuhkan kata kerja dasar tanpa akhiran -s ('wear'), bukan 'wears'.",
+    "learningTip": "Subjunctive mood tidak pernah menggunakan akhiran -s pada kata kerja.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The theoretical [construct] seemed entirely [cogent] and [persuasively] to the peer reviewers convened at the royal [academy].",
+    "choices": [
+      "construct",
+      "cogent",
+      "persuasively",
+      "academy"
+    ],
+    "correctIndex": 2,
+    "explanation": "Setelah linking verb 'seemed', kata keterangan yang mengikuti harus berupa predicative adjective 'persuasive', bukan adverb 'persuasively'.",
+    "learningTip": "Linking verbs (seem, appear, remain) diikuti adjective, bukan adverb.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The institute has [established] an unassailable international [reputation] [about] groundbreaking neurological [investigations].",
+    "choices": [
+      "established",
+      "reputation",
+      "about",
+      "investigations"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata benda 'reputation' berkolokasi dengan preposisi 'for' ('reputation for groundbreaking investigations'), bukan 'about'.",
+    "learningTip": "Kolokasi tetap: have a reputation for something.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The parliamentary [delegates] met behind closed doors to [discuss] [about] the clandestine intelligence dossier leaked to international [broadcasters].",
+    "choices": [
+      "delegates",
+      "discuss",
+      "about",
+      "broadcasters"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata kerja transitif 'discuss' langsung mengambil objek langsung tanpa tambahan preposisi 'about' ('discuss the clandestine intelligence dossier').",
+    "learningTip": "Kata kerja transitif seperti discuss, consider, describe tidak memerlukan preposisi.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The [governing] board resolved the existential jurisdictional [stalemate] by [themself] before inviting arbitration from the international [tribunal].",
+    "choices": [
+      "governing",
+      "stalemate",
+      "themself",
+      "tribunal"
+    ],
+    "correctIndex": 2,
+    "explanation": "Reflexive pronoun untuk subjek jamak 'The governing board' adalah 'themselves', bukan 'themself'.",
+    "learningTip": "Reflexive pronoun third person plural adalah 'themselves'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The prime minister's speech was intentionally _____ in order to avoid committing to a specific timeline.",
+    "choices": [
+      "candid",
+      "lucid",
+      "ambiguous",
+      "explicit"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Ambiguous' berarti memiliki makna ganda atau tidak jelas, sering digunakan secara strategis dalam diplomasi untuk menghindari komitmen pasti.",
+    "learningTip": "Academic Word List: ambiguous = equivocal = open to interpretation.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The rapid depletion of freshwater aquifers poses an _____ threat to agricultural food security.",
+    "choices": [
+      "immutable",
+      "imminent",
+      "inconsequential",
+      "indifferent"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Imminent' berarti akan segera terjadi dalam waktu dekat dan tidak dapat dihindarkan.",
+    "learningTip": "Kolokasi bahaya: imminent danger, imminent collapse, imminent threat.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The new regulatory framework is designed to _____ fraudulent transactions in the financial sector.",
+    "choices": [
+      "curb",
+      "foster",
+      "prolong",
+      "propel"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Curb' berarti mengendalikan, menahan, atau membatasi sesuatu yang tidak diinginkan.",
+    "learningTip": "Sinonim akademik untuk mengendalikan: curb = restrain = curtail.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The anthropologist noted that traditional cultural practices were being gradually _____ by global commercial media.",
+    "choices": [
+      "amplified",
+      "elevated",
+      "fortified",
+      "eroded"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Erode' dalam konteks sosial/budaya berarti mengikis atau merusak secara perlahan.",
+    "learningTip": "Kolokasi kiasan akademik: erode trust, erode values, erode sovereignty.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The treaty was hailed as a _____ breakthrough after months of deadlocked diplomatic negotiations.",
+    "choices": [
+      "fleeting",
+      "trivial",
+      "monumental",
+      "superficial"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Monumental' berarti sangat besar, penting, dan bersejarah dalam skala dampaknya.",
+    "learningTip": "Kolokasi pencapaian bersejarah: monumental breakthrough, monumental achievement.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The investigative journalist uncovered a _____ network of shell companies operating in offshore tax havens.",
+    "choices": [
+      "transparent",
+      "clandestine",
+      "candid",
+      "conspicuous"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Clandestine' berarti dilakukan secara rahasia atau terselubung, sering kali karena sifatnya yang ilegal atau tidak etis.",
+    "learningTip": "Kosakata formal kerahasiaan: clandestine operations, clandestine network.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The city council launched an ambitious urban renewal initiative to _____ the decaying industrial waterfront.",
+    "choices": [
+      "revitalize",
+      "stagnate",
+      "demolish",
+      "deplete"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Revitalize' berarti menghidupkan kembali atau memberi energi dan vitalitas baru pada kawasan yang mati.",
+    "learningTip": "Topik urbanisasi IELTS: revitalize the economy, revitalize downtown areas.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The philosopher’s thesis was so _____ that even seasoned academics struggled to parse its core tenets.",
+    "choices": [
+      "pedestrian",
+      "straightforward",
+      "lucid",
+      "abstruse"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Abstruse' berarti sangat rumit, sulit dipahami, dan mendalam sehingga sukar dicerna.",
+    "learningTip": "Sinonim tingkat tinggi untuk sukar dipahami: abstruse = esoteric = recondite.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The monetary authority intervened to _____ extreme fluctuations in the foreign exchange rate.",
+    "choices": [
+      "amplify",
+      "provoke",
+      "dampen",
+      "escalate"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Dampen' dalam konteks ekonomi berarti meredam, mengurangi intensitas atau volatilitas fluktuasi.",
+    "learningTip": "Kolokasi moneter: dampen inflation, dampen enthusiasm, dampen volatility.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The defense minister stressed that maintaining a robust deterrent was _____ to national survival.",
+    "choices": [
+      "incidental",
+      "paramount",
+      "negligible",
+      "marginal"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Paramount' berarti di atas segala-galanya, paling utama, dan memiliki kepentingan tertinggi (of supreme importance).",
+    "learningTip": "Kolokasi formal kebijakan: of paramount importance, paramount concern.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The biological specimen exhibited an exceptional _____ to survive in extreme hypersaline environments.",
+    "choices": [
+      "propensity",
+      "aversion",
+      "reluctance",
+      "hostility"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Propensity' berarti kecenderungan alami untuk berperilaku atau beradaptasi dengan cara tertentu.",
+    "learningTip": "Kolokasi biologi/psikologi: have a propensity for / to do something.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The CEO was forced to step down following revelations of gross _____ in the handling of pension assets.",
+    "choices": [
+      "diligence",
+      "prudence",
+      "integrity",
+      "negligence"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Negligence' berarti kelalaian fatal atau kegagalan menjalankan kewajiban dengan kehati-hatian yang wajar.",
+    "learningTip": "Kolokasi hukum/korporat: gross negligence, criminal negligence.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "Despite facing fierce political opposition, the governor remained _____ in her determination to reform health care.",
+    "choices": [
+      "hesitant",
+      "fickle",
+      "unwavering",
+      "ambivalent"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Unwavering' berarti teguh, tidak goyah, dan tidak berubah dalam komitmen atau tekadnya.",
+    "learningTip": "Kolokasi karakter: unwavering support, unwavering dedication, unwavering commitment.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The new tax policy will disproportionately _____ lower-income working families in metropolitan centers.",
+    "choices": [
+      "subsidize",
+      "burden",
+      "cushion",
+      "exempt"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Burden' sebagai kata kerja berarti membebani atau menimpakan beban berat secara tidak proporsional.",
+    "learningTip": "Kolokasi ekonomi sosial: burden taxpayers, place a heavy burden on.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "vocabulary",
+    "prompt": "The diplomatic communique was crafted with extreme care to avoid _____ international trade tensions.",
+    "choices": [
+      "exacerbating",
+      "alleviating",
+      "mitigating",
+      "soothing"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Exacerbate' berarti memperburuk atau memperparah situasi krisis, konflik, atau ketegangan yang sudah ada.",
+    "learningTip": "Sinonim tingkat tinggi untuk memperburuk: exacerbate = aggravate = worsen.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The politician’s rhetoric was dismissed as pure _____, entirely bereft of substantive policy proposals.",
+    "choices": [
+      "veracity",
+      "erudition",
+      "sagacity",
+      "sophistry"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Sophistry' berarti penalaran yang tampak cerdas dan meyakinkan di permukaan tetapi sebenarnya keliru dan menyesatkan.",
+    "learningTip": "Kosakata filsafat dan debat kritis C2: sophistry = fallacious reasoning.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The author delivered a scathing critique of consumer capitalism and its _____ effects on civic solidarity.",
+    "choices": [
+      "benign",
+      "salutary",
+      "pernicious",
+      "innocuous"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Pernicious' berarti berdampak sangat merusak, berbahaya, atau mematikan secara perlahan dan tersembunyi.",
+    "learningTip": "Kolokasi akademik C2: pernicious effect, pernicious influence.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The judge noted that the witness exhibited remarkable _____, answering every complex query with razor-sharp insight.",
+    "choices": [
+      "obtuseness",
+      "perspicacity",
+      "vacuity",
+      "frivolity"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Perspicacity' berarti ketajaman intelektual dan kemampuan memahami persoalan rumit secara mendalam dan cepat.",
+    "learningTip": "Sinonim intelegensi tinggi: perspicacity = acuity = discernment.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The minister’s refusal to negotiate demonstrated an _____ stubbornness that ultimately precipitated the cabinet crisis.",
+    "choices": [
+      "intransigent",
+      "accommodating",
+      "malleable",
+      "pliant"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Intransigent' berarti bersikeras menolak berkompromi atau mengubah pandangan sedikit pun.",
+    "learningTip": "Kosakata karakter C2: intransigent stance, intransigent opposition.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The candidate attempted to _____ the electorate with grand promises of universal tax abolition.",
+    "choices": [
+      "edify",
+      "enlighten",
+      "disabuse",
+      "bamboozle"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Bamboozle' adalah ungkapan formal/idiomatis yang berarti menipu atau memperdaya dengan muslihat cerdik.",
+    "learningTip": "Sinonim penipuan retorika: bamboozle = hoodwink = dupe.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The historian sought to _____ the widespread myth that the medieval era was entirely culturally stagnant.",
+    "choices": [
+      "substantiate",
+      "corroborate",
+      "debunk",
+      "promulgate"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Debunk' berarti membongkar kepalsuan suatu mitos, klaim berlebihan, atau keyakinan keliru.",
+    "learningTip": "Kolokasi metodologi sejarah: debunk a myth, debunk a false premise.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The architectural restoration was executed with _____ fidelity to original seventeenth-century techniques.",
+    "choices": [
+      "cursory",
+      "scrupulous",
+      "perfunctory",
+      "haphazard"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Scrupulous' berarti sangat teliti, cermat, hati-hati, dan mematuhi standar moral/kualitas tertinggi.",
+    "learningTip": "Kolokasi ketelitian akademik: scrupulous attention to detail, scrupulous honesty.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The diplomat was celebrated for his _____, having successfully mediated three seemingly intractable civil conflicts.",
+    "choices": [
+      "sagacity",
+      "naivety",
+      "petulance",
+      "recklessness"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Sagacity' berarti kebijaksanaan mendalam, pandangan jauh ke depan, dan pertimbangan akal yang matang.",
+    "learningTip": "Sinonim kebijaksanaan C2: sagacity = profound wisdom = shrewdness.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The prolonged economic embargo led to the near-total _____ of industrial production across the nation.",
+    "choices": [
+      "resurgence",
+      "enhancement",
+      "proliferation",
+      "evisceration"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Evisceration' secara metaforis berarti pengrusakan atau penghancuran total organ vital/fondasi utama suatu sistem.",
+    "learningTip": "Kosakata analisis krisis C2: evisceration of public services / industry.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The philosopher maintained that sensory experience is merely an _____ reflection of objective metaphysical reality.",
+    "choices": [
+      "perennial",
+      "immutable",
+      "ephemeral",
+      "interminable"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Ephemeral' berarti berlangsung sangat singkat, lekas berlalu, dan fana (transitory / short-lived).",
+    "learningTip": "Sinonim kefanaan C2: ephemeral = fleeting = transient.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The newly declassified archives served to _____ the dissident's longstanding claims of state surveillance.",
+    "choices": [
+      "repudiate",
+      "vindicate",
+      "refute",
+      "invalidate"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Vindicate' berarti membuktikan kebenaran seseorang atau membersihkannya dari keraguan dan tuduhan masa lalu.",
+    "learningTip": "Kolokasi pembuktian kebenaran: vindicate a claim, vindicate one's reputation.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The scholar’s writing was characterized by a dry, _____ wit that delighted academic colleagues.",
+    "choices": [
+      "mordant",
+      "saccharine",
+      "naive",
+      "effusive"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Mordant' berarti tajam, pedas, sarkastik, tetapi sangat cerdas dan menggigit dalam humor.",
+    "learningTip": "Kosakata gaya bahasa C2: mordant wit, mordant satire.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "Rather than addressing the existential issue, the panel engaged in endless _____ over minor procedural trivialities.",
+    "choices": [
+      "consensus",
+      "cooperation",
+      "synthesis",
+      "pettifogging"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Pettifogging' berarti berdebat sengit dan membuang waktu mengenai hal-hal sepele atau detail teknis yang tidak penting.",
+    "learningTip": "Kosakata birokrasi kritis C2: pettifogging legalism = quibbling over trivialities.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The sudden resignation of the foreign minister threw the coalition government into complete _____.",
+    "choices": [
+      "equilibrium",
+      "tranquility",
+      "disarray",
+      "composure"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Disarray' berarti kekacauan total, kebingungan massal, atau hilangnya keteraturan dalam suatu organisasi.",
+    "learningTip": "Kolokasi politik: throw into disarray, fall into disarray.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "vocabulary",
+    "prompt": "The professor was known for his _____, having authored definitive treatises across linguistics, astronomy, and history.",
+    "choices": [
+      "parochialism",
+      "polymathy",
+      "pedantry",
+      "provincialism"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Polymathy' berarti penguasaan ilmu ensiklopedis yang mencakup beragam disiplin keilmuan yang luas (a polymath).",
+    "learningTip": "Kosakata kecendekiaan C2: polymathy, erudition, broad scholarship.",
+    "ieltsSkill": "Lexical Resource"
+  }
+]

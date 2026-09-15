@@ -1,0 +1,1602 @@
+[
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "Sarah _____ a student at the city language academy.",
+    "choices": [
+      "is",
+      "are",
+      "be",
+      "am"
+    ],
+    "correctIndex": 0,
+    "explanation": "Subjek orang ketiga tunggal 'Sarah' menggunakan to be 'is' dalam Present Simple.",
+    "learningTip": "Cocokkan to be dengan subjek: I am, You/We/They are, He/She/It is.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "They _____ to the central campus library every Monday afternoon.",
+    "choices": [
+      "are go",
+      "goes",
+      "going",
+      "go"
+    ],
+    "correctIndex": 3,
+    "explanation": "Subjek jamak 'They' untuk kebiasaan rutin menggunakan kata kerja dasar 'go'.",
+    "learningTip": "Gunakan verb dasar tanpa -s untuk subjek jamak (They/We/You/I).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "I _____ not have a computer in my dormitory room.",
+    "choices": [
+      "am",
+      "does",
+      "do",
+      "is"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kalimat negatif Present Simple untuk subjek 'I' menggunakan kata kerja bantu 'do not'.",
+    "learningTip": "Gunakan 'do not' untuk I/You/We/They dan 'does not' untuk He/She/It.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "There _____ three dictionaries on the teacher's desk.",
+    "choices": [
+      "is",
+      "are",
+      "be",
+      "was"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata benda jamak 'three dictionaries' menggunakan penunjuk keberadaan 'There are'.",
+    "learningTip": "Gunakan 'There is' untuk benda tunggal dan 'There are' untuk benda jamak.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "Listen! The music band _____ in the auditorium right now.",
+    "choices": [
+      "is playing",
+      "plays",
+      "played",
+      "play"
+    ],
+    "correctIndex": 0,
+    "explanation": "Penanda waktu 'right now' dan seruan 'Listen!' menandai aksi yang sedang berlangsung (Present Continuous 'is playing').",
+    "learningTip": "Present Continuous: be (am/is/are) + V-ing untuk kegiatan yang sedang terjadi saat ini.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "Yesterday, we _____ lunch at the university cafeteria.",
+    "choices": [
+      "eating",
+      "eat",
+      "eats",
+      "ate"
+    ],
+    "correctIndex": 3,
+    "explanation": "Keterangan waktu lampau 'Yesterday' mewajibkan kata kerja bentuk kedua (Past Simple: 'ate').",
+    "learningTip": "Perhatikan kata kerja tidak beraturan (irregular verbs) dasar seperti eat -\u003e ate.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "This is _____ interesting book about world geography.",
+    "choices": [
+      "the",
+      "a",
+      "an",
+      "two"
+    ],
+    "correctIndex": 2,
+    "explanation": "Artikel tak tentu 'an' digunakan sebelum kata sifat yang diawali bunyi vokal ('interesting').",
+    "learningTip": "Gunakan 'an' sebelum kata yang berbunyi vokal (a, e, i, o, u).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "Where _____ your older brother work?",
+    "choices": [
+      "do",
+      "does",
+      "is",
+      "are"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kalimat tanya Present Simple untuk subjek orang ketiga tunggal 'your older brother' memakai kata bantu 'does'.",
+    "learningTip": "Pola tanya: Where + does + singular subject + base verb?",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "My friend gave _____ a helpful English grammar dictionary.",
+    "choices": [
+      "me",
+      "I",
+      "my",
+      "mine"
+    ],
+    "correctIndex": 0,
+    "explanation": "Sebagai objek penerima tindakan setelah kata kerja 'gave', gunakan object pronoun 'me'.",
+    "learningTip": "Object pronoun: me, him, her, us, them.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "The English lesson starts _____ nine o'clock every morning.",
+    "choices": [
+      "by",
+      "on",
+      "in",
+      "at"
+    ],
+    "correctIndex": 3,
+    "explanation": "Preposisi waktu untuk jam spesifik ('nine o'clock') selalu menggunakan 'at'.",
+    "learningTip": "Gunakan 'at' untuk waktu jam (at 7:00, at noon, at midnight).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "She can _____ three languages very well.",
+    "choices": [
+      "speaking",
+      "speaks",
+      "speak",
+      "to speak"
+    ],
+    "correctIndex": 2,
+    "explanation": "Setelah modal dasar 'can', kata kerja selalu berbentuk dasar tanpa akhiran ('speak').",
+    "learningTip": "Modal auxiliary (can, will, must) selalu diikuti kata kerja bentuk dasar.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "These blue shoes are very comfortable, but _____ black shoes are too small.",
+    "choices": [
+      "that",
+      "those",
+      "this",
+      "it"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata penunjuk jamak untuk benda yang posisinya berjarak/kontras adalah 'those' ('those black shoes').",
+    "learningTip": "Penunjuk jamak: these (dekat) dan those (jauh).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "How _____ apples did you buy at the supermarket?",
+    "choices": [
+      "many",
+      "much",
+      "any",
+      "little"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kata benda 'apples' adalah kata benda jamak yang dapat dihitung (countable plural), sehingga memakai 'How many'.",
+    "learningTip": "How many + countable noun jamak; How much + uncountable noun.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "Tom is _____ than his younger brother.",
+    "choices": [
+      "more tall",
+      "tall",
+      "tallest",
+      "taller"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kata sifat satu suku kata 'tall' membentuk komparatif dengan menambahkan akhiran '-er' ('taller than').",
+    "learningTip": "Bentuk comparative kata sifat pendek: adj + -er + than.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "We usually visit our grandparents _____ Sundays.",
+    "choices": [
+      "at",
+      "in",
+      "on",
+      "to"
+    ],
+    "correctIndex": 2,
+    "explanation": "Preposisi waktu untuk nama hari ('Sundays') adalah 'on'.",
+    "learningTip": "Gunakan 'on' sebelum nama-nama hari (on Monday, on Sundays).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "The children _____ playing outside in the garden right now.",
+    "choices": [
+      "is",
+      "are",
+      "be",
+      "was"
+    ],
+    "correctIndex": 1,
+    "explanation": "Subjek 'The children' adalah kata benda jamak tidak beraturan, sehingga to be yang tepat adalah 'are'.",
+    "learningTip": "Ingat bentuk jamak tak beraturan: child -\u003e children (jamak, pakai are/were).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "I don't have _____ milk in the refrigerator.",
+    "choices": [
+      "any",
+      "some",
+      "many",
+      "a"
+    ],
+    "correctIndex": 0,
+    "explanation": "Dalam kalimat negatif dengan kata benda tak terhitung ('milk'), gunakan determiner 'any'.",
+    "learningTip": "Gunakan 'some' dalam kalimat positif dan 'any' dalam kalimat negatif dan tanya.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "Last night, Peter _____ his homework before watching television.",
+    "choices": [
+      "finishing",
+      "finishes",
+      "finish",
+      "finished"
+    ],
+    "correctIndex": 3,
+    "explanation": "Keterangan waktu 'Last night' menandakan kejadian lampau, menggunakan Past Simple reguler 'finished'.",
+    "learningTip": "Kata kerja reguler berakhiran -ed untuk Past Simple.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "Whose jacket is this? It is _____ jacket.",
+    "choices": [
+      "mine",
+      "me",
+      "my",
+      "I"
+    ],
+    "correctIndex": 2,
+    "explanation": "Sebelum kata benda 'jacket', gunakan possessive adjective 'my'.",
+    "learningTip": "Possessive adjective: my, your, his, her, our, their + kata benda.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "grammar",
+    "prompt": "They _____ happy to hear the good examination news yesterday.",
+    "choices": [
+      "was",
+      "were",
+      "are",
+      "be"
+    ],
+    "correctIndex": 1,
+    "explanation": "Subjek jamak 'They' untuk situasi lampau ('yesterday') menggunakan to be past 'were'.",
+    "learningTip": "Past to be: I/He/She/It was, You/We/They were.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "Have you ever _____ to London on holiday?",
+    "choices": [
+      "been",
+      "went",
+      "go",
+      "gone to"
+    ],
+    "correctIndex": 0,
+    "explanation": "Pertanyaan pengalaman hidup menggunakan Present Perfect: Have you ever + been (pernah berkunjung dan sudah kembali).",
+    "learningTip": "Gunakan 'have been to' untuk pengalaman pernah mengunjungi suatu tempat.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "If it rains this afternoon, we _____ the outdoor tennis match.",
+    "choices": [
+      "cancel",
+      "canceled",
+      "would cancel",
+      "will cancel"
+    ],
+    "correctIndex": 3,
+    "explanation": "First Conditional: klausa 'if' memakai Simple Present ('rains'), klausa utama memakai 'will + verb dasar'.",
+    "learningTip": "First conditional untuk rencana nyata: If + Present, will + V1.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "This mountain road is _____ dangerous than the highway route.",
+    "choices": [
+      "as",
+      "most",
+      "more",
+      "much"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata sifat panjang 'dangerous' membentuk komparatif bersama kata pembanding 'than' dengan menambahkan 'more'.",
+    "learningTip": "Gunakan 'more + adjective' untuk komparatif kata sifat dua suku kata atau lebih.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "She enjoys _____ historical fiction novels in her spare time.",
+    "choices": [
+      "to read",
+      "reading",
+      "read",
+      "reads"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata kerja 'enjoy' selalu diikuti oleh bentuk gerund (-ing: 'reading').",
+    "learningTip": "Verba yang diikuti gerund: enjoy, avoid, finish, keep, practice + V-ing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "The new sports stadium was _____ by the city mayor last year.",
+    "choices": [
+      "opened",
+      "opening",
+      "open",
+      "opens"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kalimat pasif lampau (Past Simple Passive): was + past participle (V3: 'opened').",
+    "learningTip": "Pola Passive Past Simple: was/were + V3.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "You _____ wear warm clothes; it is freezing outside today.",
+    "choices": [
+      "could",
+      "might",
+      "can",
+      "should"
+    ],
+    "correctIndex": 3,
+    "explanation": "Modal 'should' digunakan untuk memberikan saran yang baik atau anjuran logis.",
+    "learningTip": "Gunakan 'should + V1' untuk memberi nasihat atau saran praktis.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "He was walking along the riverbank when he _____ a rare migratory bird.",
+    "choices": [
+      "sees",
+      "was seeing",
+      "saw",
+      "has seen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Aksi pendek yang memotong aksi yang sedang berjalan di masa lampau diungkapkan dengan Past Simple ('saw').",
+    "learningTip": "Past Continuous (aksi latar) dipotong oleh Past Simple (kejadian tiba-tiba).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "I promise I _____ you as soon as I arrive at the hotel.",
+    "choices": [
+      "called",
+      "will call",
+      "calling",
+      "call"
+    ],
+    "correctIndex": 1,
+    "explanation": "Janji spontan atau komitmen masa depan diungkapkan menggunakan modal 'will' ('will call').",
+    "learningTip": "Gunakan 'will' untuk janji (promises) dan keputusan spontan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "This is the city park _____ I first learned how to ride a bicycle.",
+    "choices": [
+      "where",
+      "which",
+      "whose",
+      "when"
+    ],
+    "correctIndex": 0,
+    "explanation": "Relative adverb 'where' digunakan untuk menerangkan kata benda tempat ('the city park').",
+    "learningTip": "Gunakan 'where' untuk merujuk pada tempat kejadian tindakan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "We didn't have _____ time to finish all the test questions.",
+    "choices": [
+      "as",
+      "too",
+      "so",
+      "enough"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kata 'enough' diletakkan sebelum kata benda ('enough time') untuk menyatakan kecukupan jumlah.",
+    "learningTip": "Posisi 'enough': adjective + enough, tetapi enough + noun.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "He decided _____ an intensive English course to prepare for university.",
+    "choices": [
+      "take",
+      "taking",
+      "to take",
+      "took"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata kerja 'decide' diikuti to-infinitive ('decided to take').",
+    "learningTip": "Verba yang diikuti to-infinitive: decide, plan, hope, want, refuse + to V1.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "Neither Mark _____ his classmates were ready for the surprise quiz.",
+    "choices": [
+      "or",
+      "nor",
+      "and",
+      "but"
+    ],
+    "correctIndex": 1,
+    "explanation": "Pasangan konjungsi korelatif baku untuk 'neither' adalah 'nor'.",
+    "learningTip": "Pasangan tetap: neither... nor (bukan nor/or).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "She has lived in this quiet seaside town _____ she was a young girl.",
+    "choices": [
+      "since",
+      "for",
+      "during",
+      "while"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Since' digunakan bersama Present Perfect untuk menandai titik awal waktu di masa lampau.",
+    "learningTip": "Gunakan 'since' sebelum klausa masa lampau spesifik (since I was a child).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "The tea is _____ hot to drink right now; please let it cool down.",
+    "choices": [
+      "much",
+      "very",
+      "enough",
+      "too"
+    ],
+    "correctIndex": 3,
+    "explanation": "Pola 'too + adjective + to-infinitive' menyatakan tingkat yang berlebihan sehingga menimbulkan hambatan/ketidakmampuan.",
+    "learningTip": "Pola: too + adj + to V1 bermakna terlalu... untuk bisa....",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "My grandmother used to _____ us exciting fairy tales before bedtime.",
+    "choices": [
+      "told",
+      "telling",
+      "tell",
+      "tells"
+    ],
+    "correctIndex": 2,
+    "explanation": "Frasa kebiasaan masa lampau 'used to' selalu diikuti bare infinitive ('used to tell').",
+    "learningTip": "'used to + V1' untuk menceritakan rutinitas masa lalu yang sudah tidak dilakukan lagi.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "The train had already left by the time we _____ at the railway station platform.",
+    "choices": [
+      "arrive",
+      "arrived",
+      "had arrived",
+      "arriving"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kombinasi Past Perfect pada aksi yang lebih dulu ('had already left') berpasangan dengan Past Simple ('arrived') pada aksi kedua.",
+    "learningTip": "Pola: Past Perfect mendahului Past Simple yang diawali 'by the time'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "They enjoyed _____ at the beach during the summer holiday.",
+    "choices": [
+      "themselves",
+      "themself",
+      "their",
+      "they"
+    ],
+    "correctIndex": 0,
+    "explanation": "Bentuk reflexive pronoun untuk subjek 'They' adalah 'themselves' ('enjoyed themselves').",
+    "learningTip": "Reflexive pronoun untuk subjek jamak 'they' adalah 'themselves'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "This is the _____ book I have ever read in my life.",
+    "choices": [
+      "interestingly",
+      "more interesting",
+      "interesting",
+      "most interesting"
+    ],
+    "correctIndex": 3,
+    "explanation": "Tingkat superlatif bersama klausa pengalaman 'I have ever read' menggunakan 'the most interesting'.",
+    "learningTip": "Superlative: the most + adjective untuk kata sifat panjang.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "He drove very _____ along the narrow mountain curves in the thick fog.",
+    "choices": [
+      "caring",
+      "careful",
+      "carefully",
+      "care"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata keterangan (adverb) 'carefully' digunakan untuk menerangkan tindakan kata kerja 'drove'.",
+    "learningTip": "Gunakan adverb (-ly) untuk menerangkan cara melakukan kata kerja (how the action was done).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "grammar",
+    "prompt": "You don't _____ bring your own laptop; the university provides computers for all students.",
+    "choices": [
+      "must",
+      "have to",
+      "should",
+      "ought"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Don't have to' menyatakan ketiadaan keharusan (tidak wajib), sedangkan 'must not' menyatakan larangan keras.",
+    "learningTip": "Bedakan 'don't have to' (tidak perlu) dan 'must not' (dilarang).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: My brother [is] very tall and [he] [play] basketball in the school [team].",
+    "choices": [
+      "is",
+      "he",
+      "play",
+      "team"
+    ],
+    "correctIndex": 2,
+    "explanation": "Subjek orang ketiga tunggal 'he' mewajibkan kata kerja dengan akhiran -s ('plays'), bukan 'play'.",
+    "learningTip": "Present Simple: tambahkan akhiran -s/-es untuk subjek He/She/It.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: There [is] three [new] computers on the wooden [table] in our [classroom].",
+    "choices": [
+      "is",
+      "new",
+      "table",
+      "classroom"
+    ],
+    "correctIndex": 0,
+    "explanation": "Subjek kalimat adalah kata benda jamak 'three new computers', sehingga penunjuk keberadaan yang benar adalah 'There are', bukan 'There is'.",
+    "learningTip": "Gunakan 'There are' untuk kata benda jamak.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Yesterday evening, my sister and I [go] to the cinema [to] watch a [popular] [movie].",
+    "choices": [
+      "go",
+      "to",
+      "popular",
+      "movie"
+    ],
+    "correctIndex": 0,
+    "explanation": "Keterangan waktu lampau 'Yesterday evening' mewajibkan pemakaian bentuk kata kerja lampau (Past Simple: 'went'), bukan 'go'.",
+    "learningTip": "Perhatikan kata kerja tidak beraturan masa lampau: go -\u003e went.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: She can [speaks] three [different] languages [very] [well].",
+    "choices": [
+      "speaks",
+      "different",
+      "very",
+      "well"
+    ],
+    "correctIndex": 0,
+    "explanation": "Setelah kata kerja bantu modal 'can', kata kerja harus berbentuk dasar tanpa tambahan akhiran -s ('speak'), bukan 'speaks'.",
+    "learningTip": "Modal auxiliary (can, will, may) selalu diikuti bare infinitive (kata kerja bentuk dasar).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The university [library] opens promptly [in] eight o'clock [every] morning from Monday to [Friday].",
+    "choices": [
+      "library",
+      "in",
+      "every",
+      "Friday"
+    ],
+    "correctIndex": 1,
+    "explanation": "Preposisi waktu untuk penunjukan jam yang tepat ('eight o'clock') adalah 'at', bukan 'in'.",
+    "learningTip": "Gunakan 'at' untuk waktu jam spesifik (at 8:00, at 9:30).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: How [much] student [textbooks] did you [borrow] from the campus [library]?",
+    "choices": [
+      "much",
+      "textbooks",
+      "borrow",
+      "library"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kata 'textbooks' adalah kata benda jamak yang dapat dihitung (countable plural), sehingga pertanyaan kuantitas harus memakai 'How many', bukan 'How much'.",
+    "learningTip": "Gunakan 'How many' untuk kata benda yang dapat dihitung dan berakhiran jamak.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: David is a [talented] musician and [her] [guitar] is very [expensive].",
+    "choices": [
+      "talented",
+      "her",
+      "guitar",
+      "expensive"
+    ],
+    "correctIndex": 1,
+    "explanation": "Subjek merujuk pada laki-laki ('David'), sehingga kata ganti kepemilikan yang tepat adalah 'his', bukan 'her'.",
+    "learningTip": "Gunakan 'his' untuk laki-laki dan 'her' untuk perempuan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: We [are] having [lunch] together [in] Sunday afternoon at a traditional Italian [restaurant].",
+    "choices": [
+      "are",
+      "lunch",
+      "in",
+      "restaurant"
+    ],
+    "correctIndex": 2,
+    "explanation": "Untuk waktu yang diawali nama hari ('Sunday afternoon'), preposisi yang benar adalah 'on', bukan 'in'.",
+    "learningTip": "Gunakan 'on' sebelum nama hari dan bagian hari spesifik (on Sunday, on Sunday afternoon).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The five [childrens] were [happily] [playing] soccer in the neighborhood [park].",
+    "choices": [
+      "childrens",
+      "happily",
+      "playing",
+      "park"
+    ],
+    "correctIndex": 0,
+    "explanation": "Bentuk jamak dari 'child' adalah 'children' (sudah jamak). Penambahan akhiran '-s' menjadi 'childrens' adalah bentuk yang salah.",
+    "learningTip": "Bentuk jamak tak beraturan: child -\u003e children (tanpa akhiran -s).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: This [exercise] is [more] easy [than] the previous grammar [lesson].",
+    "choices": [
+      "exercise",
+      "more",
+      "than",
+      "lesson"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata sifat dua suku kata berakhiran -y ('easy') membentuk komparatif dengan akhiran '-ier' ('easier than'), bukan 'more easy'.",
+    "learningTip": "Aturan komparatif kata berakhiran -y: ganti 'y' menjadi '-ier' (easy -\u003e easier).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: I [do] not have [some] [coins] to buy a ticket from the vending [machine].",
+    "choices": [
+      "do",
+      "some",
+      "coins",
+      "machine"
+    ],
+    "correctIndex": 1,
+    "explanation": "Dalam kalimat negatif ('do not have'), determiner yang tepat adalah 'any', bukan 'some'.",
+    "learningTip": "Gunakan 'any' untuk kalimat negatif dan pertanyaan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Listen! The birds [is] [singing] beautifully in the tall [trees] near my [bedroom].",
+    "choices": [
+      "is",
+      "singing",
+      "trees",
+      "bedroom"
+    ],
+    "correctIndex": 0,
+    "explanation": "Subjek 'The birds' berbentuk jamak, sehingga to be yang benar untuk Present Continuous adalah 'are', bukan 'is'.",
+    "learningTip": "Cocokkan to be dengan subjek jamak: Birds are singing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: My friend Anna [lives] in London, but [she] [do] not like the rainy [weather].",
+    "choices": [
+      "lives",
+      "she",
+      "do",
+      "weather"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bentuk negatif Present Simple untuk subjek orang ketiga tunggal ('she') adalah 'does not', bukan 'do not'.",
+    "learningTip": "Gunakan 'does not' untuk subjek He/She/It.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: He [bought] [an] very expensive new smartphone at the electronics [store] [yesterday].",
+    "choices": [
+      "bought",
+      "an",
+      "store",
+      "yesterday"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata berikutnya ('very') diawali dengan bunyi konsonan /v/, sehingga artikel yang tepat adalah 'a', bukan 'an'.",
+    "learningTip": "Gunakan 'a' sebelum bunyi konsonan dan 'an' sebelum bunyi vokal.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Peter gave [I] a [helpful] vocabulary study guide before the [midterm] [examination].",
+    "choices": [
+      "I",
+      "helpful",
+      "midterm",
+      "examination"
+    ],
+    "correctIndex": 0,
+    "explanation": "Sebagai objek penerima setelah kata kerja 'gave', harus menggunakan pronoun objek 'me', bukan pronoun subjek 'I'.",
+    "learningTip": "Gunakan object pronoun (me, him, her, us, them) setelah kata kerja tindakan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: If the train [arrives] on [time], we will [had] plenty of time to explore the city [centre].",
+    "choices": [
+      "arrives",
+      "time",
+      "had",
+      "centre"
+    ],
+    "correctIndex": 2,
+    "explanation": "Setelah kata bantu masa depan 'will', kata kerja harus berbentuk dasar murni (bare infinitive: 'have'), bukan bentuk lampau 'had'.",
+    "learningTip": "Modal auxiliary (will, can, should) selalu diikuti kata kerja bentuk dasar tanpa perubahan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: She [enjoys] [to swim] in the heated community pool early in the [morning] before [school].",
+    "choices": [
+      "enjoys",
+      "to swim",
+      "morning",
+      "school"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata kerja 'enjoy' mewajibkan bentuk gerund (-ing: 'swimming'), bukan to-infinitive 'to swim'.",
+    "learningTip": "Pola kata kerja: enjoy + V-ing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The historic wooden [church] was [destroy] by a massive fire [during] the winter [storm].",
+    "choices": [
+      "church",
+      "destroy",
+      "during",
+      "storm"
+    ],
+    "correctIndex": 1,
+    "explanation": "Dalam kalimat pasif lampau (Past Simple Passive), kata kerja setelah 'was' harus berbentuk Past Participle (V3: 'destroyed').",
+    "learningTip": "Pola Passive Voice: be + Past Participle (V3).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: My older brother has [been] a licensed commercial pilot [since] ten [consecutive] [years].",
+    "choices": [
+      "been",
+      "since",
+      "consecutive",
+      "years"
+    ],
+    "correctIndex": 1,
+    "explanation": "Untuk menyatakan rentang durasi waktu total ('ten consecutive years'), preposisi yang tepat adalah 'for', bukan 'since'.",
+    "learningTip": "Bedakan 'for' (panjang durasi waktu) dan 'since' (titik waktu awal).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: He drove his car very [careful] on the icy [highway] during the heavy [snowstorm] [yesterday].",
+    "choices": [
+      "careful",
+      "highway",
+      "snowstorm",
+      "yesterday"
+    ],
+    "correctIndex": 0,
+    "explanation": "Untuk menerangkan cara melakukan kata kerja 'drove', kata yang benar adalah kata keterangan (adverb: 'carefully'), bukan adjective 'careful'.",
+    "learningTip": "Gunakan adverb berakhiran -ly untuk menerangkan kata kerja tindakan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The university [article] provides [many] practical [advice] for first-year international [students].",
+    "choices": [
+      "article",
+      "many",
+      "advice",
+      "students"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata 'advice' adalah kata benda tak terhitung (uncountable), sehingga tidak boleh dipasangkan dengan 'many'. Bentuk yang tepat adalah 'much' atau 'a lot of'.",
+    "learningTip": "'Advice' bersifat uncountable; gunakan 'much advice' atau 'a lot of advice'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The students in the study [group] resolved the difficult math problem by [themself] without [asking] the [tutor].",
+    "choices": [
+      "group",
+      "themself",
+      "asking",
+      "tutor"
+    ],
+    "correctIndex": 1,
+    "explanation": "Reflexive pronoun untuk subjek jamak 'The students' adalah 'themselves', bukan 'themself'.",
+    "learningTip": "Reflexive pronoun untuk third person plural adalah 'themselves'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: That new [sports] car is definitely [more] faster [than] my father's old family [sedan].",
+    "choices": [
+      "sports",
+      "more",
+      "than",
+      "sedan"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata sifat 'faster' sudah berakhiran '-er' (komparatif); menambahkan 'more' menciptakan double comparative yang tidak baku.",
+    "learningTip": "Hindari double comparative: gunakan 'faster', bukan 'more faster'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: We look [forward] [to] [see] you at the annual alumni dinner party next [weekend].",
+    "choices": [
+      "forward",
+      "to",
+      "see",
+      "weekend"
+    ],
+    "correctIndex": 2,
+    "explanation": "Dalam frasa 'look forward to', kata 'to' berfungsi sebagai preposisi sehingga wajib diikuti gerund ('seeing'), bukan bare verb 'see'.",
+    "learningTip": "Pola ekspresi: look forward to + V-ing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Although it was raining [heavily], [but] the soccer team continued their [practice] match on the [field].",
+    "choices": [
+      "heavily",
+      "but",
+      "practice",
+      "field"
+    ],
+    "correctIndex": 1,
+    "explanation": "Konjungsi 'Although' di awal kalimat sudah menghubungkan kedua klausa; penambahan 'but' merupakan kesalahan redundancy.",
+    "learningTip": "Jangan gabungkan 'although' dan 'but' dalam satu kalimat majemuk.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The young boy [used] [to] [playing] soccer with his neighborhood friends every [afternoon].",
+    "choices": [
+      "used",
+      "to",
+      "playing",
+      "afternoon"
+    ],
+    "correctIndex": 2,
+    "explanation": "Struktur kebiasaan masa lampau 'used to' wajib diikuti bare infinitive ('used to play'), bukan gerund 'playing'.",
+    "learningTip": "Pola: used to + V1 untuk menceritakan rutinitas masa lampau.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Neither the bus [driver] nor the passengers [was] injured when the vehicle [skidded] on the icy [road].",
+    "choices": [
+      "driver",
+      "was",
+      "skidded",
+      "road"
+    ],
+    "correctIndex": 1,
+    "explanation": "Pada struktur 'neither... nor', kata kerja mengikuti subjek terdekat yaitu 'passengers' (jamak), sehingga kata kerja yang benar adalah 'were'.",
+    "learningTip": "Cocokkan bentuk kata kerja dengan subjek terdekat pada correlative conjunctions.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The candidate was [delighted] because the interview [panel] [give] her a positive performance [evaluation].",
+    "choices": [
+      "delighted",
+      "panel",
+      "give",
+      "evaluation"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kalimat berada dalam konteks waktu lampau ('was delighted'), sehingga kata kerja klausa alasan harus berbentuk Past Simple 'gave', bukan 'give'.",
+    "learningTip": "Jaga konsistensi tenses lampau dalam satu kalimat.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The tea was [too] boiling [hot] for the small child to [drink] [it] safely.",
+    "choices": [
+      "too",
+      "hot",
+      "drink",
+      "it"
+    ],
+    "correctIndex": 3,
+    "explanation": "Dalam pola 'too... to drink', objek 'it' adalah pengulangan yang berlebihan (redundant pronoun) karena subjek kalimatnya adalah 'The tea'.",
+    "learningTip": "Hindari meletakkan pronoun objek di akhir pola 'too + adj + to-infinitive'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "error_identification",
+    "prompt": "Identify the error: She didn't [bought] [any] fresh vegetables at the organic farmers [market] this [morning].",
+    "choices": [
+      "bought",
+      "any",
+      "market",
+      "morning"
+    ],
+    "correctIndex": 0,
+    "explanation": "Setelah kata kerja bantu lampau negatif 'didn't', kata kerja utama harus kembali ke bentuk dasar ('buy'), bukan bentuk kedua 'bought'.",
+    "learningTip": "Pola negatif Past Simple: did not + V1 dasar.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "Could you please _____ your name and address on this registration card?",
+    "choices": [
+      "drive",
+      "listen",
+      "write",
+      "fly"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Write' berarti menuliskan informasi pada formulir atau kertas.",
+    "learningTip": "Kata kerja dasar formulir: write your name, fill in the form.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "I need to go to the post office to buy some _____ for these letters.",
+    "choices": [
+      "towels",
+      "stamps",
+      "blankets",
+      "mirrors"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Stamps' (perangko) dibeli di kantor pos untuk mengirim surat.",
+    "learningTip": "Kosakata fasilitas umum: post office -\u003e stamps, letters, parcels.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "The opposite of 'cheap' is _____.",
+    "choices": [
+      "expensive",
+      "easy",
+      "clean",
+      "slow"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Expensive' (mahal) adalah lawan kata dari 'cheap' (murah).",
+    "learningTip": "Hafalkan pasangan antonim dasar: cheap vs expensive.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "She works as a _____ in the city hospital, caring for sick children.",
+    "choices": [
+      "mechanic",
+      "pilot",
+      "carpenter",
+      "nurse"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Nurse' (perawat) bertugas merawat pasien yang sakit di rumah sakit.",
+    "learningTip": "Profesi kesehatan: doctor, nurse, surgeon.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "Please _____ your coat on the hanger near the door.",
+    "choices": [
+      "drink",
+      "cook",
+      "hang",
+      "climb"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Hang' berarti menggantungkan pakaian pada gantungan baju.",
+    "learningTip": "Kolokasi pakaian rumah tangga: hang your coat, put on your shoes.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "The weather is very _____ today; don't forget to take an umbrella.",
+    "choices": [
+      "sunny",
+      "rainy",
+      "dry",
+      "dusty"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Rainy' berarti cuaca basah berhujan sehingga membutuhkan payung.",
+    "learningTip": "Kosakata cuaca: rainy, sunny, cloudy, windy.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "A person who teaches students in a school is a _____.",
+    "choices": [
+      "teacher",
+      "waiter",
+      "baker",
+      "plumber"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Teacher' adalah pengajar yang mendidik siswa di sekolah.",
+    "learningTip": "Profesi pendidikan: teacher, lecturer, tutor, instructor.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "Can you _____ me the salt from the other side of the dining table?",
+    "choices": [
+      "sleep",
+      "jump",
+      "sing",
+      "pass"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Pass' berarti mengulurkan atau menyerahkan barang di meja makan.",
+    "learningTip": "Kesopanan di meja makan: Could you pass me the salt, please?",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "I always _____ my teeth before going to bed at night.",
+    "choices": [
+      "iron",
+      "comb",
+      "brush",
+      "paint"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Brush your teeth' adalah kolokasi baku untuk menyikat gigi.",
+    "learningTip": "Kolokasi kebersihan harian: brush teeth, wash face, take a shower.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "The room was so _____ that we could not see anything without a flashlight.",
+    "choices": [
+      "bright",
+      "dark",
+      "spacious",
+      "noisy"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Dark' (gelap) berarti tidak ada cahaya sehingga tidak dapat melihat.",
+    "learningTip": "Antonim deskripsi ruangan: dark vs bright, noisy vs quiet.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "We usually _____ breakfast at seven o'clock every morning.",
+    "choices": [
+      "have",
+      "do",
+      "play",
+      "ride"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kolokasi baku makan adalah 'have breakfast' atau 'eat breakfast'.",
+    "learningTip": "Kolokasi makanan: have breakfast, have lunch, have dinner.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "A _____ flies airplanes across the world.",
+    "choices": [
+      "chef",
+      "driver",
+      "sailor",
+      "pilot"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Pilot' adalah penerbang yang mengemudikan pesawat terbang.",
+    "learningTip": "Profesi transportasi: pilot (pesawat), driver (mobil), captain/sailor (kapal).",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "My parents bought a comfortable new _____ for the living room.",
+    "choices": [
+      "oven",
+      "fridge",
+      "sofa",
+      "mirror"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Sofa' adalah tempat duduk empuk santai di ruang keluarga.",
+    "learningTip": "Perabot rumah: sofa, armchair, coffee table, bookshelf.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "Be _____ when you cross the busy street.",
+    "choices": [
+      "angry",
+      "careful",
+      "sleepy",
+      "thirsty"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Careful' berarti waspada dan berhati-hati terhadap bahaya.",
+    "learningTip": "Peringatan keselamatan: Be careful! / Watch out!",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "vocabulary",
+    "prompt": "The train station is quite _____ from here; we need to take a taxi.",
+    "choices": [
+      "far",
+      "near",
+      "close",
+      "short"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Far' (jauh) menjelaskan jarak tempuh yang jauh sehingga membutuhkan taksi.",
+    "learningTip": "Antonim jarak: far vs near / close.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "You need to _____ your flight tickets at least two weeks in advance.",
+    "choices": [
+      "spend",
+      "borrow",
+      "lend",
+      "book"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Book' sebagai kata kerja berarti memesan tiket atau tempat terlebih dahulu.",
+    "learningTip": "Kolokasi perjalanan: book a ticket, book a hotel room.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "The museum offers free _____ for students on Friday afternoons.",
+    "choices": [
+      "fine",
+      "fare",
+      "admission",
+      "rent"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Admission' adalah biaya atau izin masuk ke tempat umum seperti museum atau pameran.",
+    "learningTip": "Kosakata biaya: admission (tiket masuk), fare (ongkos angkutan), fine (denda).",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "Drinking plenty of clean water is _____ for healthy skin.",
+    "choices": [
+      "harmful",
+      "beneficial",
+      "useless",
+      "toxic"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Beneficial' berarti membawa manfaat dan kebaikan bagi kesehatan.",
+    "learningTip": "Sinonim dasar: beneficial = helpful = good for.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "The police conducted an _____ to find the missing university documents.",
+    "choices": [
+      "investigation",
+      "invention",
+      "invitation",
+      "instruction"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Investigation' berarti penyelidikan resmi secara mendalam untuk menemukan fakta.",
+    "learningTip": "Kolokasi formal: conduct an investigation, launch an inquiry.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "Electric vehicles help reduce air _____ in crowded urban areas.",
+    "choices": [
+      "perfection",
+      "population",
+      "poverty",
+      "pollution"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Pollution' berarti pencemaran atau kontaminasi lingkungan (udara/air).",
+    "learningTip": "Kolokasi lingkungan dasar: air pollution, water pollution, noise pollution.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "The company decided to _____ five new junior marketing assistants this month.",
+    "choices": [
+      "cancel",
+      "fire",
+      "hire",
+      "punish"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Hire' berarti merekrut atau mempekerjakan karyawan baru.",
+    "learningTip": "Sinonim rekrutmen: hire = recruit = employ.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "The government provided financial _____ to families affected by the flood.",
+    "choices": [
+      "resistance",
+      "assistance",
+      "hesitation",
+      "reluctance"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Assistance' adalah bantuan (help/support) baik berupa dana maupun pertolongan fisik.",
+    "learningTip": "Kosakata formal: financial assistance, technical support.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "Please read the user _____ carefully before operating the electric oven.",
+    "choices": [
+      "manual",
+      "menu",
+      "ticket",
+      "receipt"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Manual' adalah buku panduan petunjuk pengoperasian suatu alat.",
+    "learningTip": "Kosakata teknologi rumah tangga: instruction manual, user guide.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "The international flight was _____ for three hours due to thick morning fog.",
+    "choices": [
+      "accelerated",
+      "hurried",
+      "promoted",
+      "delayed"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Delayed' berarti penerbangan tertunda karena cuaca buruk.",
+    "learningTip": "Istilah bandara: delayed flight, cancelled flight, on time.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "Students must _____ all borrowed reference books before the semester ends.",
+    "choices": [
+      "retain",
+      "refuse",
+      "return",
+      "rebel"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Return' berarti mengembalikan barang pinjaman ke tempat asalnya.",
+    "learningTip": "Kolokasi perpustakaan: return a book, renew a loan.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "Walking briskly for thirty minutes daily can improve your blood _____.",
+    "choices": [
+      "pollution",
+      "circulation",
+      "hesitation",
+      "collection"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Circulation' merujuk pada peredaran darah di dalam tubuh manusia.",
+    "learningTip": "Kosakata kesehatan: blood circulation, blood pressure.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "The hotel receptionist was extremely polite and _____ during our stay.",
+    "choices": [
+      "helpful",
+      "hostile",
+      "clumsy",
+      "reckless"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Helpful' berarti ramah, suka membantu, dan memberikan asistensi yang baik.",
+    "learningTip": "Sifat pelayanan: polite and helpful, friendly and courteous.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "He made a quick _____ to accept the scholarship offer in Canada.",
+    "choices": [
+      "destruction",
+      "division",
+      "distraction",
+      "decision"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Make a decision' adalah kolokasi baku untuk mengambil keputusan.",
+    "learningTip": "Kolokasi kata kerja dasar: make a decision, reach a decision.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "The student was awarded a university _____ to cover all tuition fees.",
+    "choices": [
+      "citizenship",
+      "internship",
+      "scholarship",
+      "championship"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Scholarship' adalah beasiswa bantuan biaya pendidikan bagi pelajar berprestasi.",
+    "learningTip": "Kosakata pendidikan: scholarship, tuition fee, grant.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "vocabulary",
+    "prompt": "The weather forecast predicts _____ skies and warm temperatures this weekend.",
+    "choices": [
+      "gloomy",
+      "clear",
+      "harsh",
+      "murky"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Clear skies' adalah kolokasi cuaca cerah tanpa mendung atau awan tebal.",
+    "learningTip": "Kolokasi cuaca: clear skies, cloudy skies, stormy weather.",
+    "ieltsSkill": "Lexical Resource"
+  }
+]

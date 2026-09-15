@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-10",
+  "framework": "vanilla-html",
+  "font_stack": ["Plus Jakarta Sans", "JetBrains Mono"],
+  "palette": "OKLCH custom properties in web/tokens.css",
+  "motion": "motion-cut; no animation library",
+  "spacing": "4pt token scale",
+  "preserve": ["font stack", "palette", "spacing scale", "dark mode"]
+}

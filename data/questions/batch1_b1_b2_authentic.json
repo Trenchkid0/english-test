@@ -1,0 +1,1602 @@
+[
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "The university library _____ its opening hours during the final exam week.",
+    "choices": [
+      "extends",
+      "is extending",
+      "extend",
+      "have extended"
+    ],
+    "correctIndex": 0,
+    "explanation": "Subjek tunggal 'The university library' menyatakan jadwal atau kebiasaan rutin, sehingga menggunakan Present Simple 'extends'.",
+    "learningTip": "Gunakan Present Simple untuk jadwal resmi atau rutinitas institusional.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "If the train arrives on schedule, we _____ enough time to catch the connecting flight.",
+    "choices": [
+      "have had",
+      "would have",
+      "had",
+      "will have"
+    ],
+    "correctIndex": 3,
+    "explanation": "Pola First Conditional: klausa 'if' memakai Present Simple ('arrives'), klausa utama memakai 'will + verb dasar'.",
+    "learningTip": "Pasangan First Conditional: If + Present Simple, will + V1 untuk situasi yang realistis di masa depan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "The historical city centre _____ by thousands of international tourists each summer.",
+    "choices": [
+      "visits",
+      "was visited",
+      "is visited",
+      "has visiting"
+    ],
+    "correctIndex": 2,
+    "explanation": "Subjek 'The historical city centre' menerima aksi secara rutin setiap musim panas, sehingga bentuk passive yang tepat adalah 'is visited'.",
+    "learningTip": "Pola Present Simple Passive: am/is/are + V3 untuk menyatakan fakta atau kebiasaan pasif.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "Dr. Evans has worked at the marine biology laboratory _____ more than fifteen years.",
+    "choices": [
+      "since",
+      "for",
+      "during",
+      "while"
+    ],
+    "correctIndex": 1,
+    "explanation": "Preposisi 'for' digunakan untuk menunjukkan total rentang durasi waktu ('more than fifteen years').",
+    "learningTip": "Bedakan 'for' (durasi waktu) dan 'since' (titik awal waktu).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "She decided to study environmental science _____ she could help address global climate issues.",
+    "choices": [
+      "so that",
+      "in order",
+      "because of",
+      "despite"
+    ],
+    "correctIndex": 0,
+    "explanation": "Konjungsi 'so that' diikuti klausa lengkap (subjek + modal + verb) untuk menyatakan tujuan.",
+    "learningTip": "'So that' diikuti klausa (S + modal + V), sedangkan 'in order to' diikuti kata kerja dasar.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "Students _____ carry their identification badges whenever entering the examination hall.",
+    "choices": [
+      "might",
+      "ought",
+      "could",
+      "must"
+    ],
+    "correctIndex": 3,
+    "explanation": "Modal 'must' menyatakan kewajiban mutlak atau aturan resmi tanpa tambahan 'to'.",
+    "learningTip": "Gunakan 'must' untuk peraturan formal yang wajib dipatuhi.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "The scholarship committee has not made a final decision _____.",
+    "choices": [
+      "already",
+      "still",
+      "yet",
+      "just"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Yet' diletakkan di akhir kalimat negatif Present Perfect untuk menyatakan sesuatu yang belum terjadi hingga saat ini.",
+    "learningTip": "Gunakan 'yet' di akhir kalimat tanya dan negatif dalam tenses perfect.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "While the professor was delivering the lecture, a loud alarm suddenly _____ outside.",
+    "choices": [
+      "rings",
+      "rang",
+      "was ringing",
+      "has rung"
+    ],
+    "correctIndex": 1,
+    "explanation": "Aksi pendek yang memotong aksi yang sedang berlangsung di masa lampau menggunakan Past Simple ('rang').",
+    "learningTip": "Pola 'While + Past Continuous, Past Simple' lazim digunakan untuk kejadian yang memotong kejadian lain.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "Living in a student dormitory is usually _____ than renting a private apartment downtown.",
+    "choices": [
+      "more affordable",
+      "affordable",
+      "most affordable",
+      "as affordable"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kata sambung 'than' menandai perbandingan komparatif, sehingga kata sifat multi-silabel menggunakan 'more affordable'.",
+    "learningTip": "Gunakan 'more + adjective' untuk comparative pada kata dengan dua suku kata atau lebih.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "The tutor asked the study group _____ their assignment by Friday afternoon.",
+    "choices": [
+      "submit",
+      "submitted",
+      "submitting",
+      "to submit"
+    ],
+    "correctIndex": 3,
+    "explanation": "Pola kata kerja perintah/permintaan tidak langsung: ask + someone + to-infinitive ('to submit').",
+    "learningTip": "Kata kerja reporting seperti ask, tell, remind, advise diikuti pola: object + to-infinitive.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "Neither the lecture room nor the computer laboratories _____ available this morning.",
+    "choices": [
+      "was",
+      "is",
+      "were",
+      "be"
+    ],
+    "correctIndex": 2,
+    "explanation": "Pada struktur 'neither... nor', kata kerja mengikuti subjek terdekat yaitu 'computer laboratories' (jamak), sehingga memakai 'were'.",
+    "learningTip": "Perhatikan subject-verb agreement pada paired conjunctions: ikuti subjek yang paling dekat dengan kata kerja.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "The article provides _____ useful advice for candidates preparing for the IELTS Academic test.",
+    "choices": [
+      "many",
+      "a lot of",
+      "an",
+      "several"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata 'advice' adalah kata benda tak terhitung (uncountable noun), sehingga tidak bisa memakai 'an', 'many', atau 'several'. 'A lot of' dapat digunakan untuk uncountable nouns.",
+    "learningTip": "'Advice' dan 'information' selalu bersifat uncountable; tidak pernah memakai 'an' atau akhiran '-s'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "We are really looking forward to _____ our exchange semester in Melbourne.",
+    "choices": [
+      "starting",
+      "start",
+      "started",
+      "be start"
+    ],
+    "correctIndex": 0,
+    "explanation": "Frasa 'look forward to' memiliki 'to' sebagai preposisi, sehingga wajib diikuti oleh gerund ('starting').",
+    "learningTip": "Hati-hati dengan frasa berakhiran preposisi 'to' seperti 'look forward to' dan 'be used to'; kata kerjanya berakhiran -ing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "The athlete managed to win the tournament _____ injuring his ankle in the preliminary round.",
+    "choices": [
+      "whereas",
+      "although",
+      "even though",
+      "despite"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Despite' adalah preposisi yang diikuti oleh gerund ('injuring'), sedangkan 'although' membutuhkan klausa penuh (subjek + verb).",
+    "learningTip": "Gunakan 'despite / in spite of' sebelum frasa benda atau gerund (-ing).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "By the time we reached the cinema, the movie _____ already begun.",
+    "choices": [
+      "has",
+      "was",
+      "had",
+      "would"
+    ],
+    "correctIndex": 2,
+    "explanation": "Aksi yang sudah tuntas sebelum waktu lampau tertentu ('reached') diungkapkan dengan Past Perfect ('had begun').",
+    "learningTip": "Kombinasi 'By the time + Past Simple' berpasangan dengan Past Perfect pada klausa utama.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "The applicant _____ spoke three languages fluently was offered the marketing role.",
+    "choices": [
+      "which",
+      "who",
+      "whom",
+      "whose"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata ganti penghubung (relative pronoun) yang berfungsi sebagai subjek pengganti orang ('the applicant') adalah 'who'.",
+    "learningTip": "Gunakan 'who' sebagai subjek orang, 'which' untuk benda, dan 'whose' untuk kepemilikan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "You had better _____ your passport before booking non-refundable tickets.",
+    "choices": [
+      "renew",
+      "to renew",
+      "renewing",
+      "renewed"
+    ],
+    "correctIndex": 0,
+    "explanation": "Frasa saran kuat 'had better' selalu diikuti oleh bare infinitive (kata kerja dasar tanpa 'to').",
+    "learningTip": "'Had better' diikuti bentuk dasar kata kerja (V1) tanpa 'to'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "The supervisor asked if I _____ any prior experience with qualitative research software.",
+    "choices": [
+      "have",
+      "am having",
+      "will have",
+      "had"
+    ],
+    "correctIndex": 3,
+    "explanation": "Dalam kalimat tidak langsung (indirect speech) dengan reporting verb lampau ('asked'), tenses bergeser mundur (backshift) menjadi Past Simple 'had'.",
+    "learningTip": "Perhatikan pergeseran tenses (backshift) saat mengubah kalimat langsung menjadi tidak langsung.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "If I _____ more free time this weekend, I would volunteer at the animal shelter.",
+    "choices": [
+      "have",
+      "will have",
+      "had",
+      "have had"
+    ],
+    "correctIndex": 2,
+    "explanation": "Second Conditional untuk situasi hipotetis saat ini: If + Past Simple ('had'), would + bare verb ('would volunteer').",
+    "learningTip": "Pola Second Conditional: If + Simple Past, would + V1 untuk pengandaian yang berlawanan dengan fakta saat ini.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "grammar",
+    "prompt": "The museum gallery was _____ crowded that visitors had difficulty viewing the paintings.",
+    "choices": [
+      "such",
+      "so",
+      "too",
+      "very"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata sifat tunggal 'crowded' dihubungkan dengan klausa akibat 'that...' menggunakan pasangan 'so... that'.",
+    "learningTip": "Pola perbandingan derajat akibat: so + adjective + that, sedangkan such + noun phrase + that.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "Rarely _____ such widespread agreement among international economists regarding tariff policies.",
+    "choices": [
+      "does one see",
+      "one sees",
+      "one does see",
+      "has one seen not"
+    ],
+    "correctIndex": 0,
+    "explanation": "Adverb negatif pembatas 'Rarely' di awal kalimat memicu inversi: kata bantu 'does' mendahului subjek 'one'.",
+    "learningTip": "Inversi negatif: Letakkan kata bantu sebelum subjek setelah kata seperti rarely, seldom, hardly, scarcely.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "Had the engineering department received additional funding, they _____ the prototype earlier.",
+    "choices": [
+      "will complete",
+      "would complete",
+      "had completed",
+      "would have completed"
+    ],
+    "correctIndex": 3,
+    "explanation": "Inversi Third Conditional ('Had they received...') bermakna 'If they had received...' dan berpasangan dengan 'would have + V3'.",
+    "learningTip": "Inversi kondisi lampau: 'Had + S + V3' selalu berpasangan dengan 'would have + V3' di klausa utama.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "The advisory committee insisted that each candidate _____ their financial declarations promptly.",
+    "choices": [
+      "submits",
+      "submitted",
+      "submit",
+      "is submitting"
+    ],
+    "correctIndex": 2,
+    "explanation": "Mandative Subjunctive: setelah kata kerja tuntutan formal 'insisted that', kata kerja klausa berikutnya berbentuk bare infinitive ('submit').",
+    "learningTip": "Setelah kata kerja insist, demand, recommend, propose + that, gunakan bentuk kata kerja dasar murni tanpa akhiran -s.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "By the time the symposium concludes tomorrow evening, the panel _____ over fifty research abstracts.",
+    "choices": [
+      "evaluates",
+      "will have evaluated",
+      "will evaluate",
+      "has evaluated"
+    ],
+    "correctIndex": 1,
+    "explanation": "Keterangan waktu batas masa depan 'By the time...' berpasangan dengan Future Perfect ('will have evaluated').",
+    "learningTip": "Gunakan Future Perfect (will have + V3) untuk aksi yang diproyeksikan selesai sebelum batas waktu tertentu di masa depan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "The architect had the structural blueprints _____ by an independent civil engineer.",
+    "choices": [
+      "reviewed",
+      "review",
+      "reviewing",
+      "to review"
+    ],
+    "correctIndex": 0,
+    "explanation": "Causative Passive: pola 'have + something + V3' ('had the blueprints reviewed') menyatakan bahwa suatu objek diperiksa oleh pihak lain.",
+    "learningTip": "Pola causative pasif: have/get + object + V3.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "Under no circumstances _____ allowed to handle radioactive material without supervisory clearance.",
+    "choices": [
+      "students are",
+      "students be",
+      "have students",
+      "are students"
+    ],
+    "correctIndex": 3,
+    "explanation": "Frasa pembatas negatif di awal kalimat ('Under no circumstances') memicu inversi kata kerja bantu sebelum subjek ('are students').",
+    "learningTip": "Frasa seperti 'Under no circumstances' atau 'On no account' selalu diikuti pola inversi pertanyaan (Aux + S + V).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "The more rigorously the data is scrutinized, _____ the underlying seasonal trends become.",
+    "choices": [
+      "more clear",
+      "clearer",
+      "the clearer",
+      "the most clear"
+    ],
+    "correctIndex": 2,
+    "explanation": "Double Comparative berimbang: kedua sisi kalimat harus menggunakan pola 'The + comparative' ('The more rigorously..., the clearer...').",
+    "learningTip": "Pastikan kedua sisi klausa sejajar: The + comparative ..., the + comparative ...",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "_____ the preliminary findings with senior staff, the research director drafted the press release.",
+    "choices": [
+      "Discussed",
+      "Having discussed",
+      "To discuss",
+      "Discussing had"
+    ],
+    "correctIndex": 1,
+    "explanation": "Perfect Participle ('Having discussed') digunakan untuk menunjukkan bahwa tindakan diskusi telah selesai sepenuhnya sebelum tindakan berikutnya dilakukan.",
+    "learningTip": "Gunakan 'Having + V3' untuk menyatakan urutan aksi yang sudah selesai sebelum klausa utama.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "The ancient manuscript, _____ in a cave near the Dead Sea, provided invaluable historical insights.",
+    "choices": [
+      "discovered",
+      "discovering",
+      "was discovered",
+      "which discovered"
+    ],
+    "correctIndex": 0,
+    "explanation": "Reduced Relative Clause pasif: bentuk 'which was discovered' disederhanakan menjadi past participle 'discovered'.",
+    "learningTip": "Reduced relative clause pasif cukup menggunakan bentuk V3 tanpa kata bantu to be.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "Were the municipal government _____ public transport fares, city traffic would decrease noticeably.",
+    "choices": [
+      "subsidize",
+      "subsidized",
+      "subsidizing",
+      "to subsidize"
+    ],
+    "correctIndex": 3,
+    "explanation": "Inversi Second Conditional: bentuk 'Were + subjek + to-infinitive' ('Were the government to subsidize...') setara dengan 'If the government subsidized...'.",
+    "learningTip": "Pola inversi pengandaian formal masa kini/depan: Were + S + to + V1.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "No sooner had the keynote speaker stepped onto the stage _____ the microphone failed.",
+    "choices": [
+      "when",
+      "then",
+      "than",
+      "that"
+    ],
+    "correctIndex": 2,
+    "explanation": "Pasangan baku untuk konstruksi inversi waktu 'No sooner had...' adalah 'than'.",
+    "learningTip": "'No sooner' selalu berpasangan dengan 'than', sedangkan 'Hardly/Scarcely' berpasangan dengan 'when'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "The committee commended the team, noting that they _____ exceptional resilience during the crisis.",
+    "choices": [
+      "showed",
+      "had shown",
+      "have shown",
+      "are showing"
+    ],
+    "correctIndex": 1,
+    "explanation": "Past Perfect 'had shown' tepat untuk aksi ketahanan yang telah ditunjukkan sebelum rapat komite berlangsung di masa lampau.",
+    "learningTip": "Gunakan Past Perfect untuk aksi lampau yang terjadi mendahului aksi lampau lainnya.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "The new emission standards are said _____ by industrial manufacturers nationwide next year.",
+    "choices": [
+      "to be adopted",
+      "to adopt",
+      "being adopted",
+      "adopted"
+    ],
+    "correctIndex": 0,
+    "explanation": "Pola pasif 'is said + to be + V3' digunakan untuk menyatakan bahwa subjek akan dikenai suatu tindakan oleh pihak lain.",
+    "learningTip": "Pola pasif pelaporan: be said / believed / expected + to be + V3.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "If the conservation project _____ initiated five years ago, the coral reef would not be thriving today.",
+    "choices": [
+      "was not",
+      "has not been",
+      "would not be",
+      "had not been"
+    ],
+    "correctIndex": 3,
+    "explanation": "Mixed Conditional: klausa 'if' mengandaikan peristiwa lampau yang tidak terjadi ('had not been initiated'), sedangkan klausa utama menunjukkan dampaknya pada saat ini ('today').",
+    "learningTip": "Ciri Mixed Conditional: If + Past Perfect dipadukan dengan would + bare verb yang memiliki penanda waktu 'today/now'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "The university provost recommended that the faculty _____ on improving online student engagement.",
+    "choices": [
+      "focused",
+      "focuses",
+      "focus",
+      "to focus"
+    ],
+    "correctIndex": 2,
+    "explanation": "Subjunctive mood setelah 'recommended that' mewajibkan pemakaian kata kerja dasar ('focus') terlepas dari bentuk subjeknya.",
+    "learningTip": "Setelah recommend/suggest/propose that, jangan tambahkan akhiran -s atau -ed pada kata kerja.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "It was her groundbreaking dissertation on urban hydrology _____ earned her the prestigious fellowship.",
+    "choices": [
+      "which",
+      "that",
+      "what",
+      "whom"
+    ],
+    "correctIndex": 1,
+    "explanation": "Cleft Sentence penekanan: pola formal 'It was [fokus] that [klausa]' menggunakan relative pronoun 'that' untuk memberikan penekanan khusus.",
+    "learningTip": "Pola Cleft Sentence penekanan: It is/was + fokus informasi + that + kalimat penjelas.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "The expedition team brought extra communication gear _____ the satellite uplink failed in the mountains.",
+    "choices": [
+      "in case",
+      "unless",
+      "provided that",
+      "so as to"
+    ],
+    "correctIndex": 0,
+    "explanation": "'In case' digunakan untuk tindakan pencegahan menghadapi kemungkinan buruk di masa depan ('jika sewaktu-waktu...').",
+    "learningTip": "Gunakan 'in case' untuk tindakan pencegahan (precaution), bukan 'if' biasa.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "The newly appointed CEO is widely considered _____ one of the most visionary leaders in the tech sector.",
+    "choices": [
+      "being",
+      "been",
+      "as",
+      "to be"
+    ],
+    "correctIndex": 3,
+    "explanation": "Pola pasif akademik 'is considered' secara baku dilengkapi to-infinitive 'to be'.",
+    "learningTip": "Pola baku ragam tulisan akademik: be considered to be + noun/adjective.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "Not until the lab received the chemical analysis _____ the true cause of the river contamination.",
+    "choices": [
+      "the team understood",
+      "had the team understood",
+      "did the team understand",
+      "understood the team"
+    ],
+    "correctIndex": 2,
+    "explanation": "Frasa 'Not until...' di awal kalimat memicu inversi pada klausa utama: kata kerja bantu 'did' mendahului subjek 'the team'.",
+    "learningTip": "Pada pola 'Not until [klausa], [inversi klausa utama]', letakkan aux sebelum subjek pada klausa utama.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "grammar",
+    "prompt": "Given the rigorous security protocols, the intruder _____ entered the facility through the front entrance.",
+    "choices": [
+      "must have",
+      "cannot have",
+      "should have",
+      "might not"
+    ],
+    "correctIndex": 1,
+    "explanation": "Modal deduksi lampau: 'cannot have + V3' menyatakan kesimpulan logis bahwa suatu kejadian mustahil terjadi di masa lalu.",
+    "learningTip": "Gunakan 'cannot have + V3' untuk menyimpulkan kemustahilan logis di masa lampau.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The detailed survey [provides] [much] useful [suggestions] for local urban [planners].",
+    "choices": [
+      "provides",
+      "much",
+      "suggestions",
+      "planners"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata 'suggestions' adalah kata benda jamak terhitung (countable plural), sehingga harus dipasangkan dengan 'many', bukan 'much'.",
+    "learningTip": "Gunakan many untuk countable plural dan much untuk uncountable singular.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: Although the international delegates [struggled] with jet lag, [despite] they [participated] actively in every [workshop].",
+    "choices": [
+      "struggled",
+      "despite",
+      "participated",
+      "workshop"
+    ],
+    "correctIndex": 1,
+    "explanation": "Penggunaan 'Although' di awal kalimat sudah cukup menghubungkan kedua klausa; penambahan 'despite' merupakan pengulangan konjungsi yang salah.",
+    "learningTip": "Jangan gabungkan konjungsi bertingkat (although/even though) dengan kata penghubung kontras lain (despite/but) dalam satu kalimat.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The research assistant [completed] the statistical analysis [remarkable] quickly despite [unexpected] software [glitches].",
+    "choices": [
+      "completed",
+      "remarkable",
+      "unexpected",
+      "glitches"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata 'quickly' adalah kata keterangan (adverb), sehingga kata yang menerangkannya harus berupa adverb ('remarkably'), bukan adjective 'remarkable'.",
+    "learningTip": "Gunakan adverb (berakhiran -ly) untuk menerangkan adjective atau adverb lainnya.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: If the weather conditions [improve] tomorrow, our class will [went] on a botanical [field] [trip].",
+    "choices": [
+      "improve",
+      "went",
+      "field",
+      "trip"
+    ],
+    "correctIndex": 1,
+    "explanation": "Setelah kata bantu modal 'will', kata kerja wajib berbentuk dasar murni (bare infinitive: 'go'), bukan bentuk lampau 'went'.",
+    "learningTip": "Modal auxiliary (will, can, must, should) selalu diikuti kata kerja bentuk dasar tanpa to.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The majority of local residents [were] extremely [satisfied] with the new public [transportations] in the city [centre].",
+    "choices": [
+      "were",
+      "satisfied",
+      "transportations",
+      "centre"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata 'transportation' adalah kata benda massa yang tidak dapat dihitung (uncountable) dan tidak boleh menggunakan akhiran jamak -s.",
+    "learningTip": "Catat kata benda tak terhitung umum seperti transportation, accommodation, luggage, furniture.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The visiting delegation [arrived] at the university [auditorium] promptly [in] Tuesday morning for the [orientation].",
+    "choices": [
+      "arrived",
+      "auditorium",
+      "in",
+      "orientation"
+    ],
+    "correctIndex": 2,
+    "explanation": "Untuk keterangan waktu yang menyebutkan hari spesifik ('Tuesday morning'), preposisi yang benar adalah 'on', bukan 'in'.",
+    "learningTip": "Gunakan preposisi 'on' untuk hari dan tanggal spesifik (on Monday, on July 4th).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The senior biochemist succeeded [in] [isolate] the active protein [compound] from tropical plant [specimens].",
+    "choices": [
+      "in",
+      "isolate",
+      "compound",
+      "specimens"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata kerja yang diletakkan tepat setelah preposisi ('in') harus berbentuk gerund ('isolating'), bukan kata kerja dasar 'isolate'.",
+    "learningTip": "Semua kata kerja setelah preposition (in, on, at, about, by) wajib berakhiran -ing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: Long-term academic [progress] heavily [depends] [of] consistent daily study [habits] and active class participation.",
+    "choices": [
+      "progress",
+      "depends",
+      "of",
+      "habits"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata kerja 'depend' memiliki pasangan preposisi baku yaitu 'on' ('depend on'), bukan 'depend of'.",
+    "learningTip": "Pelajari dependent preposition sebagai satu kesatuan pasangan tetap (depend on, rely on).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The municipal council [considers] the proposed bicycle lane [network] to be highly [beneficial] for public [healthy].",
+    "choices": [
+      "considers",
+      "network",
+      "beneficial",
+      "healthy"
+    ],
+    "correctIndex": 3,
+    "explanation": "Setelah kata sifat penjelas 'public', dibutuhkan kata benda yaitu 'health' (kesehatan), bukan kata sifat 'healthy' (sehat).",
+    "learningTip": "Identifikasi kelas kata (part of speech) yang dibutuhkan kalimat: tentukan apakah noun atau adjective.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The keynote speaker delivered an [inspiring] lecture that [had] a profound [affect] on every student in the [audience].",
+    "choices": [
+      "inspiring",
+      "had",
+      "affect",
+      "audience"
+    ],
+    "correctIndex": 2,
+    "explanation": "Dalam frasa 'had a profound...', posisi tersebut membutuhkan kata benda 'effect' (pengaruh/dampak), bukan kata kerja 'affect'.",
+    "learningTip": "Ingat: 'affect' umumnya adalah verb (mempengaruhi), sedangkan 'effect' adalah noun (akibat/pengaruh).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: At the annual conference, the lead [scientist] [which] [directed] the project was [awarded] a gold medal.",
+    "choices": [
+      "scientist",
+      "which",
+      "directed",
+      "awarded"
+    ],
+    "correctIndex": 1,
+    "explanation": "Subjek 'the lead scientist' adalah manusia, sehingga kata ganti penghubung (relative pronoun) yang benar adalah 'who', bukan 'which'.",
+    "learningTip": "Gunakan 'who' untuk manusia dan 'which' untuk benda mati atau konsep abstrak.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The environmental organization focuses [on] reducing plastic [waste], conserving clean water, and [to promote] solar [energy].",
+    "choices": [
+      "on",
+      "waste",
+      "to promote",
+      "energy"
+    ],
+    "correctIndex": 2,
+    "explanation": "Dalam susunan paralel setelah preposisi 'on', bentuk kata kerja harus konsisten berupa gerund ('promoting'), sejajar dengan 'reducing'.",
+    "learningTip": "Prinsip paralelisme: pastikan deretan elemen kata kerja dalam satu frasa memiliki struktur gramatikal yang setara.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: Each of the participating [universities] [have] established a dedicated innovation [hub] for undergraduate [students].",
+    "choices": [
+      "universities",
+      "have",
+      "hub",
+      "students"
+    ],
+    "correctIndex": 1,
+    "explanation": "Subjek kalimat adalah 'Each', yang bernilai tunggal (singular). Oleh karena itu kata kerja yang tepat adalah 'has established', bukan 'have established'.",
+    "learningTip": "Frasa 'Each of + plural noun' selalu mengambil kata kerja tunggal (singular verb).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The university campus has [maintained] an outstanding international [reputation] [about] scientific research and [teaching].",
+    "choices": [
+      "maintained",
+      "reputation",
+      "about",
+      "teaching"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata benda 'reputation' berkolokasi dengan preposisi 'for' ('reputation for scientific research'), bukan 'about'.",
+    "learningTip": "Perhatikan kolokasi preposisi tetap: have a reputation for something.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "error_identification",
+    "prompt": "Identify the error: The postgraduate fellow has been [conducting] extensive fieldwork in the rain forest [since] three [consecutive] [years].",
+    "choices": [
+      "conducting",
+      "since",
+      "consecutive",
+      "years"
+    ],
+    "correctIndex": 1,
+    "explanation": "Untuk menyatakan rentang total durasi ('three consecutive years'), preposisi yang tepat adalah 'for', bukan 'since'.",
+    "learningTip": "Gunakan 'for' untuk panjangnya periode waktu dan 'since' untuk patokan awal waktu tertentu.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: [Having saw] the preliminary survey [data], the chief environmental officer [ordered] an immediate [re-examination].",
+    "choices": [
+      "Having saw",
+      "data",
+      "ordered",
+      "re-examination"
+    ],
+    "correctIndex": 0,
+    "explanation": "Pola Perfect Participle mewajibkan pemakaian kata kerja bentuk ketiga (V3: 'Having seen'), bukan bentuk kedua 'Having saw'.",
+    "learningTip": "Pola Perfect Participle selalu: Having + Past Participle (V3).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The ethics board [insisted] that the lead researcher [submits] all raw interview [transcripts] before the publication [date].",
+    "choices": [
+      "insisted",
+      "submits",
+      "transcripts",
+      "date"
+    ],
+    "correctIndex": 1,
+    "explanation": "Setelah kata kerja tuntutan formal 'insisted that', klausa mandative subjunctive mewajibkan kata kerja dasar ('submit'), tanpa akhiran -s.",
+    "learningTip": "Subjunctive mood: kata kerja setelah insist/recommend/demand + that selalu memakai bare infinitive murni.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The [more] rigorously the laboratory technicians tested the water samples, the [most] reliable the safety [assessments] [became].",
+    "choices": [
+      "more",
+      "most",
+      "assessments",
+      "became"
+    ],
+    "correctIndex": 1,
+    "explanation": "Pola double comparative berimbang membutuhkan bentuk komparatif di kedua sisi ('the more reliable', bukan 'the most').",
+    "learningTip": "Ingat struktur berimbang: The + comparative ..., the + comparative ...",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The supervisory committee [made] the postgraduate students [to rewrite] the entire introductory chapter of [their] [dissertation].",
+    "choices": [
+      "made",
+      "to rewrite",
+      "their",
+      "dissertation"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata kerja causative aktif 'make' diikuti objek dan bare infinitive tanpa to ('rewrite'), bukan 'to rewrite'.",
+    "learningTip": "Kata kerja causative make dan let dalam kalimat aktif selalu diikuti V1 polos (bare infinitive).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Seldom [they had] [encountered] such unprecedented levels of community participation during the municipal [planning] [phase].",
+    "choices": [
+      "they had",
+      "encountered",
+      "planning",
+      "phase"
+    ],
+    "correctIndex": 0,
+    "explanation": "Ketika adverbial negatif 'Seldom' mengawali kalimat, posisi kata kerja bantu harus dibalik mendahului subjek ('had they encountered').",
+    "learningTip": "Adverbial negatif di awal kalimat (seldom, rarely, hardly) memicu pembalikan kata bantu dan subjek (inversi).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The digital archive maintains [detailed] [researches] and valuable statistical records on historical demographic [patterns] in [Europe].",
+    "choices": [
+      "detailed",
+      "researches",
+      "patterns",
+      "Europe"
+    ],
+    "correctIndex": 1,
+    "explanation": "Dalam konteks akademik standar, kata 'research' merupakan kata benda tak terhitung (uncountable) dan tidak boleh memakai bentuk jamak 'researches'.",
+    "learningTip": "Gunakan 'research' sebagai kata benda tak terhitung, atau 'research studies' jika ingin menghitungnya.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The newly appointed director of institutional relations [were] confident that the university would [meet] its strategic [goals] [easily].",
+    "choices": [
+      "director",
+      "were",
+      "meet",
+      "goals"
+    ],
+    "correctIndex": 1,
+    "explanation": "Inti subjek kalimat adalah 'The newly appointed director' (tunggal). Frasa penjelas 'of institutional relations' tidak mengubah subjek, sehingga kata kerja yang tepat adalah 'was'.",
+    "learningTip": "Abaikan frasa preposisi penjelas di antara subjek dan kata kerja saat menentukan singular/plural verb.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Each of the participating research institutes has submitted [they] official feedback to the international [accreditation] [steering] [committee].",
+    "choices": [
+      "they",
+      "accreditation",
+      "steering",
+      "committee"
+    ],
+    "correctIndex": 0,
+    "explanation": "Sebelum frasa kata benda 'official feedback', harus menggunakan kata sifat kepemilikan (possessive adjective) 'their', bukan kata ganti subjek 'they'.",
+    "learningTip": "Gunakan possessive adjective (their, its, his, her) tepat sebelum noun atau noun phrase.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The university administration [implemented] strict network protocols to prevent external hackers [to] [infiltrating] the student records [system].",
+    "choices": [
+      "implemented",
+      "protocols",
+      "to",
+      "system"
+    ],
+    "correctIndex": 2,
+    "explanation": "Pola kata kerja 'prevent' adalah 'prevent someone from doing something', sehingga preposisi yang tepat adalah 'from', bukan 'to'.",
+    "learningTip": "Ingat pola verba pencegahan: prevent / stop / prohibit someone from + V-ing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The statistical evaluation proved that the second vaccine trial was [substantially] [more] effective [as] the earlier laboratory [experiment].",
+    "choices": [
+      "substantially",
+      "more",
+      "as",
+      "experiment"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bentuk perbandingan lebih ('more effective') harus dipasangkan dengan kata sambung pembanding 'than', bukan 'as'.",
+    "learningTip": "Setelah comparative (more / -er), kata sambung perbandingan selalu 'than'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The academic senate [convened] yesterday afternoon to [discuss] [about] the proposed revisions to the faculty tenure [policy].",
+    "choices": [
+      "convened",
+      "discuss",
+      "about",
+      "policy"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata kerja transitif 'discuss' langsung mengambil objek langsung tanpa tambahan preposisi 'about' ('discuss the proposed revisions').",
+    "learningTip": "Kata kerja transitif seperti discuss, consider, describe tidak membutuhkan preposisi tambahan.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: Neither the chief [editor] nor the senior reviewers [was] informed that the article had already been [accepted] by another [journal].",
+    "choices": [
+      "editor",
+      "was",
+      "accepted",
+      "journal"
+    ],
+    "correctIndex": 1,
+    "explanation": "Pada struktur 'neither... nor', kata kerja mengikuti subjek terdekat yaitu 'senior reviewers' (jamak), sehingga kata kerja yang benar adalah 'were'.",
+    "learningTip": "Cocokkan bentuk kata kerja dengan subjek terdekat pada konjungsi berpasangan (either...or, neither...nor).",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The theoretical explanation proposed by the visiting scholar seemed entirely [reasonable] and [logically] to the entire [faculty] [panel].",
+    "choices": [
+      "reasonable",
+      "logically",
+      "faculty",
+      "panel"
+    ],
+    "correctIndex": 1,
+    "explanation": "Setelah linking verb 'seemed', kata yang digunakan harus berupa predicative adjective ('logical'), sejajar dengan 'reasonable', bukan adverb 'logically'.",
+    "learningTip": "Linking verbs (seem, appear, look, taste, sound) selalu diikuti adjective, bukan adverb.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The research team spent several [months] [to develop] a comprehensive computer simulation for coastal erosion [risk] [mitigation].",
+    "choices": [
+      "months",
+      "to develop",
+      "risk",
+      "mitigation"
+    ],
+    "correctIndex": 1,
+    "explanation": "Pola ekspresi 'spend time' diikuti gerund ('developing'), bukan to-infinitive 'to develop'.",
+    "learningTip": "Pola verba baku: spend + time/money + V-ing.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "error_identification",
+    "prompt": "Identify the error: The executive [board] resolved the internal corporate governance dispute by [themself] before [seeking] external legal [guidance].",
+    "choices": [
+      "board",
+      "themself",
+      "seeking",
+      "guidance"
+    ],
+    "correctIndex": 1,
+    "explanation": "Bentuk reflexive pronoun untuk subjek jamak 'the executive board' (merujuk pada para anggotanya) adalah 'themselves', bukan 'themself' (yang tidak baku).",
+    "learningTip": "Reflexive pronoun untuk third person plural selalu 'themselves'.",
+    "ieltsSkill": "Grammatical Range and Accuracy"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "The city council decided to _____ new speed limits near elementary schools to ensure student safety.",
+    "choices": [
+      "imitate",
+      "invent",
+      "implement",
+      "ignore"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Implement' berarti menerapkan atau menjalankan kebijakan/peraturan secara resmi.",
+    "learningTip": "Collocation akademik: implement a policy / rule / reform.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "Regular physical exercise can _____ a significant impact on mental wellbeing.",
+    "choices": [
+      "do",
+      "have",
+      "make",
+      "take"
+    ],
+    "correctIndex": 1,
+    "explanation": "Pasangan kolokasi baku dalam bahasa Inggris adalah 'have an impact on', bukan 'make' atau 'do'.",
+    "learningTip": "Hafalkan kolokasi kata benda: have an impact on, have an effect on, have an influence on.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "The survey revealed that air pollution remains a _____ concern for urban residents.",
+    "choices": [
+      "major",
+      "slight",
+      "tiny",
+      "fragile"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Major concern' adalah kolokasi umum yang berarti kekhawatiran utama atau sangat penting.",
+    "learningTip": "Gunakan kata sifat akademik seperti major, pressing, urgent untuk menerangkan concern atau issue.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "In the academic essay, the student provided _____ evidence to support her hypothesis.",
+    "choices": [
+      "reluctant",
+      "empty",
+      "shallow",
+      "sufficient"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Sufficient' berarti cukup dan memadai untuk memenuhi standar pembuktian.",
+    "learningTip": "Sinonim akademik: sufficient = adequate = enough.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "The sudden drop in temperature caused the water pipes to _____ and burst.",
+    "choices": [
+      "evaporate",
+      "boil",
+      "freeze",
+      "melt"
+    ],
+    "correctIndex": 2,
+    "explanation": "Air yang membeku ('freeze') memuai dan menyebabkan pipa pecah saat cuaca dingin ekstrem.",
+    "learningTip": "Kuasai kosakata proses sains dasar: freeze, melt, condense, evaporate.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "International students must demonstrate a high level of _____ in English before enrolling.",
+    "choices": [
+      "hesitation",
+      "proficiency",
+      "distraction",
+      "reluctance"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Proficiency' berarti kemahiran atau keahlian tingkat tinggi dalam suatu keterampilan atau bahasa.",
+    "learningTip": "Kolokasi IELTS: language proficiency, demonstrate proficiency.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "The university offered financial assistance to students from low-income _____.",
+    "choices": [
+      "backgrounds",
+      "backyards",
+      "backbones",
+      "backdrops"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Backgrounds' merujuk pada latar belakang sosial-ekonomi atau keluarga seseorang.",
+    "learningTip": "Kolokasi sosiologi: socio-economic background, diverse backgrounds.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "The new transit system is expected to _____ traffic congestion on the main highway.",
+    "choices": [
+      "multiply",
+      "expand",
+      "provoke",
+      "reduce"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Reduce' berarti mengurangi tingkat keparahan atau volume kemacetan.",
+    "learningTip": "Sinonim bermanfaat untuk Task 2: reduce, decrease, diminish, alleviate.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "Researchers conducted a detailed study to _____ the effectiveness of the new medication.",
+    "choices": [
+      "complain",
+      "deceive",
+      "evaluate",
+      "postpone"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Evaluate' berarti menilai atau mengukur secara sistematis nilai atau efektivitas sesuatu.",
+    "learningTip": "Academic Word List: evaluate, assess, analyze, determine.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "Solar and wind energy are popular examples of _____ resources.",
+    "choices": [
+      "disposable",
+      "renewable",
+      "exhaustible",
+      "hazardous"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Renewable' berarti dapat diperbarui secara alami dan berkelanjutan tanpa habis.",
+    "learningTip": "Kolokasi topik lingkungan IELTS: renewable energy, renewable resources.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "The company had to _____ the product launch due to unforeseen technical difficulties.",
+    "choices": [
+      "delay",
+      "accelerate",
+      "rejoice",
+      "celebrate"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Delay' berarti menunda pelaksanaan ke waktu yang lebih lambat.",
+    "learningTip": "Sinonim: delay = postpone = put off.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "The professor emphasized the _____ of submitting assignments before the deadline.",
+    "choices": [
+      "negligence",
+      "arrogance",
+      "ignorance",
+      "importance"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Importance' berarti signifikansi atau pentingnya suatu tindakan.",
+    "learningTip": "Kolokasi: emphasize the importance of doing something.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "The candidate gave a clear and _____ summary of his previous work experience.",
+    "choices": [
+      "lengthy",
+      "clumsy",
+      "concise",
+      "vague"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Concise' berarti ringkas, padat, dan bebas dari kata-kata yang tidak perlu.",
+    "learningTip": "Kombinasi kata deskriptif: clear and concise, brief and informative.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "Living costs in major metropolitan areas have risen _____ over the past five years.",
+    "choices": [
+      "narrowly",
+      "significantly",
+      "hesitantly",
+      "scarcely"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Significantly' menunjukkan peningkatan dalam jumlah yang besar dan bermakna penting.",
+    "learningTip": "Adverb untuk IELTS Task 1: increase significantly, rise sharply, grow substantially.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "vocabulary",
+    "prompt": "A balanced diet and adequate sleep are _____ for maintaining optimal health.",
+    "choices": [
+      "essential",
+      "hostile",
+      "artificial",
+      "optional"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Essential' berarti sangat mutlak dibutuhkan (crucial / indispensable).",
+    "learningTip": "Sinonim kata kuat: essential = vital = crucial.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "The government introduced strategic subsidies to _____ investment in green technologies.",
+    "choices": [
+      "stagnate",
+      "deter",
+      "suppress",
+      "stimulate"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Stimulate' berarti mendorong atau merangsang pertumbuhan aktivitas ekonomi/investasi.",
+    "learningTip": "Kolokasi ekonomi akademik: stimulate growth, stimulate investment, stimulate the economy.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "Urban planners must take proactive measures to _____ the catastrophic risks of flash flooding.",
+    "choices": [
+      "perpetuate",
+      "exacerbate",
+      "mitigate",
+      "neglect"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Mitigate' berarti mengurangi keparahan, bahaya, atau dampak buruk suatu bencana.",
+    "learningTip": "Academic Word List (AWL): mitigate risk / impact / damage = reduce severity.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "The researcher presented a _____ argument backed by ten years of empirical field data.",
+    "choices": [
+      "flimsy",
+      "compelling",
+      "superficial",
+      "dubious"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Compelling' berarti sangat meyakinkan, kuat, dan memikat secara intelektual.",
+    "learningTip": "Kolokasi akademik tingkat tinggi: compelling argument / evidence / case.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "Rapid industrial automation has fundamentally _____ the landscape of the manufacturing sector.",
+    "choices": [
+      "transformed",
+      "stagnated",
+      "deteriorated",
+      "demolished"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Transform' berarti mengubah secara mendalam bentuk, struktur, atau sifat sesuatu menjadi lebih maju.",
+    "learningTip": "Gunakan 'transform' alih-alih kata sederhana 'change' dalam penulisan esai IELTS.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "The findings of the preliminary study are entirely _____ with previous academic literature.",
+    "choices": [
+      "incompatible",
+      "contradictory",
+      "irrelevant",
+      "consistent"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Consistent with' berarti selaras, cocok, dan tidak bertentangan dengan temuan terdahulu.",
+    "learningTip": "Preposisi kolokasi akademik: consistent with, aligned with, in accordance with.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "Failing to wear appropriate personal protective gear in the laboratory _____ a severe safety hazard.",
+    "choices": [
+      "settles",
+      "claims",
+      "poses",
+      "remedies"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Pose a risk / hazard' adalah kolokasi baku bahasa Inggris formal yang berarti menimbulkan atau menciptakan ancaman.",
+    "learningTip": "Hafalkan kolokasi formal: pose a risk, pose a threat, pose a challenge.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "The international summit concluded without reaching a broad _____ on binding carbon reductions.",
+    "choices": [
+      "dissent",
+      "consensus",
+      "rivalry",
+      "hostility"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Consensus' berarti kesepakatan bersama yang dicapai oleh semua pihak yang terlibat.",
+    "learningTip": "Kolokasi diplomasi dan kebijakan: reach a consensus, broad consensus, general consensus.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "Many developing island nations are exceptionally _____ to the adverse impacts of rising sea levels.",
+    "choices": [
+      "vulnerable",
+      "invincible",
+      "resistant",
+      "impermeable"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Vulnerable to' berarti rentan atau mudah terkena dampak bahaya dan kerusakan.",
+    "learningTip": "Kolokasi lingkungan IELTS: vulnerable to climate change / extinction / diseases.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "Technological innovation has played an _____ role in modernizing healthcare delivery systems.",
+    "choices": [
+      "ambiguous",
+      "expendable",
+      "insignificant",
+      "indispensable"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Indispensable' berarti sangat esensial dan tidak mungkin ditiadakan (absolutely essential).",
+    "learningTip": "Sinonim tingkat tinggi untuk 'important': indispensable, pivotal, integral, fundamental.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "Heavy deforestation and agricultural expansion have led to the severe _____ of natural habitats.",
+    "choices": [
+      "enhancement",
+      "preservation",
+      "degradation",
+      "cultivation"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Degradation' berarti proses kemunduran, perusakan, atau penurunan kualitas lingkungan.",
+    "learningTip": "Topik lingkungan: environmental degradation, habitat loss, soil erosion.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "The research team was careful not to draw premature _____ before analyzing the full sample size.",
+    "choices": [
+      "conspiracies",
+      "conclusions",
+      "coincidences",
+      "condolences"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Draw conclusions' adalah kolokasi akademik baku yang berarti mengambil atau menarik kesimpulan.",
+    "learningTip": "Kolokasi metodologi penelitian: draw a conclusion, reach a verdict, infer from data.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "The new renewable energy legislation is designed to _____ reliance on imported fossil fuels.",
+    "choices": [
+      "curtail",
+      "prolong",
+      "intensify",
+      "reinforce"
+    ],
+    "correctIndex": 0,
+    "explanation": "'Curtail' berarti membatasi, memangkas, atau mengurangi jangkauan suatu hal.",
+    "learningTip": "Sinonim akademik untuk membatasi/memotong: curtail = restrict = curb.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "Despite intense media scrutiny, the corporate executive remained _____ about the future merger.",
+    "choices": [
+      "outspoken",
+      "reckless",
+      "boastful",
+      "reticent"
+    ],
+    "correctIndex": 3,
+    "explanation": "'Reticent' berarti enggan berbicara atau bersikap tertutup dan berhati-hati dalam memberikan komentar.",
+    "learningTip": "Kosakata karakter/sikap formal: reticent = reserved = uncommunicative.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "The latest smartphone prototype incorporates several _____ design features that enhance battery life.",
+    "choices": [
+      "obsolete",
+      "antiquated",
+      "innovative",
+      "monotonous"
+    ],
+    "correctIndex": 2,
+    "explanation": "'Innovative' berarti menampilkan ide atau metode baru yang orisinal dan kreatif.",
+    "learningTip": "Kosakata teknologi Task 2: innovative features, state-of-the-art technology, pioneering work.",
+    "ieltsSkill": "Lexical Resource"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "vocabulary",
+    "prompt": "The economic stimulus package was aimed at restoring consumer _____ following the financial downturn.",
+    "choices": [
+      "negligence",
+      "confidence",
+      "pessimism",
+      "hesitation"
+    ],
+    "correctIndex": 1,
+    "explanation": "'Consumer confidence' adalah kolokasi ekonomi baku yang merujuk pada optimisme dan keyakinan konsumen terhadap kondisi keuangan.",
+    "learningTip": "Kolokasi ekonomi baku: consumer confidence, consumer spending, market stability.",
+    "ieltsSkill": "Lexical Resource"
+  }
+]

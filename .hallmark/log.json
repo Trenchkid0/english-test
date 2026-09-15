@@ -1,0 +1,37 @@
+[
+  {
+    "date": "2026-09-13",
+    "macrostructure": "Catalogue",
+    "theme": "Coral",
+    "enrichment": "none",
+    "brief": "Read-only admin catalogue for searching, filtering, and inspecting every question"
+  },
+  {
+    "date": "2026-09-12",
+    "macrostructure": "Component scope / N9 grouped utility header",
+    "theme": "Coral",
+    "enrichment": "none",
+    "brief": "Uniform application header for learner and admin with consistent custom line icons"
+  },
+  {
+    "date": "2026-09-08",
+    "macrostructure": "Split Studio + product workspace",
+    "theme": "Coral",
+    "enrichment": "none",
+    "brief": "Self-service IELTS SaaS with private learner accounts and an admin question bank"
+  },
+  {
+    "date": "2026-09-07",
+    "macrostructure": "Workbench",
+    "theme": "Hum",
+    "enrichment": "none",
+    "brief": "Personal learning hub with review, writing, vocabulary, diagnostics, dashboard, and reading evidence"
+  },
+  {
+    "date": "2026-09-06",
+    "macrostructure": "Narrative Workflow",
+    "theme": "Hum",
+    "enrichment": "CSS character mark",
+    "brief": "Personal IELTS English practice with durable review history"
+  }
+]

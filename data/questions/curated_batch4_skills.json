@@ -1,0 +1,605 @@
+[
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "reading",
+    "context": "Greenwood Language School offers morning and evening English classes from Monday to Friday. The school has a modern computer room on the second floor and a quiet student library on the ground floor. Students can borrow up to three grammar books for two weeks with their student identity card.",
+    "evidence": "Students can borrow up to three grammar books for two weeks with their student identity card.",
+    "errorTag": "detail",
+    "prompt": "According to the notice, how many books can a student borrow at one time?",
+    "choices": [
+      "Up to five books",
+      "Up to three books",
+      "Only one dictionary",
+      "Unlimited books"
+    ],
+    "correctIndex": 1,
+    "explanation": "Teks secara jelas menyebutkan: 'Students can borrow up to three grammar books'.",
+    "learningTip": "Pindai kata kunci 'borrow' dan angka pada teks untuk menemukan jawaban cepat.",
+    "ieltsSkill": "Reading for Detail"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "reading",
+    "context": "The campus cafeteria is open daily from 7:30 AM to 6:00 PM. Hot breakfast meals are served until 10:30 AM, after which the kitchen prepares sandwiches, hot soups, and fresh seasonal salads. Vegetarian and halal food options are clearly marked with green labels on the display counters.",
+    "evidence": "Vegetarian and halal food options are clearly marked with green labels on the display counters.",
+    "errorTag": "detail",
+    "prompt": "How can students identify vegetarian and halal food in the cafeteria?",
+    "choices": [
+      "By looking for green labels",
+      "By asking the chef directly",
+      "By ordering through an app",
+      "By checking red stickers"
+    ],
+    "correctIndex": 0,
+    "explanation": "Teks menyatakan bahwa pilihan vegetarian dan halal ditandai dengan label hijau ('green labels').",
+    "learningTip": "Perhatikan detail visual atau penanda warna yang disebutkan dalam teks.",
+    "ieltsSkill": "Reading for Detail"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "reading",
+    "context": "City Express Coach operates non-stop bus services connecting Central Railway Station directly to North International Airport. Buses leave every twenty minutes throughout the day, taking approximately thirty-five minutes under normal traffic conditions. Luggage up to twenty kilograms is transported free of charge in the coach underfloor cargo hold.",
+    "evidence": "taking approximately thirty-five minutes under normal traffic conditions.",
+    "errorTag": "detail",
+    "prompt": "How long does the bus journey usually take between the station and the airport?",
+    "choices": [
+      "Over 45 minutes",
+      "Exactly 20 minutes",
+      "Nearly one hour",
+      "Around 35 minutes"
+    ],
+    "correctIndex": 3,
+    "explanation": "Teks menyebutkan durasi perjalanan memakan waktu sekitar tiga puluh lima menit ('approximately thirty-five minutes').",
+    "learningTip": "Bedakan frekuensi keberangkatan (every 20 minutes) dengan durasi tempuh (35 minutes).",
+    "ieltsSkill": "Reading for Detail"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "reading",
+    "context": "The local community health clinic is relocating to 45 Elm Street next Monday. Patients with pre-scheduled appointments do not need to rebook, as their existing times remain unchanged. The new building features an expanded pediatric wing and free parking bays for registered patients behind the clinic.",
+    "evidence": "Patients with pre-scheduled appointments do not need to rebook, as their existing times remain unchanged.",
+    "errorTag": "inference",
+    "prompt": "What should patients with existing appointments do regarding the clinic's move?",
+    "choices": [
+      "Pay a relocation administrative fee",
+      "Call the clinic to choose a new date",
+      "Keep their scheduled time without rebooking",
+      "Cancel and book at another clinic"
+    ],
+    "correctIndex": 2,
+    "explanation": "Teks menyatakan pasien yang sudah punya jadwal tidak perlu memesan ulang ('do not need to rebook').",
+    "learningTip": "Pahami parafrase: 'do not need to rebook' bermakna jadwal lama tetap berlaku.",
+    "ieltsSkill": "Reading for Inference"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "reading",
+    "context": "Recent urban ecology initiatives highlight the importance of green roofs in reducing urban heat islands. By replacing conventional asphalt shingles with sedum succulents and drought-resistant grasses, rooftop surface temperatures drop by up to 15 degrees Celsius during peak summer. Furthermore, green roofs retain over 60 percent of stormwater runoff, significantly easing the pressure on municipal drainage channels during intense thunderstorms.",
+    "evidence": "green roofs retain over 60 percent of stormwater runoff, significantly easing the pressure on municipal drainage channels",
+    "errorTag": "detail",
+    "prompt": "What secondary benefit of green roofs is described in the passage?",
+    "choices": [
+      "Generating electricity through solar cells",
+      "Absorbing more than half of stormwater runoff",
+      "Eliminating all urban carbon dioxide",
+      "Reducing indoor heating bills in winter"
+    ],
+    "correctIndex": 1,
+    "explanation": "Teks menyebutkan atap hijau menyerap lebih dari 60% limpasan air hujan ('retain over 60 percent of stormwater runoff').",
+    "learningTip": "Cari klausa penghubung 'Furthermore' untuk menemukan manfaat sekunder yang ditanyakan.",
+    "ieltsSkill": "Identifying Supporting Details"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "reading",
+    "context": "Marine scientists monitoring coral reefs off the Belize coastline observed that establishing no-take marine reserves produced rapid ecological recoveries. Within five years of prohibiting commercial trawling, herbivorous parrotfish populations doubled. Because parrotfish graze heavily on macroalgae that otherwise smother fragile stony corals, living coral cover increased from 14 percent to 29 percent across protected reef boundaries.",
+    "evidence": "Because parrotfish graze heavily on macroalgae that otherwise smother fragile stony corals, living coral cover increased",
+    "errorTag": "inference",
+    "prompt": "Why did the increase in parrotfish help the coral reefs recover?",
+    "choices": [
+      "They fed on algae that threatened to suffocate corals",
+      "They built natural limestone breakwaters",
+      "They lowered the salinity of ocean currents",
+      "They preyed upon invasive starfish species"
+    ],
+    "correctIndex": 0,
+    "explanation": "Parrotfish memakan alga besar (macroalgae) yang jika dibiarkan akan menutupi dan mematikan karang.",
+    "learningTip": "Pahami hubungan sebab-akibat (cause and effect) dalam teks sains.",
+    "ieltsSkill": "Understanding Cause and Effect"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "reading",
+    "context": "While remote work was heralded as a major breakthrough for employee autonomy, longitudinal workplace surveys reveal nuanced trade-offs. Although knowledge workers report enhanced flexibility and reduced commuting fatigue, prolonged physical isolation frequently undermines informal mentorship and serendipitous cross-departmental collaboration. Organizations that adopted hybrid models—mandating two structured collaborative days on-site—reported higher innovation velocity than fully remote counterparts.",
+    "evidence": "Organizations that adopted hybrid models—mandating two structured collaborative days on-site—reported higher innovation velocity",
+    "errorTag": "inference",
+    "prompt": "What did the study conclude regarding corporate work models and innovation?",
+    "choices": [
+      "Informal mentoring has no measurable bearing on business performance",
+      "Fully remote work consistently produced the highest creative output",
+      "Working five days in an office is essential for technical productivity",
+      "Hybrid arrangements yielded greater innovation than completely remote setups"
+    ],
+    "correctIndex": 3,
+    "explanation": "Teks menyatakan model hibrida mencatatkan kecepatan inovasi yang lebih tinggi dibanding model kerja jarak jauh penuh.",
+    "learningTip": "Perhatikan perbandingan komparatif (higher innovation velocity than fully remote).",
+    "ieltsSkill": "Evaluating Arguments and Evidence"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "reading",
+    "context": "In agricultural climatology, precision drip irrigation coupled with soil moisture telemetry has revolutionized water management in arid river basins. Traditional furrow flooding loses up to 45 percent of applied water to surface evaporation and deep percolation past crop root zones. Subsurface drip systems deliver micro-doses directly to plant roots, cutting water consumption by nearly half while simultaneously preventing soil salinization caused by standing surface pools.",
+    "evidence": "cutting water consumption by nearly half while simultaneously preventing soil salinization",
+    "errorTag": "detail",
+    "prompt": "How does subsurface drip irrigation protect soil health compared to furrow flooding?",
+    "choices": [
+      "It floods deep aquifers with organic river sediments",
+      "It enriches the soil with synthetic chemical minerals",
+      "It stops salt accumulation caused by stagnant surface water",
+      "It eliminates the need for crop rotation cycles"
+    ],
+    "correctIndex": 2,
+    "explanation": "Sistem irigasi tetes mencegah salinisasi tanah akibat genangan air di permukaan ('preventing soil salinization caused by standing surface pools').",
+    "learningTip": "Parafrase 'stagnant surface water' setara dengan 'standing surface pools' pada teks.",
+    "ieltsSkill": "Reading for Specific Information"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "reading",
+    "context": "The historical transition from artisanal manufacture to mechanized industrialization entailed not merely technological disruption, but a fundamental ontological restructuring of temporal perception. In pre-industrial agrarian economies, labour rhythms were inextricably tethered to diurnal cycles and seasonal exigencies. The advent of factory steam power necessitated synchronous human coordination, giving rise to rigid clock-time as the overarching arbiter of economic productivity and social discipline.",
+    "evidence": "The advent of factory steam power necessitated synchronous human coordination, giving rise to rigid clock-time as the overarching arbiter",
+    "errorTag": "inference",
+    "prompt": "According to the passage, how did industrial mechanization fundamentally alter society's relationship with time?",
+    "choices": [
+      "It allowed individual workers greater flexibility in their schedules",
+      "It imposed standardized mechanical time over natural seasonal rhythms",
+      "It restored traditional agrarian labour patterns to urban settings",
+      "It decoupled economic productivity from temporal measurement"
+    ],
+    "correctIndex": 1,
+    "explanation": "Industrialisasi uap menuntut koordinasi serempak sehingga melahirkan waktu jam mekanis yang kaku menggantikan ritme musim alami.",
+    "learningTip": "Pahami register abstrak tingkat tinggi: 'tethered to diurnal cycles' vs 'rigid clock-time'.",
+    "ieltsSkill": "Identifying Implicit Meaning"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "reading",
+    "context": "Epistemological debates surrounding generative artificial intelligence frequently center on whether large language models exhibit genuine semantic comprehension or merely sophisticated stochastic parroting. Proponents of embodied cognition argue that syntactic pattern manipulation in silicon is divorced from sensory grounding, precluding true intentionality. Without experiential grounding in a physical environment, symbolic manipulation remains an ungrounded formal game rather than authentic cognitive understanding.",
+    "evidence": "syntactic pattern manipulation in silicon is divorced from sensory grounding, precluding true intentionality.",
+    "errorTag": "inference",
+    "prompt": "What foundational limitation do embodied cognition theorists ascribe to current AI models?",
+    "choices": [
+      "A lack of sensory physical interaction necessary for genuine comprehension",
+      "An inability to parse complex syntactic sentence structures",
+      "A complete absence of large empirical training corpora",
+      "A failure to replicate basic formal mathematical algorithms"
+    ],
+    "correctIndex": 0,
+    "explanation": "Para pakar embodied cognition menyatakan bahwa manipulasi sintaksis tanpa keterikatan sensori fisik menghalangi lahirnya intensi dan pemahaman sejati.",
+    "learningTip": "Perhatikan frasa kunci 'divorced from sensory grounding' = 'lack of sensory physical interaction'.",
+    "ieltsSkill": "Analyzing Complex Academic Arguments"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "reading",
+    "context": "In high-energy theoretical physics, the holographic principle posits that the physical description of a bulk volume of space can be entirely encoded upon its lower-dimensional boundary. Originating from Bekenstein and Hawking's thermodynamic derivations of black hole event horizons, this paradigm suggests that gravitational phenomena in three spatial dimensions may emerge as a holographic manifestation of quantum gauge fields operating on a two-dimensional boundary, challenging conventional assumptions regarding the fundamental nature of spacetime locality.",
+    "evidence": "gravitational phenomena in three spatial dimensions may emerge as a holographic manifestation of quantum gauge fields operating on a two-dimensional boundary",
+    "errorTag": "inference",
+    "prompt": "What radical implication does the holographic principle suggest concerning gravitational physics?",
+    "choices": [
+      "Spacetime dimensions are infinite and mathematically unquantifiable",
+      "Gravity operates independently of quantum mechanics across all cosmological scales",
+      "Black hole entropy cannot be reconciled with classical thermodynamic laws",
+      "Three-dimensional gravity may be an emergent illusion derived from two-dimensional quantum fields"
+    ],
+    "correctIndex": 3,
+    "explanation": "Prinsip holografik menyatakan bahwa gravitasi 3 dimensi merupakan manifestasi yang muncul (emergent) dari medan kuantum pada batas 2 dimensi.",
+    "learningTip": "C2 Reading menguji pemahaman wacana teoritis mutakhir; cermati relasi dimensionalitas '3D bulk volume' dan '2D boundary'.",
+    "ieltsSkill": "Synthesizing Abstract Theoretical Paradigms"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "reading",
+    "context": "Juridical hermeneutics has long wrestled with the tension between originalism and the doctrine of the living constitution. Originalists contend that statutory and constitutional legitimacy rests on adhering strictly to the semantic intentions of the drafting enactors, arguing that judicial departure from historical meaning amounts to counter-majoritarian judicial legislation. Conversely, dynamic interpretationists argue that institutional longevity demands evolutionary interpretation, lest foundational charters ossify into obsolete encumbrances amidst unanticipated socio-technological realignments.",
+    "evidence": "dynamic interpretationists argue that institutional longevity demands evolutionary interpretation, lest foundational charters ossify into obsolete encumbrances",
+    "errorTag": "inference",
+    "prompt": "What primary hazard do proponents of the living constitution warn against if originalism is strictly applied?",
+    "choices": [
+      "Judges will accumulate uncontrolled despotic political dominance",
+      "Elected legislatures will surrender their sovereign statutory authority",
+      "Foundational legal charters will become outdated obstacles in modern society",
+      "Constitutional legal systems will undergo dangerously chaotic revisions"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kubu interpretasi dinamis memperingatkan bahwa tanpa penyesuaian evolusioner, piagam konstitusi akan membeku menjadi beban usang ('ossify into obsolete encumbrances').",
+    "learningTip": "Kuasai metafora hukum akademik: 'ossify' = mengeras/membatu menjadi usang.",
+    "ieltsSkill": "Distinguishing Competing Legal Arguments"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: The university library opens _____ eight o'clock every weekday morning.",
+    "choices": [
+      "in",
+      "at",
+      "on",
+      "by"
+    ],
+    "correctIndex": 1,
+    "explanation": "Gunakan preposisi 'at' sebelum penunjukan waktu jam spesifik (at 8 o'clock).",
+    "learningTip": "Aturan preposisi waktu dasar: at + jam, on + hari/tanggal, in + bulan/tahun.",
+    "ieltsSkill": "Prepositions of Time"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: She speaks English fluently, but she _____ not understand French.",
+    "choices": [
+      "does",
+      "do",
+      "is",
+      "has"
+    ],
+    "correctIndex": 0,
+    "explanation": "Subjek orang ketiga tunggal 'she' memakai auxiliary 'does not' untuk kalimat negatif Simple Present.",
+    "learningTip": "He/She/It menggunakan does not + verb 1 murni.",
+    "ieltsSkill": "Subject-Verb Agreement"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: My brother is very interested _____ studying marine biology at university.",
+    "choices": [
+      "with",
+      "at",
+      "for",
+      "in"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kolokasi kata sifat baku adalah 'interested in' (tertarik pada).",
+    "learningTip": "Pasangan tetap kata sifat: interested in, good at, afraid of.",
+    "ieltsSkill": "Adjective + Preposition Collocations"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: We decided to stay at home _____ the heavy snowstorm made driving hazardous.",
+    "choices": [
+      "despite",
+      "although",
+      "because",
+      "unless"
+    ],
+    "correctIndex": 2,
+    "explanation": "Konjungsi alasan 'because' menghubungkan klausa akibat dan klausa penyebab yang memiliki subjek dan kata kerja.",
+    "learningTip": "'Because' diikuti klausa (S + V), sedangkan 'because of' diikuti noun phrase.",
+    "ieltsSkill": "Conjunctions of Cause"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: Students must look _____ the unfamiliar vocabulary words in an English dictionary.",
+    "choices": [
+      "after",
+      "up",
+      "into",
+      "over"
+    ],
+    "correctIndex": 1,
+    "explanation": "Phrasal verb 'look up' bermakna mencari arti kata dalam kamus atau referensi.",
+    "learningTip": "Kuasai phrasal verb dasar: look up a word, look after a pet, look for lost keys.",
+    "ieltsSkill": "Phrasal Verbs"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: This brand new laptop is _____ lighter than my previous desktop computer.",
+    "choices": [
+      "much",
+      "more",
+      "very",
+      "too"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kata keterangan penegas 'much' digunakan untuk memodifikasi bentuk comparative ('much lighter').",
+    "learningTip": "Gunakan 'much' atau 'far' sebelum comparative (-er/more), jangan gunakan 'very' langsung sebelum comparative.",
+    "ieltsSkill": "Comparative Modifiers"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: The municipal committee took the public survey results _____ account before approving the zoning permit.",
+    "choices": [
+      "for",
+      "in",
+      "to",
+      "into"
+    ],
+    "correctIndex": 3,
+    "explanation": "Idiom formal baku adalah 'take into account' (mempertimbangkan secara seksama).",
+    "learningTip": "Pelajari frasa baku: take into account = take into consideration.",
+    "ieltsSkill": "Academic Collocations"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: Environmental groups attributed the decline in air pollution _____ the expansion of electric bus fleets.",
+    "choices": [
+      "for",
+      "with",
+      "to",
+      "from"
+    ],
+    "correctIndex": 2,
+    "explanation": "Pola verba 'attribute something to something' bermakna mengaitkan keberhasilan/sebab suatu peristiwa kepada hal tertentu.",
+    "learningTip": "Pola tetap: attribute X to Y (menghubungkan X sebagai akibat dari Y).",
+    "ieltsSkill": "Dependent Prepositions"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: The laboratory findings were fully consistent _____ the theoretical models formulated in earlier trials.",
+    "choices": [
+      "to",
+      "with",
+      "by",
+      "at"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kolokasi kata sifat akademik baku adalah 'consistent with' (konsisten atau sejalan dengan).",
+    "learningTip": "Academic collocation: consistent with, compatible with, compliant with.",
+    "ieltsSkill": "Academic Collocations"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: The research team carried _____ a comprehensive longitudinal survey of coastal groundwater quality.",
+    "choices": [
+      "out",
+      "on",
+      "through",
+      "off"
+    ],
+    "correctIndex": 0,
+    "explanation": "Phrasal verb 'carry out' adalah padanan akademik dari 'conduct' atau 'execute' (melaksanakan penelitian).",
+    "learningTip": "Phrasal verbs akademik: carry out research, set up experiments, draw up plans.",
+    "ieltsSkill": "Phrasal Verbs in Academic Context"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: Strict biosecurity regulations prevented international travellers _____ introducing prohibited agricultural produce.",
+    "choices": [
+      "against",
+      "to",
+      "for",
+      "from"
+    ],
+    "correctIndex": 3,
+    "explanation": "Pola verba pencegahan adalah 'prevent someone from doing something'.",
+    "learningTip": "Pola baku pencegahan: prevent / prohibit / discourage + someone + from + V-ing.",
+    "ieltsSkill": "Prepositional Verb Patterns"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: The company invested heavily in renewable energy _____ spite of persistent fluctuations in global fossil fuel tariffs.",
+    "choices": [
+      "although",
+      "despite",
+      "in",
+      "even"
+    ],
+    "correctIndex": 2,
+    "explanation": "Frasa preposisi konsesif baku adalah 'in spite of' (meskipun/terlepas dari).",
+    "learningTip": "Bedakan: 'in spite of' (tiga kata dengan in dan of) setara dengan 'despite' (tanpa of).",
+    "ieltsSkill": "Concessive Prepositional Phrases"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: The newly ratified multilateral trade accord is highly conducive _____ sustainable economic diversification.",
+    "choices": [
+      "for",
+      "to",
+      "with",
+      "in"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kata sifat 'conducive' secara baku berkolokasi dengan preposisi 'to' ('conducive to economic growth').",
+    "learningTip": "Academic Lexicon: conducive to = helping to produce or facilitate a favorable outcome.",
+    "ieltsSkill": "Advanced Prepositional Collocations"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: Academic reviewers voiced profound skepticism _____ the methodological validity of the unverified clinical trial.",
+    "choices": [
+      "about",
+      "towards",
+      "with",
+      "upon"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kata benda 'skepticism' berpasangan dengan preposisi 'about' atau 'over' terkait hal yang diragukan.",
+    "learningTip": "Collocation: express skepticism about/over an empirical claim.",
+    "ieltsSkill": "Advanced Noun + Preposition Patterns"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: The supreme court's landmark ruling sets a permanent precedent _____ future intellectual property litigation.",
+    "choices": [
+      "with",
+      "to",
+      "on",
+      "for"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kolokasi hukum baku adalah 'set a precedent for' (menciptakan yurisprudensi atau preseden hukum bagi).",
+    "learningTip": "Legal collocation: set / establish a precedent for future jurisprudence.",
+    "ieltsSkill": "Jurisprudential Collocations"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "fill_blank",
+    "prompt": "Complete the sentence: The minister's abrupt resignation was widely interpreted as tantamount _____ an admission of ethical impropriety.",
+    "choices": [
+      "as",
+      "with",
+      "to",
+      "for"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kata sifat 'tantamount' berpasangan secara eksklusif dengan preposisi 'to' ('tantamount to' = setara/sama nilainya dengan).",
+    "learningTip": "C2 Vocabulary: tantamount to = virtually equivalent to.",
+    "ieltsSkill": "Formal High-Register Collocations"
+  },
+  {
+    "level": "A1",
+    "ieltsTarget": 4.5,
+    "type": "listening",
+    "context": "Receptionist: Good morning, City Sports Centre. Can I help you with our fitness classes?\nCaller: Hello, yes. I would like to book a beginner swimming lesson for Saturday.\nReceptionist: Certainly. The Saturday beginner class starts at 10:30 AM in Pool Three.\nCaller: Great. And how much is the registration fee for new members?\nReceptionist: The lesson fee is twelve pounds per session, or forty-five pounds for a monthly pass.\nCaller: Perfect. I will book the single session for twelve pounds, please.",
+    "prompt": "According to the receptionist, how much does a single beginner swimming lesson cost?",
+    "choices": [
+      "Forty-five pounds",
+      "Twelve pounds",
+      "Ten pounds",
+      "Twenty pounds"
+    ],
+    "correctIndex": 1,
+    "explanation": "Resepsionis menegaskan bahwa biaya satu sesi latihan adalah 12 pounds ('twelve pounds per session').",
+    "learningTip": "Fokus pada angka tarif yang dipilih penelepon di akhir percakapan.",
+    "ieltsSkill": "Listening for Numerical Details"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "listening",
+    "context": "Clerk: North Railway Information desk. How may I assist you with your journey today?\nPassenger: Hello. I need to take the afternoon express train to Cambridge.\nClerk: The next direct service departs from Platform 4 at 2:15 PM.\nPassenger: Is there catering available on board the train?\nClerk: Yes, a buffet car serving hot coffee, sandwiches, and refreshments is located in Carriage C.\nPassenger: Thank you very much. I will head over to Platform 4 right away.",
+    "prompt": "From which platform does the Cambridge express train depart?",
+    "choices": [
+      "Platform 4",
+      "Platform 2",
+      "Platform 15",
+      "Platform 3"
+    ],
+    "correctIndex": 0,
+    "explanation": "Petugas menyatakan kereta berangkat dari Peron 4 ('Platform 4 at 2:15 PM').",
+    "learningTip": "Bedakan nomor peron (Platform 4) dan waktu keberangkatan (2:15).",
+    "ieltsSkill": "Listening for Key Identifiers"
+  },
+  {
+    "level": "A2",
+    "ieltsTarget": 5,
+    "type": "listening",
+    "context": "Librarian: Campus Library Desk, good afternoon. Are you returning course textbooks?\nStudent: Hi, I want to reserve one of the private group study pods for tomorrow morning.\nLibrarian: Certainly. Pod B on the third floor is available from 9:00 AM until 11:30 AM.\nStudent: How many students are allowed inside Pod B?\nLibrarian: The pod accommodates a maximum of six students to maintain quiet study standards.\nStudent: That fits our study group of four perfectly. Please reserve Pod B for us.",
+    "prompt": "What is the maximum capacity of the private study pod?",
+    "choices": [
+      "Ten students",
+      "Four students",
+      "Eight students",
+      "Six students"
+    ],
+    "correctIndex": 3,
+    "explanation": "Pustakawan menjelaskan bahwa kapasitas maksimal pod belajar adalah enam mahasiswa ('maximum of six students').",
+    "learningTip": "Jangan terkecoh jumlah anggota kelompok penanya (empat) dengan batas kapasitas maksimal pod (enam).",
+    "ieltsSkill": "Distinguishing Distractors"
+  },
+  {
+    "level": "B1",
+    "ieltsTarget": 6,
+    "type": "listening",
+    "context": "Officer: University Housing Bureau, how can I assist you with your flat allocation?\nStudent: Hello, I received my accommodation confirmation for St. Jude's Hall, but I wanted to verify the tenancy duration.\nOfficer: Certainly. Your standard contract covers 38 weeks, beginning on the fourteenth of September.\nStudent: Does the weekly rent of one hundred and forty pounds include high-speed Wi-Fi and utility bills?\nOfficer: Yes, heating, water, and wireless internet are fully covered. You only pay extra if you use the communal laundry machines.\nStudent: That clarifies everything. Thank you for your assistance.",
+    "prompt": "According to the housing officer, what is excluded from the standard rent fee?",
+    "choices": [
+      "Water usage and sanitation",
+      "Heating and winter electricity",
+      "Using the communal laundry machines",
+      "High-speed wireless internet"
+    ],
+    "correctIndex": 2,
+    "explanation": "Petugas menegaskan bahwa sewa mencakup semua utilitas kecuali mesin cuci bersama ('only pay extra if you use the communal laundry machines').",
+    "learningTip": "Perhatikan kata kunci pengecualian seperti 'only pay extra if...'.",
+    "ieltsSkill": "Listening for Exceptions"
+  },
+  {
+    "level": "B2",
+    "ieltsTarget": 6.5,
+    "type": "listening",
+    "context": "Adviser: Postgraduate Careers Centre. How can I help with your industry placement application?\nCandidate: Hi, I am preparing my CV for the automotive engineering internship in Birmingham.\nAdviser: Excellent company choice. Please ensure your technical portfolio highlights CAD modelling and embedded systems.\nCandidate: Is there a formal deadline for submitting the portfolio and cover letter?\nAdviser: Yes, applications close strictly on Friday, the twenty-eighth of October at 5:00 PM. Portfolios received past that deadline cannot be forwarded to the hiring committee.\nCandidate: Understood. I will submit all documents by the twenty-sixth to avoid delays.",
+    "prompt": "When is the final deadline for the internship application?",
+    "choices": [
+      "Wednesday, 26th of October at 5:00 PM",
+      "Friday, 28th of October at 5:00 PM",
+      "Monday, 31st of October at midnight",
+      "Friday, 14th of October at noon"
+    ],
+    "correctIndex": 1,
+    "explanation": "Penasihat karir menegaskan batas akhir pendaftaran adalah Jumat, 28 Oktober pukul 17.00.",
+    "learningTip": "Bedakan batas akhir resmi (28 Oktober) dengan rencana pribadi kandidat untuk mengirim lebih awal (26 Oktober).",
+    "ieltsSkill": "Identifying Official Deadlines vs Personal Plans"
+  },
+  {
+    "level": "C1",
+    "ieltsTarget": 7.5,
+    "type": "listening",
+    "context": "Interviewer: Professor Vance, your recent monograph on urban heat mitigation has sparked intense debate among municipal planners. What core mechanism drives the microclimate cooling in your pilot district?\nProfessor Vance: Well, conventional thinking attributed urban cooling primarily to reflective whitewashed roofs. However, our empirical micro-sensors revealed that evapotranspiration from dense multi-layered tree canopies delivered nearly seventy percent of the total temperature drop, whereas surface albedo contributed less than twenty percent.\nInterviewer: So canopy density far outstripped surface reflection in actual cooling efficacy?\nProfessor Vance: Precisely. Without strategic vegetative shading, reflective surfaces merely redirect radiant thermal energy into adjacent pedestrian street canyons.\nInterviewer: Does that mean high-albedo materials have negligible value in city planning?\nProfessor Vance: Not negligible, but strictly supplementary; tree canopy shade must remain the foundational priority.",
+    "prompt": "According to Professor Vance, what was the primary contributor to microclimate cooling in the study?",
+    "choices": [
+      "Evapotranspiration from dense tree canopies",
+      "Reflective whitewashed building surfaces",
+      "Underground geothermal ventilation conduits",
+      "Artificial municipal misting installations"
+    ],
+    "correctIndex": 0,
+    "explanation": "Profesor Vance menjelaskan bahwa evapotranspirasi kanopi pohon menyumbang hampir 70% penurunan suhu, jauh melampaui efek refleksi permukaan.",
+    "learningTip": "Dengarkan kontras antara 'conventional thinking' (persepsi awal) dengan 'empirical findings' (fakta yang terbukti).",
+    "ieltsSkill": "Understanding Academic Findings and Nuance"
+  },
+  {
+    "level": "C2",
+    "ieltsTarget": 8.5,
+    "type": "listening",
+    "context": "Moderator: Welcome to the Oxford Jurisprudence Symposium. Today we examine constitutional interpretation in the era of artificial intelligence. Lord Justice Sterling, how should appellate judiciaries approach algorithmic adjudication tools?\nLord Sterling: In assessing automated evidentiary synthesis, courts must guard vigilantly against what I term the 'fallacy of computational neutrality'. While algorithms simulate objective empirical deduction, their predictive matrices inevitably encode the epistemological biases and normative assumptions of their human architects.\nModerator: So procedural transparency alone is insufficient to guarantee equitable due process?\nLord Sterling: Absolutely. Transparency without rigorous human qualitative cross-examination reduces judicial oversight to a ceremonial rubber stamp. The ultimate adjudicative responsibility must remain anchored in human conscience and contextual moral discernment.\nModerator: Could statutory oversight boards adequately address these machine biases?\nLord Sterling: Statutory boards assist, but constitutional justice ultimately requires judicial human deliberation.",
+    "prompt": "What primary hazard does Lord Sterling identify regarding algorithmic adjudication?",
+    "choices": [
+      "Machine models eliminate the need for legal representation in court",
+      "Computational systems operate too slowly for appellate court dockets",
+      "Digital algorithms completely refuse to comply with statutory legal codes",
+      "Algorithms inevitably reflect the subjective biases of their human designers"
+    ],
+    "correctIndex": 3,
+    "explanation": "Lord Sterling menyatakan bahaya utama adalah anggapan netralitas palsu, karena algoritma selalu menyerap bias epistemologis dan asumsi normatif para perancangnya.",
+    "learningTip": "Pada IELTS Band 8.5 / C2, cermati argumen filosofis tingkat tinggi seperti 'fallacy of computational neutrality'.",
+    "ieltsSkill": "Interpreting Abstract Juridical Critiques"
+  }
+]

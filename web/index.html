@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Latihan bahasa Inggris personal untuk persiapan IELTS.">
+  <title>Ruang Kata — IELTS Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+  <script src="/learning.js" defer></script>
+  <script src="/auth.js" defer></script>
+</head>
+<body>
+  <div class="session-gate" id="session-gate" role="status">
+    <span class="session-gate-mark" aria-hidden="true">R</span>
+    <span>Menyiapkan ruang belajar…</span>
+  </div>
+
+  <section class="auth-shell" id="auth-shell" aria-labelledby="auth-title" hidden>
+    <div class="auth-story">
+      <a class="auth-brand" href="/" aria-label="Ruang Kata">
+        <span class="brand-mark" aria-hidden="true">R</span><span>Ruang Kata</span>
+      </a>
+      <div class="auth-promise">
+        <p class="eyebrow">PERSONAL IELTS WORKSPACE</p>
+        <h1 id="auth-title">Latihan kecil yang tahu <span>harus kembali ke mana.</span></h1>
+        <p>Kerjakan soal dari bank tersimpan, pahami kesalahan, lalu temui kembali materi itu pada waktu review yang tepat.</p>
+      </div>
+      <ol class="auth-steps" aria-label="Alur belajar">
+        <li><span>01</span> Latihan dari bank soal</li>
+        <li><span>02</span> Riwayat pribadi tersimpan</li>
+        <li><span>03</span> Review mengikuti kelemahan</li>
+      </ol>
+    </div>
+    <div class="auth-entry">
+      <div class="auth-card">
+        <div class="auth-tabs" role="tablist" aria-label="Akses akun">
+          <button type="button" role="tab" aria-selected="true" data-auth-tab="login">Masuk</button>
+          <button type="button" role="tab" aria-selected="false" data-auth-tab="register">Daftar</button>
+        </div>
+        <form class="auth-form" id="login-form" data-auth-panel="login" novalidate>
+          <div><p class="eyebrow">SELAMAT DATANG KEMBALI</p><h2>Lanjut dari catatan terakhir.</h2></div>
+          <label for="login-email">Email<input id="login-email" name="email" type="email" autocomplete="email" maxlength="190" required placeholder="nama@email.com"><small>Email yang dipakai saat mendaftar.</small></label>
+          <label for="login-password">Password<input id="login-password" name="password" type="password" autocomplete="current-password" minlength="10" maxlength="128" required placeholder="Minimal 10 karakter"><small>Masukkan password akun Anda.</small></label>
+          <button class="btn btn--primary" type="submit"><span>Masuk ke workspace</span><span class="spinner" aria-hidden="true"></span></button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+        <form class="auth-form" id="register-form" data-auth-panel="register" hidden novalidate>
+          <div><p class="eyebrow">AKUN BELAJAR BARU</p><h2>Mulai ruang belajar Anda.</h2></div>
+          <label for="register-name">Nama<input id="register-name" name="name" autocomplete="name" minlength="2" maxlength="80" required placeholder="Nama Anda"><small>Nama ini tampil di workspace.</small></label>
+          <label for="register-email">Email<input id="register-email" name="email" type="email" autocomplete="email" maxlength="190" required placeholder="nama@email.com"><small>Gunakan email yang dapat Anda ingat.</small></label>
+          <label for="register-password">Password<input id="register-password" name="password" type="password" autocomplete="new-password" minlength="10" maxlength="128" required placeholder="Minimal 10 karakter"><small>Minimal 10 karakter, satu huruf, dan satu angka.</small></label>
+          <label for="register-confirm">Ulangi password<input id="register-confirm" name="confirmPassword" type="password" autocomplete="new-password" minlength="10" maxlength="128" required placeholder="Ketik sekali lagi"><small>Harus sama dengan password di atas.</small></label>
+          <button class="btn btn--primary" type="submit"><span>Buat akun &amp; mulai</span><span class="spinner" aria-hidden="true"></span></button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <p class="auth-note">Akun pertama pada instalasi ini otomatis menjadi admin bank soal.</p>
+    </div>
+  </section>
+
+  <div id="product-shell" hidden>
+  <header class="nav-wrap">
+    <nav class="nav-pill" aria-label="Navigasi utama">
+      <button class="brand" type="button" data-action="home" aria-label="Kembali ke beranda">
+        <span class="word-character" aria-hidden="true"><span></span></span>
+        <span>Ruang Kata</span>
+      </button>
+      <div class="nav-actions">
+        <div class="nav-primary" role="group" aria-label="Tujuan utama">
+          <button class="header-action nav-link" type="button" data-action="learning" aria-label="Buka pusat belajar" title="Pusat belajar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5Zm16 0A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5Z"/></svg>
+            <span class="nav-label">Pusat belajar</span>
+          </button>
+          <button class="header-action nav-link" type="button" data-action="history" aria-label="Buka riwayat latihan" title="Riwayat">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.6M4 4v4.6h4.6M12 7.5V12l3 2"/></svg>
+            <span class="nav-label">Riwayat</span>
+          </button>
+          <a class="header-action nav-link" id="admin-page-link" href="/admin" aria-label="Buka katalog soal admin" title="Katalog soal" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v13H4zM8 9h8M8 13h5"/></svg>
+            <span class="nav-label">Katalog soal</span>
+          </a>
+        </div>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <div class="nav-utilities" role="group" aria-label="Akun dan tampilan">
+          <span class="account-chip"><span id="account-initial">U</span><span><strong id="account-name">Pengguna</strong><small id="account-role">Learner</small></span></span>
+          <button class="header-action icon-button" type="button" data-action="theme" aria-label="Ganti tema warna" title="Ganti tema">
+            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"/></svg>
+          </button>
+          <button class="header-action icon-button logout-button" type="button" id="logout-button" aria-label="Keluar dari akun" title="Keluar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5H5v14h5M14 8l4 4-4 4M9 12h9"/></svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="app" tabindex="-1">
+    <section class="setup-screen screen" id="setup-screen">
+      <div class="hero-shell">
+        <div class="hero-copy reveal">
+          <p class="stage-label">1.0 · ATUR LATIHAN</p>
+          <h1>English yang tumbuh karena <span class="ink-mark">dipakai.</span></h1>
+          <p class="hero-lead">Buat satu sesi kecil. Jawab dengan tenang. Simpan setiap kesalahan untuk dipelajari lagi sebelum IELTS.</p>
+        </div>
+        <aside class="today-note reveal" aria-label="Prinsip latihan">
+          <span class="note-dot" aria-hidden="true"></span>
+          <p>Nilai menunjukkan posisi. Pembahasan menunjukkan langkah berikutnya.</p>
+        </aside>
+      </div>
+
+      <form class="practice-form" id="practice-form" novalidate>
+        <div class="form-main">
+          <div class="field-group">
+            <label for="level">Level saat ini</label>
+            <div class="select-shell" data-mark="Aa">
+              <select id="level" name="level">
+                <option value="A1">A1 · Pemula</option><option value="A2">A2 · Dasar</option>
+                <option value="B1" selected>B1 · Menengah</option><option value="B2">B2 · Menengah atas</option>
+                <option value="C1">C1 · Mahir</option><option value="C2">C2 · Sangat mahir</option>
+              </select>
+            </div>
+            <p class="field-help">Bank soal tersimpan disaring berdasarkan level ini.</p>
+          </div>
+
+          <div class="field-group">
+            <label for="ielts-target">Target IELTS</label>
+            <div class="select-shell select-shell--wide-mark" data-mark="IELTS">
+              <select id="ielts-target" name="ieltsTarget">
+                <option>4.0</option><option>4.5</option><option>5.0</option><option>5.5</option><option>6.0</option>
+                <option selected>6.5</option><option>7.0</option><option>7.5</option><option>8.0</option><option>8.5</option><option>9.0</option>
+              </select>
+            </div>
+            <p class="field-help">Soal bergaya persiapan IELTS, bukan salinan soal resmi.</p>
+          </div>
+
+          <fieldset class="field-group type-field">
+            <legend>Tipe latihan</legend>
+            <div class="choice-chips">
+              <label><input type="checkbox" name="types" value="grammar" checked><span>Grammar</span></label>
+              <label><input type="checkbox" name="types" value="vocabulary" checked><span>Vocabulary</span></label>
+              <label><input type="checkbox" name="types" value="reading" checked><span>Reading</span></label>
+              <label><input type="checkbox" name="types" value="fill_blank" checked><span>Fill the blank</span></label>
+              <label><input type="checkbox" name="types" value="listening" checked><span>Listening</span></label>
+              <label><input type="checkbox" name="types" value="error_identification" checked><span>Error Identification</span></label>
+            </div>
+            <p class="field-help" id="types-help">Pilih minimal satu tipe.</p>
+          </fieldset>
+
+          <fieldset class="field-group source-field">
+            <legend>Sumber soal</legend>
+            <div class="source-options">
+              <label>
+                <input type="radio" name="questionMode" value="bank" checked>
+                <span><strong>Ambil dari bank</strong><small>Cepat dan tidak memakai API.</small></span>
+              </label>
+              <label>
+                <input type="radio" name="questionMode" value="deepseek">
+                <span><strong>Buat soal baru</strong><small>DeepSeek membuat lalu menyimpannya ke bank.</small></span>
+              </label>
+            </div>
+            <p class="field-help">Soal baru tetap tersedia untuk sesi berikutnya.</p>
+          </fieldset>
+
+          <div class="field-group range-field">
+            <div class="label-row"><label for="count">Jumlah soal</label><output id="count-output" for="count">10 soal</output></div>
+            <div class="range-shell">
+              <input type="range" id="count" name="count" min="5" max="30" step="5" value="10">
+            </div>
+            <div class="range-stops" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span></div>
+          </div>
+
+          <div class="field-group">
+            <label for="duration">Waktu latihan</label>
+            <div class="select-shell" data-mark="MIN">
+              <select id="duration" name="durationMinutes">
+                <option value="5">5 menit</option><option value="10">10 menit</option><option value="15" selected>15 menit</option>
+                <option value="20">20 menit</option><option value="30">30 menit</option><option value="45">45 menit</option><option value="60">60 menit</option>
+              </select>
+            </div>
+            <p class="field-help">Timer tetap berjalan bila halaman ditutup. Sesi dapat dilanjutkan dari riwayat.</p>
+          </div>
+        </div>
+
+        <div class="form-commit">
+          <div class="session-summary" aria-live="polite">
+            <p class="summary-title">Sesi berikutnya</p>
+            <strong id="summary-count">10 pertanyaan</strong>
+            <span id="summary-detail">B1 · target 6.5 · 15 menit</span>
+          </div>
+          <button class="btn btn--pear btn--lg" type="submit" id="generate-button">
+            <span class="btn-label">Mulai latihan</span><span class="spinner" aria-hidden="true"></span>
+          </button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <div class="workflow-rail" aria-label="Alur belajar">
+        <div class="workflow-step is-current"><span>1.0</span><p><strong>Atur</strong><br>Pilih beban yang masuk akal.</p></div>
+        <div class="workflow-step"><span>2.0</span><p><strong>Kerjakan</strong><br>Jawaban tersimpan per soal.</p></div>
+        <div class="workflow-step"><span>3.0</span><p><strong>Pahami</strong><br>Buka kembali alasan dan tipsnya.</p></div>
+      </div>
+    </section>
+
+    <section class="learning-screen screen" id="learning-screen" hidden>
+      <header class="learning-head">
+        <div><h1>Meja belajar Anda.</h1><p>Data latihan menentukan apa yang perlu dipelajari berikutnya.</p></div>
+        <p class="learning-note">Skor di sini adalah catatan perkembangan pribadi, bukan hasil resmi IELTS.</p>
+      </header>
+
+      <nav class="tool-tabs" aria-label="Alat belajar" role="tablist">
+        <button type="button" role="tab" aria-selected="true" aria-controls="tool-dashboard" data-tool="dashboard">Ringkasan</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tool-formulas" data-tool="formulas">Rumus</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tool-review" data-tool="review">Review</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tool-vocabulary" data-tool="vocabulary">Kosakata</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tool-writing" data-tool="writing">Writing</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tool-diagnostic" data-tool="diagnostic">Diagnostik</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tool-reading" data-tool="reading">Reading</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tool-bank" data-tool="bank" id="bank-tab" hidden>Bank soal</button>
+      </nav>
+
+      <section class="tool-panel" id="tool-dashboard" role="tabpanel" data-panel="dashboard">
+        <div class="panel-head"><div><h2>Apa yang perlu dipelajari?</h2><p>Ringkasan ini dihitung dari sesi yang sudah selesai.</p></div><button class="btn btn--soft" type="button" id="refresh-dashboard">Muat ulang</button></div>
+        <div class="metric-grid" id="dashboard-metrics" aria-live="polite"><p class="empty-copy">Memuat ringkasan…</p></div>
+        <div class="insight-layout"><section><h3>Kelemahan utama</h3><div id="weakness-list" class="weakness-list"></div></section><section><h3>Tujuh hari terakhir</h3><div id="weekly-list" class="weekly-list"></div></section></div>
+        <section class="skill-pulse" aria-labelledby="skill-pulse-title"><div class="section-kicker"><p class="eyebrow">PETA PERKEMBANGAN</p><h3 id="skill-pulse-title">Skill pulse</h3></div><div id="skill-pulse-list" class="skill-pulse-list"><p class="empty-copy">Selesaikan latihan untuk melihat peta skill.</p></div></section>
+      </section>
+
+      <section class="tool-panel formulas-panel" id="tool-formulas" role="tabpanel" data-panel="formulas" hidden>
+        <div class="panel-head grammar-desk-head"><div><p class="eyebrow">GRAMMAR DESK</p><h2>Rumus yang bisa langsung dipakai.</h2><p>Lembar kerja ringkas untuk memilih struktur, memeriksa bentuk kata kerja, dan menyusun kalimat IELTS dengan lebih sadar.</p></div><p class="grammar-desk-note">Lipat topik yang tidak sedang dipakai; sisakan pola yang ingin diperiksa.</p></div>
+        <div class="formula-grid">
+          <details class="formula-card" open><summary><span class="formula-number">01</span><span class="formula-heading"><small>Time &amp; aspect</small><span class="formula-title">Basic tenses</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>Present simple</dt><dd><span class="formula-pattern">S + V1(s/es) · habits/facts</span><span class="formula-example"><strong>Contoh</strong> She studies English every evening.</span></dd></div><div><dt>Past simple</dt><dd><span class="formula-pattern">S + V2 · finished past</span><span class="formula-example"><strong>Contoh</strong> They completed the survey yesterday.</span></dd></div><div><dt>Future</dt><dd><span class="formula-pattern">S + will + V1 · prediction/decision</span><span class="formula-example"><strong>Contoh</strong> The population will increase next year.</span></dd></div><div><dt>Present perfect</dt><dd><span class="formula-pattern">S + have/has + V3 · experience/result</span><span class="formula-example"><strong>Contoh</strong> Researchers have discovered a safer method.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> menempatkan kebiasaan, kejadian selesai, prediksi, atau hasil pada waktunya.</p></div></details>
+          <details class="formula-card" open><summary><span class="formula-number">02</span><span class="formula-heading"><small>Time in progress</small><span class="formula-title">Continuous &amp; perfect</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>Present continuous</dt><dd><span class="formula-pattern">S + am/is/are + V-ing</span><span class="formula-example"><strong>Contoh</strong> The city is building a new library.</span></dd></div><div><dt>Past continuous</dt><dd><span class="formula-pattern">S + was/were + V-ing</span><span class="formula-example"><strong>Contoh</strong> Students were taking the exam at noon.</span></dd></div><div><dt>Past perfect</dt><dd><span class="formula-pattern">S + had + V3 · before another past</span><span class="formula-example"><strong>Contoh</strong> The train had left before we arrived.</span></dd></div><div><dt>Future perfect</dt><dd><span class="formula-pattern">S + will have + V3 · by + future time</span><span class="formula-example"><strong>Contoh</strong> By 2030, emissions will have fallen significantly.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> durasi atau urutan waktu lebih penting daripada peristiwa tunggal.</p></div></details>
+          <details class="formula-card" open><summary><span class="formula-number">03</span><span class="formula-heading"><small>Focus &amp; agency</small><span class="formula-title">Passive voice</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>General</dt><dd><span class="formula-pattern">Object + be + V3 (+ by subject)</span><span class="formula-example"><strong>Contoh</strong> The results can be verified by independent experts.</span></dd></div><div><dt>Present</dt><dd><span class="formula-pattern">am/is/are + V3</span><span class="formula-example"><strong>Contoh</strong> Solar energy is used in many homes.</span></dd></div><div><dt>Past</dt><dd><span class="formula-pattern">was/were + V3</span><span class="formula-example"><strong>Contoh</strong> The bridge was opened in 2018.</span></dd></div><div><dt>Perfect</dt><dd><span class="formula-pattern">has/have/had + been + V3</span><span class="formula-example"><strong>Contoh</strong> Several solutions have been proposed.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> proses atau hasil lebih penting daripada pelakunya.</p></div></details>
+          <details class="formula-card" open><summary><span class="formula-number">04</span><span class="formula-heading"><small>Cause &amp; possibility</small><span class="formula-title">Conditionals</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>Zero</dt><dd><span class="formula-pattern">If + present, present · facts</span><span class="formula-example"><strong>Contoh</strong> If water reaches 100°C, it boils.</span></dd></div><div><dt>First</dt><dd><span class="formula-pattern">If + present, will + V1 · real future</span><span class="formula-example"><strong>Contoh</strong> If the policy changes, prices will fall.</span></dd></div><div><dt>Second</dt><dd><span class="formula-pattern">If + past, would + V1 · hypothetical</span><span class="formula-example"><strong>Contoh</strong> If I lived closer, I would cycle to work.</span></dd></div><div><dt>Third</dt><dd><span class="formula-pattern">If + had + V3, would have + V3 · past unreal</span><span class="formula-example"><strong>Contoh</strong> If they had prepared, they would have succeeded.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> membedakan fakta, kemungkinan nyata, hipotesis, dan penyesalan.</p></div></details>
+          <details class="formula-card" open><summary><span class="formula-number">05</span><span class="formula-heading"><small>Stance &amp; certainty</small><span class="formula-title">Modals</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>Ability</dt><dd><span class="formula-pattern">can/could + V1</span><span class="formula-example"><strong>Contoh</strong> Online courses can improve access to education.</span></dd></div><div><dt>Advice</dt><dd><span class="formula-pattern">should/ought to + V1</span><span class="formula-example"><strong>Contoh</strong> Governments should invest in public transport.</span></dd></div><div><dt>Obligation</dt><dd><span class="formula-pattern">must/have to + V1</span><span class="formula-example"><strong>Contoh</strong> Applicants must submit the form by Friday.</span></dd></div><div><dt>Past possibility</dt><dd><span class="formula-pattern">may/might/could have + V3</span><span class="formula-example"><strong>Contoh</strong> The decline may have resulted from higher costs.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> menunjukkan kemampuan, saran, kewajiban, atau tingkat kepastian.</p></div></details>
+          <details class="formula-card" open><summary><span class="formula-number">06</span><span class="formula-heading"><small>Sentence links</small><span class="formula-title">Clauses</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>Relative</dt><dd><span class="formula-pattern">who (person) · which (thing) · where (place)</span><span class="formula-example"><strong>Contoh</strong> Students who revise regularly perform better.</span></dd></div><div><dt>Reason</dt><dd><span class="formula-pattern">because/since + clause</span><span class="formula-example"><strong>Contoh</strong> Many people relocate because jobs are limited.</span></dd></div><div><dt>Contrast</dt><dd><span class="formula-pattern">although/while + clause</span><span class="formula-example"><strong>Contoh</strong> Although the plan is costly, it is effective.</span></dd></div><div><dt>Result</dt><dd><span class="formula-pattern">so + adjective + that + clause</span><span class="formula-example"><strong>Contoh</strong> The road was so busy that buses were delayed.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> menghubungkan detail tanpa menumpuk kalimat pendek.</p></div></details>
+          <details class="formula-card" open><summary><span class="formula-number">07</span><span class="formula-heading"><small>Verb patterns</small><span class="formula-title">Gerund &amp; infinitive</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>After preposition</dt><dd><span class="formula-pattern">preposition + V-ing</span><span class="formula-example"><strong>Contoh</strong> She is interested in studying abroad.</span></dd></div><div><dt>Purpose</dt><dd><span class="formula-pattern">to + V1</span><span class="formula-example"><strong>Contoh</strong> The council raised taxes to improve public services.</span></dd></div><div><dt>Enjoy/avoid</dt><dd><span class="formula-pattern">enjoy/avoid + V-ing</span><span class="formula-example"><strong>Contoh</strong> Many commuters avoid driving during rush hour.</span></dd></div><div><dt>Want/need</dt><dd><span class="formula-pattern">want/need + to + V1</span><span class="formula-example"><strong>Contoh</strong> Companies need to reduce plastic waste.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> menentukan bentuk verb setelah preposition atau verb utama.</p></div></details>
+          <details class="formula-card" open><summary><span class="formula-number">08</span><span class="formula-heading"><small>Data language</small><span class="formula-title">Comparison &amp; quantity</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>Comparative</dt><dd><span class="formula-pattern">adjective-er / more + adjective + than</span><span class="formula-example"><strong>Contoh</strong> Rail travel is more efficient than air travel.</span></dd></div><div><dt>Superlative</dt><dd><span class="formula-pattern">the adjective-est / most + adjective</span><span class="formula-example"><strong>Contoh</strong> July recorded the highest temperature.</span></dd></div><div><dt>Countable</dt><dd><span class="formula-pattern">many/few/fewer + plural noun</span><span class="formula-example"><strong>Contoh</strong> Fewer students chose science subjects.</span></dd></div><div><dt>Uncountable</dt><dd><span class="formula-pattern">much/little/less + noun</span><span class="formula-example"><strong>Contoh</strong> The new process consumes less energy.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> membandingkan kategori dan menjelaskan jumlah dalam Writing Task 1.</p></div></details>
+          <details class="formula-card" open><summary><span class="formula-number">09</span><span class="formula-heading"><small>Reference &amp; count</small><span class="formula-title">Articles &amp; nouns</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>General plural</dt><dd><span class="formula-pattern">Ø + plural noun</span><span class="formula-example"><strong>Contoh</strong> Books help children develop empathy.</span></dd></div><div><dt>Specific</dt><dd><span class="formula-pattern">the + noun</span><span class="formula-example"><strong>Contoh</strong> The study examined 300 households.</span></dd></div><div><dt>First mention</dt><dd><span class="formula-pattern">a/an + singular noun</span><span class="formula-example"><strong>Contoh</strong> A new hospital opened near the station.</span></dd></div><div><dt>Countable</dt><dd><span class="formula-pattern">a/an, many, few · uncountable: much, little</span><span class="formula-example"><strong>Contoh</strong> Few cars produce as little pollution as this model.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> memperkenalkan, merujuk kembali, atau menghitung sebuah noun.</p></div></details>
+          <details class="formula-card" open><summary><span class="formula-number">10</span><span class="formula-heading"><small>Writing assembly</small><span class="formula-title">IELTS sentence frames</span></span><span class="formula-action" aria-hidden="true"></span></summary><div class="formula-body"><dl><div><dt>Opinion</dt><dd><span class="formula-pattern">It is widely believed that + clause.</span><span class="formula-example"><strong>Contoh</strong> It is widely believed that education reduces inequality.</span></dd></div><div><dt>Evidence</dt><dd><span class="formula-pattern">This suggests that + clause.</span><span class="formula-example"><strong>Contoh</strong> This suggests that flexible schedules improve productivity.</span></dd></div><div><dt>Contrast</dt><dd><span class="formula-pattern">Although X, Y. / X, whereas Y.</span><span class="formula-example"><strong>Contoh</strong> Urban sales rose, whereas rural sales remained stable.</span></dd></div><div><dt>Cause/result</dt><dd><span class="formula-pattern">As a result, + clause. / This leads to + noun.</span><span class="formula-example"><strong>Contoh</strong> Fuel prices increased. As a result, fewer people drove.</span></dd></div></dl><p class="formula-use"><strong>Pakai saat</strong> draft membutuhkan hubungan ide yang jelas, bukan frasa hafalan semata.</p></div></details>
+        </div>
+      </section>
+
+      <section class="tool-panel" id="tool-review" role="tabpanel" data-panel="review" hidden>
+        <div class="panel-head"><div><h2>Review pada waktu yang tepat.</h2><p>Jawaban diulang setelah 1, 3, 7, lalu 14 hari sesuai penguasaan.</p></div><button class="btn btn--pear" type="button" id="start-due-review">Mulai review</button></div>
+        <div class="review-due-list" id="review-due-list"><p class="empty-copy">Memuat jadwal review…</p></div>
+      </section>
+
+      <section class="tool-panel" id="tool-vocabulary" role="tabpanel" data-panel="vocabulary" hidden>
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">PERSONAL LEXICAL NOTEBOOK</p>
+            <h2>Kata yang ingin benar-benar dipakai.</h2>
+            <p>Simpan arti, contoh kalimat, dan collocation sebagai satu kesatuan kosakata aktif IELTS.</p>
+          </div>
+        </div>
+        <form class="vocab-form" id="vocab-form">
+          <div class="vocab-entry-head">
+            <div class="vocab-entry-title">
+              <span class="vocab-entry-mark" aria-hidden="true">Aa</span>
+              <div>
+                <span class="eyebrow">ENTRI KOSAKATA BARU</span>
+                <p class="vocab-entry-sub">Catat kata target dan konteks alaminya</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="vocab-main-row">
+            <label class="vocab-field vocab-word-field">
+              <span class="vocab-label-text">Kata atau Frasa Utama <strong class="req-star">*</strong></span>
+              <div class="input-glow-shell">
+                <input name="word" maxlength="160" required placeholder="Contoh: substantial, mitigate, feasible" autocomplete="off" spellcheck="false">
+              </div>
+              <small class="vocab-field-hint">Kata dasar atau ekspresi akademik target</small>
+            </label>
+
+            <label class="vocab-field vocab-collocation-field">
+              <span class="vocab-label-text">Academic Collocation <span class="opt-tag">(opsional)</span></span>
+              <div class="input-glow-shell">
+                <input name="collocation" maxlength="255" placeholder="Contoh: substantial evidence, mitigate the risk" autocomplete="off">
+              </div>
+              <small class="vocab-field-hint">Pasangan kata baku yang sering bersanding</small>
+            </label>
+          </div>
+
+          <div class="vocab-detail-grid">
+            <label class="vocab-field">
+              <span class="vocab-label-text">Arti &amp; Definisi <strong class="req-star">*</strong></span>
+              <div class="input-glow-shell">
+                <textarea name="meaning" required placeholder="Jelaskan arti kata dalam bahasa Indonesia atau Inggris (e.g. cukup besar, bernilai penting, atau signifikan)..."></textarea>
+              </div>
+              <small class="vocab-field-hint">Tulis dengan pemahaman Anda sendiri agar mudah diingat</small>
+            </label>
+
+            <label class="vocab-field">
+              <span class="vocab-label-text">Contoh Kalimat Nyata <strong class="req-star">*</strong></span>
+              <div class="input-glow-shell">
+                <textarea name="example" required placeholder="Contoh: The new policy had a substantial impact on public health access."></textarea>
+              </div>
+              <small class="vocab-field-hint">Gunakan kata dalam kalimat lengkap bergaya IELTS</small>
+            </label>
+          </div>
+
+          <div class="vocab-form-foot">
+            <p class="form-status" id="vocab-status" role="status"></p>
+            <button class="btn btn--pear btn--md" type="submit">
+              <span class="btn-label">Simpan ke Notebook</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+
+        <div class="vocab-list-head">
+          <div class="section-kicker">
+            <p class="eyebrow">DAFTAR KOSAKATA ANDA</p>
+            <h3>Notebook Kosakata Tersimpan</h3>
+          </div>
+        </div>
+        <div class="vocab-list" id="vocab-list"></div>
+      </section>
+
+      <section class="tool-panel" id="tool-writing" role="tabpanel" data-panel="writing" hidden>
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">IELTS WRITING STUDIO</p>
+            <h2>Tulis, lalu perbaiki satu lapis.</h2>
+            <p>Latihan menulis dengan target kata IELTS, feedback terstruktur 4 kriteria, dan auto-save draft.</p>
+          </div>
+        </div>
+
+        <form class="writing-form" id="writing-form">
+          <div class="writing-brief">
+            <div class="writing-brief-header">
+              <div class="writing-type-row">
+                <label for="writing-type">Jenis Tugas IELTS</label>
+                <div class="select-shell" data-mark="TASK">
+                  <select id="writing-type" name="taskType">
+                    <option value="task2">Writing Task 2 (Essay · Min. 250 kata)</option>
+                    <option value="task1">Writing Task 1 (Report/Letter · Min. 150 kata)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="writing-task-target-badge" id="writing-task-badge">
+                <span class="badge-dot"></span>
+                <span id="writing-target-label">Target: Min 250 kata</span>
+              </div>
+            </div>
+
+            <div class="writing-prompt-card">
+              <span class="prompt-kicker">TOPIK / PROMPT</span>
+              <div class="writing-prompt" id="writing-prompt" aria-live="polite">Memuat prompt…</div>
+            </div>
+          </div>
+
+          <div class="writing-manuscript-shell">
+            <div class="writing-manuscript-toolbar">
+              <div class="toolbar-left">
+                <span class="manuscript-title">LEMBAR JAWABAN</span>
+                <span class="autosave-status" id="writing-autosave-indicator">Draft otomatis tersimpan</span>
+              </div>
+              <div class="toolbar-stats">
+                <span class="stat-pill" id="writing-stat-words"><strong>0</strong> kata</span>
+                <span class="stat-pill" id="writing-stat-paragraphs"><strong>0</strong> paragraf</span>
+                <span class="stat-pill stat-pill--goal" id="writing-stat-goal">Kurang 250 kata</span>
+              </div>
+            </div>
+
+            <div class="writing-editor-wrap">
+              <textarea id="writing-response" name="response" minlength="50" maxlength="9000" required placeholder="Type your IELTS response in English here... Focus on clear paragraph organization, cohesive transitions, and precise vocabulary." spellcheck="true"></textarea>
+            </div>
+
+            <div class="writing-progress-bar-wrap">
+              <div class="writing-progress-bar" id="writing-progress-bar" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="writing-commit">
+            <div class="writing-count-summary">
+              <span id="writing-count">0 kata</span>
+              <small id="writing-count-sub">Disarankan 250–350 kata untuk Task 2</small>
+            </div>
+            <div class="writing-actions">
+              <button class="btn btn--soft" type="button" id="save-writing-draft">Simpan draft</button>
+              <button class="btn btn--pear btn--lg" type="submit">
+                <span class="btn-label">Nilai tulisan</span>
+                <span class="spinner" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+          <p class="form-status" id="writing-status" role="status"></p>
+        </form>
+
+        <section class="writing-history" aria-labelledby="writing-history-title">
+          <div class="section-kicker">
+            <p class="eyebrow">PROGRES</p>
+            <h3 id="writing-history-title">Draft dan tulisan sebelumnya</h3>
+          </div>
+          <div id="writing-history-list" class="writing-history-list"><p class="empty-copy">Belum ada riwayat writing.</p></div>
+        </section>
+        <div class="writing-feedback" id="writing-feedback" hidden></div>
+      </section>
+
+      <section class="tool-panel" id="tool-diagnostic" role="tabpanel" data-panel="diagnostic" hidden>
+        <div class="tool-intro"><div><h2>Mulai dari peta yang jujur.</h2><p>Dua belas soal mencakup grammar, vocabulary, reading, dan fill in the blank. Hasil memberi perkiraan awal untuk menentukan fokus latihan.</p></div><button class="btn btn--pear" type="button" id="start-diagnostic">Mulai 12 soal</button></div>
+      </section>
+
+      <section class="tool-panel" id="tool-reading" role="tabpanel" data-panel="reading" hidden>
+        <div class="panel-head"><div><p class="eyebrow">READING LIBRARY</p><h2>Baca pendek, kembali ke bukti.</h2><p>Pilih bacaan sesuai level. Tandai kosakata penting, lalu jawab pertanyaan dari teksnya.</p></div></div>
+        <div class="reading-library" id="reading-library"><article class="reading-story" data-level="B1"><div class="reading-story-head"><span class="stage-label">B1 · 3 MENIT</span><span class="reading-tag">Urban life</span></div><h3>Why some cities are making room for quiet</h3><p class="reading-deck">A short report on traffic, public space, and the unexpected value of slower streets.</p><button class="btn btn--soft reading-open" type="button">Baca artikel</button><div class="reading-body" hidden><p>Several city centres have tested car-free hours at weekends. At first, shop owners feared that fewer cars would mean fewer customers. However, surveys in three districts found that visitors stayed longer and spent slightly more when streets were easier to walk through.</p><p>The trials did not remove traffic entirely. Instead, they moved deliveries to early mornings and gave buses clearer routes. City planners say the result is not a single solution, but a useful reminder that public space can serve more than one purpose.</p><div class="reading-vocab"><span>Useful words</span><mark>district</mark><mark>deliveries</mark><mark>public space</mark></div></div></article><article class="reading-story" data-level="B2"><div class="reading-story-head"><span class="stage-label">B2 · 4 MENIT</span><span class="reading-tag">Learning science</span></div><h3>Memory improves when effort is visible</h3><p class="reading-deck">Why recalling an answer can teach more than rereading the page.</p><button class="btn btn--soft reading-open" type="button">Baca artikel</button><div class="reading-body" hidden><p>Researchers often distinguish between recognition and retrieval. Recognition feels familiar when a learner sees an answer again; retrieval requires the learner to produce it without help. The second process usually feels harder, but that difficulty is part of its value.</p><p>Short quizzes, spaced review, and explaining an idea aloud all create small retrieval challenges. They also give useful feedback: a wrong answer shows exactly what needs another pass.</p><div class="reading-vocab"><span>Useful words</span><mark>retrieval</mark><mark>spaced review</mark><mark>challenge</mark></div></div></article></div>
+      </section>
+
+      <section class="tool-panel bank-panel" id="tool-bank" role="tabpanel" data-panel="bank" hidden>
+        <div class="panel-head"><div><p class="eyebrow">ADMIN</p><h2>Isi bank, lalu biarkan pengguna berlatih.</h2><p>Soal dibuat dan disimpan di sini. Memulai latihan tidak pernah memanggil AI.</p></div><div class="bank-head-actions"><a class="btn btn--soft" href="/admin">Lihat seluruh soal</a><button class="btn btn--soft" type="button" id="refresh-bank">Muat ulang</button></div></div>
+        <div class="bank-layout">
+          <form id="bank-form" class="bank-form">
+            <div class="bank-form-head"><span class="eyebrow">BATCH BUILDER</span><p>Pilih parameter satu batch soal.</p></div>
+            <label>Level<div class="select-shell" data-mark="CEFR"><select name="level"><option>A1</option><option>A2</option><option selected>B1</option><option>B2</option><option>C1</option><option>C2</option></select></div></label>
+            <label>Target IELTS<div class="select-shell select-shell--wide-mark" data-mark="BAND"><select name="ieltsTarget"><option>5.0</option><option>5.5</option><option>6.0</option><option selected>6.5</option><option>7.0</option><option>7.5</option><option>8.0</option></select></div></label>
+            <label>Jumlah<div class="select-shell" data-mark="ITEM"><select name="count"><option>8</option><option selected>10</option><option>12</option><option>16</option><option>20</option><option>50</option><option>100</option><option>500</option></select></div></label>
+            <fieldset><legend>Tipe soal</legend><div class="choice-chips"><label><input type="checkbox" name="types" value="grammar" checked><span>Grammar</span></label><label><input type="checkbox" name="types" value="vocabulary" checked><span>Vocabulary</span></label><label><input type="checkbox" name="types" value="reading" checked><span>Reading</span></label><label><input type="checkbox" name="types" value="fill_blank" checked><span>Fill blank</span></label><label><input type="checkbox" name="types" value="listening" checked><span>Listening</span></label><label><input type="checkbox" name="types" value="error_identification" checked><span>Error Identification</span></label></div></fieldset>
+            <div class="bank-submit"><button class="btn btn--primary" type="submit"><span>Tambah ke bank</span><span class="spinner" aria-hidden="true"></span></button><span>Soal tersimpan untuk sesi berikutnya.</span></div>
+            <p class="form-status" id="bank-status" role="status"></p>
+          </form>
+          <div><h3>Isi aktif</h3><div class="bank-stats" id="bank-stats"><p class="empty-copy">Memuat bank soal…</p></div></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="quiz-screen screen" id="quiz-screen" hidden>
+      <div class="quiz-head">
+        <div><p class="stage-label">2.0 · KERJAKAN</p><h2 id="quiz-heading">Satu soal pada satu waktu.</h2></div>
+        <div class="timer" id="timer" role="timer" aria-live="off"><span>Waktu</span><strong>15:00</strong></div>
+      </div>
+      <progress class="progress-track" id="progress-bar" max="1" value="0" aria-label="Kemajuan latihan"></progress>
+      <div class="quiz-layout">
+        <nav class="question-nav" id="question-nav" aria-label="Nomor soal"></nav>
+        <article class="question-panel" id="question-panel" aria-live="polite"></article>
+      </div>
+      <div class="quiz-actions">
+        <button class="btn btn--soft" type="button" id="prev-question">Sebelumnya</button>
+        <p id="save-status" role="status" aria-live="polite">Jawaban tersimpan otomatis.</p>
+        <button class="btn btn--pear" type="button" id="next-question">Soal berikutnya</button>
+      </div>
+    </section>
+
+    <section class="result-screen screen" id="result-screen" hidden>
+      <div class="result-hero">
+        <div><p class="stage-label">3.0 · PAHAMI HASIL</p><h2>Nilai adalah awal review.</h2><p id="result-message"></p></div>
+        <div class="score-orbit"><strong id="score-value">0</strong><span>/ 100</span></div>
+      </div>
+      <div class="review-list" id="review-list"></div>
+      <div class="result-actions"><button class="btn btn--pear" type="button" id="retry-questions" hidden>Latih lagi soal yang belum tepat</button><button class="btn btn--soft" type="button" data-action="home">Buat latihan baru</button><button class="btn btn--soft" type="button" data-action="history">Buka riwayat</button></div>
+    </section>
+  </main>
+
+  <footer class="foot-stmt">
+    <p class="foot-stmt-line">Sedikit latihan. Banyak yang menempel.</p>
+    <div class="foot-stmt-meta"><span>Ruang Kata</span><span>Personal IELTS practice · data tersimpan di MySQL</span></div>
+  </footer>
+  </div>
+
+  <dialog id="history-dialog" class="history-dialog">
+    <div class="dialog-head"><div><p class="stage-label">ARSIP BELAJAR</p><h2>Riwayat latihan</h2></div><button class="icon-button" id="close-history" aria-label="Tutup riwayat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+    <div class="history-list" id="history-list"><p class="empty-copy">Memuat riwayat…</p></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="alert" hidden><span></span><button type="button">Tutup</button></div>
+</body>
+</html>
