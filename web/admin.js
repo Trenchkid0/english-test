@@ -107,7 +107,7 @@ function renderLoadError(error) {
   const grid = $("#question-grid");
   grid.setAttribute("aria-busy", "false");
   if (error.status === 401 || error.status === 403) {
-    location.replace("/");
+    location.replace(`/error.html?status=${error.status}&message=${encodeURIComponent(error.message)}`);
     return;
   }
   grid.innerHTML = `<div class="empty-state empty-state--error"><span aria-hidden="true">!</span><div><h3>Daftar soal belum dapat dimuat.</h3><p>${escapeHTML(error.message)} Muat ulang untuk mencoba lagi.</p></div><button class="button button--quiet" type="button" data-retry>Muat ulang</button></div>`;
@@ -205,7 +205,10 @@ document.addEventListener("keydown", (event) => {
   setTheme(localStorage.getItem("ruang-kata-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
   try {
     const data = await api("/api/auth/me");
-    if (data.user.role !== "admin") { location.replace("/"); return; }
+    if (data.user.role !== "admin") {
+      location.replace("/error.html?status=403&message=Fitur+ini+hanya+tersedia+untuk+admin.");
+      return;
+    }
     $("#account-name").textContent = data.user.name;
     $("#account-initial").textContent = data.user.name.trim().charAt(0).toLocaleUpperCase() || "A";
     restoreFilters();
@@ -213,6 +216,6 @@ document.addEventListener("keydown", (event) => {
     $("#admin-shell").hidden = false;
     await loadQuestions();
   } catch (error) {
-    location.replace("/");
+    location.replace(`/error.html?status=${error.status || 401}&message=${encodeURIComponent(error.message || "Silakan masuk untuk melanjutkan.")}`);
   }
 })();

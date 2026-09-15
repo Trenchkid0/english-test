@@ -567,7 +567,59 @@ go build -ldflags="-s -w" -o bin/english-practice.exe .
 
 ---
 
-### C. Menjalankan sebagai Systemd Service (Linux / VPS)
+### C. Menjalankan dengan PM2 (Rekomendasi Node.js Environment)
+
+PM2 dapat menjalankan binary Go secara langsung dan mengelola auto-restart, monitoring CPU/RAM, serta log rotasi.
+
+1. **Pastikan PM2 sudah terinstall**:
+   ```bash
+   npm install -g pm2
+   ```
+
+2. **Gunakan file konfigurasi `ecosystem.config.js`**:
+   ```javascript
+   module.exports = {
+     apps: [
+       {
+         name: "english-practice",
+         script: "./bin/english-practice-linux",
+         cwd: __dirname,
+         instances: 1,
+         exec_mode: "fork",
+         autorestart: true,
+         watch: false,
+         max_memory_restart: "500M",
+         env: {
+           APP_ADDR: ":8080"
+         },
+         log_date_format: "YYYY-MM-DD HH:mm:ss Z",
+         error_file: "./logs/pm2-error.log",
+         out_file: "./logs/pm2-out.log",
+         combine_logs: true,
+         time: true
+       }
+     ]
+   };
+   ```
+
+3. **Perintah Menjalankan Aplikasi via PM2**:
+   ```bash
+   # Jalankan service
+   pm2 start ecosystem.config.js
+
+   # Simpan konfigurasi agar auto-start saat server reboot
+   pm2 save
+   pm2 startup
+
+   # Monitoring & Log
+   pm2 status
+   pm2 logs english-practice
+   pm2 monit
+   ```
+
+---
+
+### D. Alternatif: Menjalankan sebagai Systemd Service (Linux Native)
 
 Buat file unit service di `/etc/systemd/system/english-practice.service`:
 

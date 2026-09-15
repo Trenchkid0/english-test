@@ -159,20 +159,28 @@ func insertBankQuestions(ctx context.Context, db *sql.DB, level string, target f
 	return totalAdded, tx.Commit()
 }
 
+func testQuestionDedupeKey(q question) string {
+	prompt := strings.ToLower(strings.Join(strings.Fields(visiblePromptKey(q.Prompt)), " "))
+	ctx := strings.ToLower(strings.Join(strings.Fields(q.Context), " "))
+	if ctx != "" {
+		return prompt + "\x00" + ctx
+	}
+	return prompt
+}
+
 func (a *app) selectBankQuestions(ctx context.Context, queryer questionBankQuerier, uid int64, input generateInput) ([]question, error) {
 	byType := make(map[string][]question, len(input.Types))
-	seenPrompts := map[string]struct{}{}
-	seenKeys, err := seenQuestionKeys(ctx, queryer, uid)
-	if err != nil {
-		return nil, fmt.Errorf("membaca riwayat soal: %w", err)
-	}
 	for _, typ := range input.Types {
-		rows, err := queryer.QueryContext(ctx, `SELECT question_json, source FROM question_bank WHERE active=TRUE AND source<>'system' AND level=? AND (ielts_target=? OR source='authentic_curated') AND (type=? OR (type IN ('fill_blank', 'fill_in_blank', 'fill_in_the_blank') AND ? IN ('fill_blank', 'fill_in_blank', 'fill_in_the_blank'))) ORDER BY CASE WHEN source='authentic_curated' THEN 0 ELSE 1 END, id ASC`, input.Level, input.IELTSTarget, typ, typ)
+		if _, exists := byType[typ]; exists {
+			continue
+		}
+		rows, err := queryer.QueryContext(ctx, `SELECT question_json, source FROM question_bank WHERE active=TRUE AND source<>'system' AND level=? AND (ielts_target=? OR source IN ('authentic_curated', 'cefr_1000', 'cefr_seed')) AND (type=? OR (type IN ('grammar', 'fill_blank', 'fill_in_blank', 'fill_in_the_blank') AND ? IN ('grammar', 'fill_blank', 'fill_in_blank', 'fill_in_the_blank'))) ORDER BY CASE WHEN source IN ('authentic_curated', 'cefr_1000', 'cefr_seed') THEN 0 ELSE 1 END, id ASC`, input.Level, input.IELTSTarget, typ, typ)
 		if err != nil {
 			return nil, err
 		}
 		var authenticQuestions []question
 		var fallbackQuestions []question
+		typeSeen := map[string]struct{}{}
 		for rows.Next() {
 			var raw []byte
 			var src string
@@ -182,14 +190,16 @@ func (a *app) selectBankQuestions(ctx context.Context, queryer questionBankQueri
 				if q.Type == "listening" && (len([]rune(strings.TrimSpace(q.Context))) < 180 || strings.Count(q.Context, ":") < 4 || strings.Count(q.Context, "\n") < 4) {
 					continue
 				}
-				promptKey := visiblePromptKey(q.Prompt)
-				if _, exists := seenPrompts[promptKey]; exists {
+				key := testQuestionDedupeKey(q)
+				qKey := questionKey(q)
+				if _, exists := typeSeen[key]; exists {
 					continue
 				}
-				seenPrompts[promptKey] = struct{}{}
-				if _, seen := seenKeys[bankHistoryKey(input.Level, input.IELTSTarget, q)]; seen {
+				if _, exists := typeSeen[qKey]; exists {
 					continue
 				}
+				typeSeen[key] = struct{}{}
+				typeSeen[qKey] = struct{}{}
 				if src == authenticQuestionSource {
 					authenticQuestions = append(authenticQuestions, q)
 				} else {
@@ -206,7 +216,7 @@ func (a *app) selectBankQuestions(ctx context.Context, queryer questionBankQueri
 		shuffleQuestions(fallbackQuestions)
 		byType[typ] = append(authenticQuestions, fallbackQuestions...)
 		if len(byType[typ]) == 0 {
-			return nil, fmt.Errorf("stok soal baru %s untuk level %s dan target IELTS %.1f sudah habis", typ, input.Level, input.IELTSTarget)
+			return nil, fmt.Errorf("stok soal %s untuk level %s dan target IELTS %.1f sudah habis", typ, input.Level, input.IELTSTarget)
 		}
 	}
 
@@ -214,18 +224,34 @@ func (a *app) selectBankQuestions(ctx context.Context, queryer questionBankQueri
 	for i := 0; i < input.Count; i++ {
 		needed[input.Types[i%len(input.Types)]]++
 	}
-	for typ, count := range needed {
-		if len(byType[typ]) < count {
-			return nil, fmt.Errorf("stok soal baru %s untuk level %s dan target IELTS %.1f tersisa %d, butuh %d", typ, input.Level, input.IELTSTarget, len(byType[typ]), count)
-		}
-	}
+
 	cursors := make(map[string]int, len(input.Types))
+	selectedKeys := make(map[string]struct{}, input.Count)
 	selected := make([]question, 0, input.Count)
 	for i := 0; i < input.Count; i++ {
 		typ := input.Types[i%len(input.Types)]
 		pool := byType[typ]
-		q := pool[cursors[typ]]
-		cursors[typ]++
+		var chosen *question
+		for cursors[typ] < len(pool) {
+			candidate := pool[cursors[typ]]
+			cursors[typ]++
+			key := testQuestionDedupeKey(candidate)
+			qKey := questionKey(candidate)
+			if _, used := selectedKeys[key]; used {
+				continue
+			}
+			if _, used := selectedKeys[qKey]; used {
+				continue
+			}
+			selectedKeys[key] = struct{}{}
+			selectedKeys[qKey] = struct{}{}
+			chosen = &candidate
+			break
+		}
+		if chosen == nil {
+			return nil, fmt.Errorf("stok soal unik %s untuk level %s dan target IELTS %.1f tidak cukup (butuh %d)", typ, input.Level, input.IELTSTarget, needed[typ])
+		}
+		q := *chosen
 		q.ID = fmt.Sprintf("bank-%d", i+1)
 		if q.ReviewKey == "" {
 			q.ReviewKey = questionKey(q)

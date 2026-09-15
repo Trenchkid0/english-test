@@ -598,25 +598,17 @@ func (a *app) diagnostic(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	uid := userID(r.Context())
+	questions, err := a.selectBankQuestions(r.Context(), a.db, uid, generateInput{Level: "B1", IELTSTarget: 6.5, Count: 12, DurationMinutes: 25, Types: []string{"grammar", "vocabulary", "reading", "fill_blank"}})
+	if err != nil {
+		writeError(w, 409, err.Error())
+		return
+	}
 	tx, err := a.db.BeginTx(r.Context(), nil)
 	if err != nil {
 		writeError(w, 500, "Tes diagnostik belum dapat disiapkan.")
 		return
 	}
 	defer tx.Rollback()
-	if uid > 0 {
-		var lockedUserID int64
-		err = tx.QueryRowContext(r.Context(), `SELECT id FROM users WHERE id=? FOR UPDATE`, uid).Scan(&lockedUserID)
-	}
-	if err != nil {
-		writeError(w, 500, "Riwayat soal diagnostik belum dapat diperiksa.")
-		return
-	}
-	questions, err := a.selectBankQuestions(r.Context(), tx, uid, generateInput{Level: "B1", IELTSTarget: 6.5, Count: 12, DurationMinutes: 25, Types: []string{"grammar", "vocabulary", "reading", "fill_blank"}})
-	if err != nil {
-		writeError(w, 409, err.Error())
-		return
-	}
 	s, err := storeQuestionSessionTx(r.Context(), tx, uid, questions, "diagnostic", "B1", 6.5, 25)
 	if err != nil {
 		writeError(w, 500, "Tes diagnostik belum dapat dibuat.")

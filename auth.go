@@ -189,10 +189,30 @@ func (a *app) startAuthSession(w http.ResponseWriter, r *http.Request, user auth
 	return nil
 }
 
+func isHTMLRequest(r *http.Request) bool {
+	if r.Header.Get("X-Requested-With") == "XMLHttpRequest" {
+		return false
+	}
+	if strings.HasPrefix(r.URL.Path, "/api/") {
+		return false
+	}
+	accept := r.Header.Get("Accept")
+	return strings.Contains(accept, "text/html") || strings.Contains(accept, "application/xhtml+xml") || accept == "" || accept == "*/*"
+}
+
 func (a *app) requireAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie(authCookieName)
 		if err != nil || cookie.Value == "" {
+			if isHTMLRequest(r) {
+				a.serveErrorPage(w, r, http.StatusUnauthorized,
+					"401 · PERLU LOGIN",
+					"Sesi Belum Masuk",
+					"Silakan masuk untuk melanjutkan.",
+					"Anda belum masuk atau sesi Anda belum aktif. Silakan masuk terlebih dahulu untuk mengakses fitur ini.",
+				)
+				return
+			}
 			writeError(w, http.StatusUnauthorized, "Silakan masuk untuk melanjutkan.")
 			return
 		}
@@ -200,6 +220,15 @@ func (a *app) requireAuth(next http.Handler) http.Handler {
 		err = a.db.QueryRowContext(r.Context(), `SELECT u.id,u.name,u.email,u.role FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=? AND s.expires_at>?`, tokenHash(cookie.Value), time.Now().UTC()).Scan(&user.ID, &user.Name, &user.Email, &user.Role)
 		if err != nil {
 			http.SetCookie(w, &http.Cookie{Name: authCookieName, Value: "", Path: "/", MaxAge: -1, HttpOnly: true, SameSite: http.SameSiteLaxMode, Secure: requestIsHTTPS(r)})
+			if isHTMLRequest(r) {
+				a.serveErrorPage(w, r, http.StatusUnauthorized,
+					"401 · SESI BERAKHIR",
+					"Sesi Berakhir",
+					"Sesi login berakhir. Silakan masuk kembali.",
+					"Sesi login Anda telah kedaluwarsa demi keamanan akun. Silakan masuk kembali ke ruang belajar Anda.",
+				)
+				return
+			}
 			writeError(w, http.StatusUnauthorized, "Sesi login berakhir. Silakan masuk kembali.")
 			return
 		}
@@ -210,6 +239,15 @@ func (a *app) requireAuth(next http.Handler) http.Handler {
 func (a *app) requireAdmin(next http.Handler) http.Handler {
 	return a.requireAuth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if mustUser(r).Role != "admin" {
+			if isHTMLRequest(r) {
+				a.serveErrorPage(w, r, http.StatusForbidden,
+					"403 · AKSES DITOLAK",
+					"Fitur Khusus Admin",
+					"Fitur ini hanya tersedia untuk admin.",
+					"Halaman dan katalog bank soal ini hanya dapat diakses oleh akun dengan peran Administrator. Akun Anda saat ini berstatus Learner (Pelajar).",
+				)
+				return
+			}
 			writeError(w, http.StatusForbidden, "Fitur ini hanya tersedia untuk admin.")
 			return
 		}

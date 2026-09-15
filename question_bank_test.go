@@ -85,3 +85,18 @@ func TestBuildAdminQuestionsWhereIgnoresInvalidTarget(t *testing.T) {
 		t.Fatalf("invalid target changed query: where=%q args=%#v", where, args)
 	}
 }
+
+func TestTestQuestionDedupeKey(t *testing.T) {
+	q1 := question{Prompt: "Choose the correct word. [Level B1 · Band 6.5 · Practice 01]"}
+	q2 := question{Prompt: "Choose the correct word. [Level B1 · Band 6.5 · Practice 99]"}
+	if testQuestionDedupeKey(q1) != testQuestionDedupeKey(q2) {
+		t.Fatal("dedupe key should normalize practice markers to prevent duplicate questions in a test")
+	}
+
+	q3 := question{Prompt: "What is the author's opinion?", Context: "Passage A"}
+	q4 := question{Prompt: "What is the author's opinion?", Context: "Passage B"}
+	if testQuestionDedupeKey(q3) == testQuestionDedupeKey(q4) {
+		t.Fatal("questions with different contexts must have different dedupe keys")
+	}
+}
+

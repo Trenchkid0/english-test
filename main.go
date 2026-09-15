@@ -199,6 +199,8 @@ func runServer(cfg config) error {
 	adminPage := a.requireAdmin(http.HandlerFunc(a.serveAdminPage))
 	mux.Handle("/admin", adminPage)
 	mux.Handle("/admin.html", adminPage)
+	mux.HandleFunc("/error", a.serveGenericErrorPage)
+	mux.HandleFunc("/error.html", a.serveGenericErrorPage)
 	assets, _ := fs.Sub(webFiles, "web")
 	mux.Handle("/", http.FileServer(http.FS(assets)))
 
@@ -302,6 +304,72 @@ func (a *app) serveAdminPage(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	http.ServeContent(w, r, "admin.html", time.Time{}, bytes.NewReader(page))
+}
+
+func (a *app) serveGenericErrorPage(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet && r.Method != http.MethodHead {
+		methodNotAllowed(w, http.MethodGet)
+		return
+	}
+	status := http.StatusForbidden
+	if s, err := strconv.Atoi(r.URL.Query().Get("status")); err == nil && s >= 400 && s <= 599 {
+		status = s
+	} else if s, err := strconv.Atoi(r.URL.Query().Get("code")); err == nil && s >= 400 && s <= 599 {
+		status = s
+	}
+	message := r.URL.Query().Get("message")
+	if message == "" {
+		message = r.URL.Query().Get("error")
+	}
+	if message == "" {
+		message = "Fitur ini hanya tersedia untuk admin."
+	}
+	title := r.URL.Query().Get("title")
+	if title == "" {
+		if status == http.StatusForbidden {
+			title = "Fitur Khusus Admin"
+		} else if status == http.StatusUnauthorized {
+			title = "Sesi Belum Aktif"
+		} else {
+			title = "Terjadi Kendala"
+		}
+	}
+	badge := r.URL.Query().Get("badge")
+	if badge == "" {
+		badge = fmt.Sprintf("%d · %s", status, http.StatusText(status))
+	}
+	detail := r.URL.Query().Get("detail")
+	if detail == "" {
+		if status == http.StatusForbidden {
+			detail = "Halaman dan katalog bank soal ini hanya dapat diakses oleh akun dengan peran Administrator. Akun Anda saat ini berstatus Learner (Pelajar)."
+		} else {
+			detail = "Silakan kembali ke beranda atau masuk ulang ke akun Anda."
+		}
+	}
+	a.serveErrorPage(w, r, status, badge, title, message, detail)
+}
+
+func (a *app) serveErrorPage(w http.ResponseWriter, r *http.Request, statusCode int, badge, title, message, detail string) {
+	page, err := webFiles.ReadFile("web/error.html")
+	if err != nil {
+		writeError(w, statusCode, message)
+		return
+	}
+	html := string(page)
+	html = strings.ReplaceAll(html, "{{STATUS_CODE}}", strconv.Itoa(statusCode))
+	html = strings.ReplaceAll(html, "{{STATUS_BADGE}}", badge)
+	html = strings.ReplaceAll(html, "{{TITLE}}", title)
+	html = strings.ReplaceAll(html, "{{MESSAGE}}", message)
+	html = strings.ReplaceAll(html, "{{DETAIL}}", detail)
+	reqPath := r.URL.Path
+	if reqPath == "" || reqPath == "/error" || reqPath == "/error.html" {
+		reqPath = "/admin"
+	}
+	html = strings.ReplaceAll(html, "{{REQUEST_PATH}}", reqPath)
+
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.WriteHeader(statusCode)
+	_, _ = w.Write([]byte(html))
 }
 
 func loadDotEnv(path string) {
@@ -619,26 +687,8 @@ func (a *app) createSession(w http.ResponseWriter, r *http.Request) {
 		}
 		notice = fmt.Sprintf("%d soal dibuat dengan DeepSeek; %d soal baru disimpan ke bank.", len(questions), added)
 	default:
-		sessionTx, err = a.db.BeginTx(r.Context(), nil)
+		questions, err = a.selectBankQuestions(r.Context(), a.db, uid, input)
 		if err != nil {
-			writeError(w, http.StatusInternalServerError, "Sesi belum dapat disiapkan.")
-			return
-		}
-		if uid > 0 {
-			var lockedUserID int64
-			err = sessionTx.QueryRowContext(r.Context(), `SELECT id FROM users WHERE id=? FOR UPDATE`, uid).Scan(&lockedUserID)
-		}
-		if err != nil {
-			sessionTx.Rollback()
-			sessionTx = nil
-			log.Printf("lock user question history: %v", err)
-			writeError(w, http.StatusInternalServerError, "Riwayat soal belum dapat diperiksa.")
-			return
-		}
-		questions, err = a.selectBankQuestions(r.Context(), sessionTx, uid, input)
-		if err != nil {
-			sessionTx.Rollback()
-			sessionTx = nil
 			writeError(w, http.StatusConflict, err.Error())
 			return
 		}
