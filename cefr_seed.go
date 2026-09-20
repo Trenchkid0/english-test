@@ -159,7 +159,7 @@ func existingQuestionIdentities(ctx context.Context, db *sql.DB) (map[string]str
 	rows.Close()
 
 	rows, err = db.QueryContext(ctx, `SELECT level, ielts_target, type,
-		TRIM(REGEXP_REPLACE(REGEXP_REPLACE(LOWER(JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context'))), '[0-9]+([:.][0-9]+)?', '{number}'), '[[:space:]]+', ' '))
+		JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context'))
 		FROM question_bank
 		WHERE active=TRUE AND source NOT IN (?,?,?) AND type IN ('reading','listening')
 		  AND JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context')) IS NOT NULL
@@ -168,13 +168,19 @@ func existingQuestionIdentities(ctx context.Context, db *sql.DB) (map[string]str
 		return nil, nil, fmt.Errorf("read existing normalized contexts: %w", err)
 	}
 	for rows.Next() {
-		var level, typ, pattern string
+		var level, typ string
 		var target float64
-		if err := rows.Scan(&level, &target, &typ, &pattern); err != nil {
+		var raw sql.NullString
+		if err := rows.Scan(&level, &target, &typ, &raw); err != nil {
 			rows.Close()
 			return nil, nil, err
 		}
-		contexts[normalizedContextKey(level, target, typ, pattern)] = struct{}{}
+		if raw.Valid && raw.String != "" {
+			pattern := normalizeQuestionContext(raw.String)
+			if pattern != "" {
+				contexts[normalizedContextKey(level, target, typ, pattern)] = struct{}{}
+			}
+		}
 	}
 	if err := rows.Err(); err != nil {
 		rows.Close()

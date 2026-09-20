@@ -37,6 +37,17 @@ go mod download
 go run . migrate
 go run . seed
 go run . seed-cefr
+
+# Seed fokus B1-C2, IELTS 5.0-9.0, 6 tipe, 500 soal per kombinasi
+go run . seed-ielts
+
+# Audit kuota, explanation, dan duplikasi context reading/listening
+go run . audit-ielts
+
+# Pilot enam soal lokal, lalu seed 216.000 soal yang resumable tanpa API
+go run . pilot-ai-ielts
+go run . seed-ai-ielts
+go run . audit-ai-ielts
 ```
 
 3. Build binary aplikasi:
@@ -81,6 +92,11 @@ Perintah yang tersedia:
 | `./bin/english-practice seed` | Sinkronisasi 500 soal per level–target–tipe dan audit duplikasi | Saat instalasi atau data seed berubah |
 | `./bin/english-practice seed-cefr` | Seed 30.000 soal unik: 1.000 per level CEFR–skill | Saat dataset CEFR berubah |
 | `./bin/english-practice audit-cefr` | Verifikasi kuota, explanation/tip, dan duplikasi konteks | Setelah seed atau pemeriksaan berkala |
+| `./bin/english-practice seed-ielts` | Seed 108.000 soal: B1–C2 × Band 5.0–9.0 × 6 tipe × 500 | Saat bank IELTS terarah perlu dilengkapi |
+| `./bin/english-practice audit-ielts` | Audit 216 sel, explanation, dan konteks reading/listening | Setelah `seed-ielts` |
+| `./bin/english-practice pilot-ai-ielts` | Generate satu soal lokal per tipe untuk pemeriksaan awal | Sebelum seed penuh |
+| `./bin/english-practice seed-ai-ielts` | Tambah 216.000 soal lokal: 1.000 per kombinasi B1–C2 × IELTS 5.0–9.0 × 6 tipe, tanpa DeepSeek | Aman dilanjutkan ulang |
+| `./bin/english-practice audit-ai-ielts` | Audit kuota korpus AI dan duplikasi context | Setelah seed AI penuh |
 
 ## Cara memakai pusat belajar
 

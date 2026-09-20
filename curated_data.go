@@ -58,6 +58,7 @@ var curatedDataFiles = []string{
 	"curated_batch10_expansion.json",
 	"curated_batch11_expansion.json",
 	"curated_batch12_expansion.json",
+	"authentic_600_exam_set.json",
 }
 
 func loadCuratedQuestions(dataDir string) ([]curatedQuestionRecord, error) {

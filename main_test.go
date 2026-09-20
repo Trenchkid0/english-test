@@ -14,6 +14,14 @@ func TestValidateInput(t *testing.T) {
 	if got := validateInput(valid); got != "" {
 		t.Fatalf("valid input rejected: %s", got)
 	}
+	valid.IELTSTarget = 4.5
+	if got := validateInput(valid); got == "" {
+		t.Fatal("IELTS target below 5.0 accepted")
+	}
+	valid.IELTSTarget = 5
+	if got := validateInput(valid); got != "" {
+		t.Fatalf("minimum IELTS target 5.0 rejected: %s", got)
+	}
 	valid.Count = 501
 	if got := validateInput(valid); got == "" {
 		t.Fatal("invalid count accepted")

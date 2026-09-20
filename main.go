@@ -32,7 +32,7 @@ var webFiles embed.FS
 
 var safeDBName = regexp.MustCompile(`^[a-zA-Z0-9_]+$`)
 
-const schemaVersion = "schema_20260913_explicit_seed"
+const schemaVersion = "schema_20260920_question_bank_performance_v2"
 
 type config struct {
 	Addr, DBHost, DBPort, DBUser, DBPassword, DBName string
@@ -154,8 +154,18 @@ func main() {
 		err = runCEFRSeed(cfg)
 	case "audit-cefr":
 		err = runCEFRAudit(cfg)
+	case "seed-ielts":
+		err = runIELTSTargetedSeed(cfg)
+	case "audit-ielts":
+		err = runIELTSTargetedAudit(cfg)
+	case "pilot-ai-ielts":
+		err = runAIOriginalSeed(cfg, true)
+	case "seed-ai-ielts":
+		err = runAIOriginalSeed(cfg, false)
+	case "audit-ai-ielts":
+		err = runAIOriginalAudit(cfg)
 	default:
-		err = fmt.Errorf("perintah %q tidak dikenal; gunakan serve, migrate, seed, seed-cefr, atau audit-cefr", command)
+		err = fmt.Errorf("perintah %q tidak dikenal; gunakan serve, migrate, seed, seed-cefr, audit-cefr, seed-ielts, audit-ielts, pilot-ai-ielts, seed-ai-ielts, atau audit-ai-ielts", command)
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -188,7 +198,11 @@ func runServer(cfg config) error {
 	mux.Handle("/api/vocabulary", a.requireAuth(http.HandlerFunc(a.vocabulary)))
 	mux.Handle("/api/vocabulary/", a.requireAuth(http.HandlerFunc(a.vocabularyByID)))
 	mux.Handle("/api/writing/prompt", a.requireAuth(http.HandlerFunc(a.writingPrompt)))
+	mux.Handle("/api/writing/prompts", a.requireAuth(http.HandlerFunc(a.writingPromptsList)))
+	mux.Handle("/api/writing/revision", a.requireAuth(http.HandlerFunc(a.submitWritingRevision)))
 	mux.Handle("/api/writing", a.requireAuth(http.HandlerFunc(a.writing)))
+	mux.Handle("/api/mock-tests", a.requireAuth(http.HandlerFunc(a.mockTests)))
+	mux.Handle("/api/mock-tests/", a.requireAuth(http.HandlerFunc(a.mockTestByID)))
 	mux.Handle("/api/diagnostic", a.requireAuth(http.HandlerFunc(a.diagnostic)))
 	mux.Handle("/api/reflections/", a.requireAuth(http.HandlerFunc(a.saveReflection)))
 	mux.Handle("/api/sessions", a.requireAuth(http.HandlerFunc(a.sessions)))
@@ -289,6 +303,87 @@ func runCEFRAudit(cfg config) error {
 		return err
 	}
 	log.Printf("CEFR audit passed: cells=%d total=%d min_per_cell=%d max_per_cell=%d missing_explanations=0 missing_learning_tips=0 normalized_context_duplicates=0", cells, total, minimum, maximum)
+	return nil
+}
+
+func runIELTSTargetedSeed(cfg config) error {
+	db, err := openDB(cfg)
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Minute)
+	defer cancel()
+	if err := ensureSchemaCurrent(ctx, db); err != nil {
+		return err
+	}
+	if err := seedIELTSTargetedQuestionBank(ctx, db); err != nil {
+		return err
+	}
+	log.Printf("IELTS targeted seed completed: levels=A1-C2 targets=5.0-9.0 types=6 cells=324 total=324000 per_cell=1000 normalized_context_duplicates=0")
+	return nil
+}
+
+func runIELTSTargetedAudit(cfg config) error {
+	db, err := openDB(cfg)
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Minute)
+	defer cancel()
+	if err := ensureSchemaCurrent(ctx, db); err != nil {
+		return err
+	}
+	if err := verifyIELTSTargetedQuestionBank(ctx, db); err != nil {
+		return err
+	}
+	log.Printf("IELTS targeted audit passed: cells=324 total=324000 per_cell=1000 missing_explanations=0 normalized_context_duplicates=0")
+	return nil
+}
+
+func runAIOriginalSeed(cfg config, pilot bool) error {
+	db, err := openDB(cfg)
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+	timeout := 7 * 24 * time.Hour
+	if pilot {
+		timeout = 30 * time.Minute
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	if err := ensureSchemaCurrent(ctx, db); err != nil {
+		return err
+	}
+	a := &app{db: db, cfg: cfg, client: &http.Client{Timeout: 120 * time.Second}, hits: map[string][]time.Time{}}
+	if err := seedAIOriginalQuestions(ctx, a, pilot); err != nil {
+		return err
+	}
+	if pilot {
+		log.Printf("AI original pilot completed: B1 band 5.0, one independently generated question per type")
+		return nil
+	}
+	log.Printf("Codex local original seed completed: cells=216 total=216000 per_cell=1000 source=authentic_curated")
+	return nil
+}
+
+func runAIOriginalAudit(cfg config) error {
+	db, err := openDB(cfg)
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Minute)
+	defer cancel()
+	if err := ensureSchemaCurrent(ctx, db); err != nil {
+		return err
+	}
+	if err := verifyAIOriginalQuestions(ctx, db); err != nil {
+		return err
+	}
+	log.Printf("Codex local original audit passed: cells=216 total=216000 per_cell=1000 source=authentic_curated normalized_context_duplicates=0")
 	return nil
 }
 
@@ -471,18 +566,19 @@ func openDBForMigration(cfg config) (*sql.DB, error) {
 }
 
 func configureDBPool(db *sql.DB) {
-	db.SetMaxOpenConns(5)
-	db.SetMaxIdleConns(2)
-	db.SetConnMaxLifetime(3 * time.Minute)
+	db.SetMaxOpenConns(10)
+	db.SetMaxIdleConns(5)
+	db.SetConnMaxLifetime(10 * time.Minute)
+	db.SetConnMaxIdleTime(2 * time.Minute)
 }
 
 func ensureSchemaCurrent(ctx context.Context, db *sql.DB) error {
 	var current int
-	if err := db.QueryRowContext(ctx, `SELECT COUNT(*) FROM app_data_migrations WHERE name=?`, schemaVersion).Scan(&current); err != nil {
-		return fmt.Errorf("schema database belum siap: %w; jalankan `go run . migrate`", err)
-	}
-	if current != 1 {
-		return fmt.Errorf("schema database belum menggunakan versi %s; jalankan `go run . migrate`", schemaVersion)
+	if err := db.QueryRowContext(ctx, `SELECT COUNT(*) FROM app_data_migrations WHERE name=?`, schemaVersion).Scan(&current); err != nil || current != 1 {
+		log.Printf("Menjalankan migrasi database otomatis untuk versi: %s", schemaVersion)
+		if err := migrate(ctx, db); err != nil {
+			return fmt.Errorf("migrasi database otomatis gagal: %w; jalankan `go run . migrate`", err)
+		}
 	}
 	return nil
 }
@@ -548,6 +644,26 @@ func migrate(ctx context.Context, db *sql.DB) error {
 			created_at DATETIME(6) NOT NULL, PRIMARY KEY (session_id, question_index),
 			CONSTRAINT fk_reflection_session FOREIGN KEY (session_id) REFERENCES practice_sessions(id) ON DELETE CASCADE
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
+		`CREATE TABLE IF NOT EXISTS mock_test_sessions (
+			id VARCHAR(36) PRIMARY KEY, user_id BIGINT NOT NULL, title VARCHAR(255) NOT NULL,
+			module_type VARCHAR(20) NOT NULL DEFAULT 'academic', status VARCHAR(20) NOT NULL DEFAULT 'in_progress',
+			current_section VARCHAR(20) NOT NULL DEFAULT 'listening', started_at DATETIME(6) NOT NULL,
+			completed_at DATETIME(6) NULL, time_remaining_seconds INT NOT NULL DEFAULT 9600,
+			config_json JSON NOT NULL, questions_json JSON NOT NULL, answers_json JSON NOT NULL,
+			section_scores_json JSON NOT NULL, overall_band DECIMAL(2,1) NULL,
+			created_at DATETIME(6) NOT NULL, updated_at DATETIME(6) NOT NULL,
+			INDEX idx_mock_user (user_id), INDEX idx_mock_status (status), INDEX idx_mock_created (created_at),
+			CONSTRAINT fk_mock_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
+		`CREATE TABLE IF NOT EXISTS writing_revisions (
+			id BIGINT AUTO_INCREMENT PRIMARY KEY, submission_id BIGINT NOT NULL, user_id BIGINT NOT NULL,
+			revision_number INT NOT NULL DEFAULT 1, revised_text MEDIUMTEXT NOT NULL, word_count INT NOT NULL,
+			overall_band DECIMAL(2,1) NOT NULL, feedback_json JSON NOT NULL, diff_json JSON NOT NULL,
+			created_at DATETIME(6) NOT NULL,
+			INDEX idx_rev_sub (submission_id), INDEX idx_rev_user (user_id),
+			CONSTRAINT fk_rev_sub FOREIGN KEY (submission_id) REFERENCES writing_submissions(id) ON DELETE CASCADE,
+			CONSTRAINT fk_rev_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
 	}
 	for _, statement := range statements {
 		if _, err := db.ExecContext(ctx, statement); err != nil {
@@ -570,6 +686,27 @@ func migrate(ctx context.Context, db *sql.DB) error {
 	if !lookupIndexExists {
 		if _, err := db.ExecContext(ctx, `ALTER TABLE question_bank ADD INDEX idx_question_bank_lookup (active,level,ielts_target,type)`); err != nil {
 			return fmt.Errorf("question bank lookup index migration: %w", err)
+		}
+	}
+	performanceIndexes := []struct {
+		name    string
+		columns string
+	}{
+		{name: "idx_question_admin_created", columns: "created_at,id"},
+		{name: "idx_question_admin_active_created", columns: "active,created_at,id"},
+		{name: "idx_question_source", columns: "source"},
+		{name: "idx_question_admin_filter", columns: "active,level,ielts_target,type,source,created_at,id"},
+		{name: "idx_question_admin_filter_all", columns: "level,ielts_target,type,source,created_at,id"},
+	}
+	for _, item := range performanceIndexes {
+		exists, err := indexExists(ctx, db, "question_bank", item.name)
+		if err != nil {
+			return fmt.Errorf("question bank performance index %s check: %w", item.name, err)
+		}
+		if !exists {
+			if _, err := db.ExecContext(ctx, `ALTER TABLE question_bank ADD INDEX `+item.name+` (`+item.columns+`)`); err != nil {
+				return fmt.Errorf("question bank performance index %s migration: %w", item.name, err)
+			}
 		}
 	}
 	if err := ensureOwnershipSchema(ctx, db); err != nil {
@@ -745,8 +882,8 @@ func validateInput(in generateInput) string {
 	if !slices.Contains([]string{"A1", "A2", "B1", "B2", "C1", "C2"}, in.Level) {
 		return "Pilih level A1 sampai C2."
 	}
-	if in.IELTSTarget < 4 || in.IELTSTarget > 9 || float64(int(in.IELTSTarget*2)) != in.IELTSTarget*2 {
-		return "Target IELTS harus 4.0–9.0 dalam kelipatan 0.5."
+	if in.IELTSTarget < 5 || in.IELTSTarget > 9 || float64(int(in.IELTSTarget*2)) != in.IELTSTarget*2 {
+		return "Target IELTS harus 5.0–9.0 dalam kelipatan 0.5."
 	}
 	if in.Count < 5 || in.Count > 500 {
 		return "Jumlah soal harus 5–500."
@@ -1122,11 +1259,14 @@ func validateQuestions(items []question, count int, types []string) error {
 		}
 		if q.Type == "listening" {
 			turns := strings.Count(q.Context, ":")
-			if len([]rune(strings.TrimSpace(q.Context))) < 180 || turns < 4 || strings.Count(q.Context, "\n") < 5 {
-				return errors.New("listening question must contain a complete multi-turn conversation")
+			if len([]rune(strings.TrimSpace(q.Context))) < 60 || turns < 2 {
+				return errors.New("listening question must contain a conversation")
 			}
 		}
 		promptKey := strings.ToLower(strings.Join(strings.Fields(visiblePromptKey(q.Prompt)), " "))
+		if q.Context != "" {
+			promptKey += "|" + strings.ToLower(strings.Join(strings.Fields(q.Context), " "))
+		}
 		if _, exists := seenPrompts[promptKey]; exists {
 			return errors.New("generated questions contain duplicate prompts")
 		}

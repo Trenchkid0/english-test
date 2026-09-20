@@ -215,18 +215,99 @@ function updateWritingMetrics() {
   }
 }
 
+let allWritingPrompts = { task1Prompts: [], task2Prompts: [] };
+let activePromptData = null;
+let lastWritingSubmission = null;
+
+async function loadWritingPromptsList() {
+  const selector = $("#writing-prompt-selector");
+  if (!selector) return;
+
+  try {
+    const data = await api("/api/writing/prompts");
+    allWritingPrompts = data;
+    updateWritingPromptOptions();
+  } catch (err) {
+    console.error("Gagal memuat bank prompt writing:", err);
+  }
+}
+
+function updateWritingPromptOptions() {
+  const selector = $("#writing-prompt-selector");
+  const taskType = $("#writing-type")?.value || "task2";
+  if (!selector) return;
+
+  const prompts = taskType === "task1" ? allWritingPrompts.task1Prompts : allWritingPrompts.task2Prompts;
+  if (!prompts || prompts.length === 0) {
+    selector.innerHTML = '<option value="">(Memuat bank topik…)</option>';
+    return;
+  }
+
+  selector.innerHTML = `
+    <option value="">-- Pilih Topik Latihan (${taskType.toUpperCase()}) --</option>
+    ${prompts.map(p => `
+      <option value="${p.id}">[${escapeHTML(p.category.toUpperCase().replace("_", " "))}] ${escapeHTML(p.title)}</option>
+    `).join("")}
+  `;
+
+  // Automatically select first prompt if none chosen
+  if (prompts.length > 0 && (!activePromptData || activePromptData.taskType !== taskType)) {
+    selector.value = prompts[0].id;
+    applySelectedWritingPrompt(prompts[0]);
+  }
+}
+
+function applySelectedWritingPrompt(promptItem) {
+  activePromptData = promptItem;
+  learningState.prompt = promptItem.prompt;
+
+  $("#writing-prompt").textContent = promptItem.prompt;
+  const kicker = $("#writing-prompt-kicker");
+  if (kicker) kicker.textContent = `${promptItem.taskType.toUpperCase()} · ${promptItem.category.toUpperCase().replace("_", " ")} · ${promptItem.title}`;
+
+  const guidanceEl = $("#writing-guidance");
+  if (guidanceEl) {
+    guidanceEl.textContent = promptItem.guidance || "";
+    guidanceEl.hidden = !promptItem.guidance;
+  }
+
+  // Handle Task 1 SVG and data tables
+  const visualContainer = $("#writing-visual-container");
+  const chartWrap = $("#writing-chart-svg");
+  const tableWrap = $("#writing-data-table");
+
+  if (promptItem.taskType === "task1" && (promptItem.visualSvg || promptItem.dataTableHtml)) {
+    visualContainer.hidden = false;
+    if (chartWrap) {
+      chartWrap.innerHTML = promptItem.visualSvg || "";
+      chartWrap.hidden = !promptItem.visualSvg;
+    }
+    if (tableWrap) {
+      tableWrap.innerHTML = promptItem.dataTableHtml || "";
+      tableWrap.hidden = !promptItem.dataTableHtml;
+    }
+  } else {
+    if (visualContainer) visualContainer.hidden = true;
+  }
+
+  updateWritingMetrics();
+}
+
+$("#writing-prompt-selector")?.addEventListener("change", (e) => {
+  const promptId = e.target.value;
+  const taskType = $("#writing-type")?.value || "task2";
+  const prompts = taskType === "task1" ? allWritingPrompts.task1Prompts : allWritingPrompts.task2Prompts;
+  const found = prompts.find(p => p.id === promptId);
+  if (found) {
+    applySelectedWritingPrompt(found);
+    saveWritingDraft(false);
+  }
+});
+
 async function loadWritingPrompt() {
   const taskType = $("#writing-type").value;
   updateWritingMetrics();
-  $("#writing-prompt").textContent = "Memuat prompt…";
-  try {
-    const data = await api(`/api/writing/prompt?type=${encodeURIComponent(taskType)}`);
-    learningState.prompt = data.prompt;
-    $("#writing-prompt").textContent = data.prompt;
-  } catch (error) {
-    learningState.prompt = "";
-    $("#writing-prompt").textContent = error.message;
-  }
+  updateWritingPromptOptions();
 }
 
 function readWritingDraft() {
@@ -234,7 +315,13 @@ function readWritingDraft() {
 }
 
 function saveWritingDraft(showStatus = true) {
-  const draft = { taskType: $("#writing-type").value, prompt: learningState.prompt, response: $("#writing-response").value, updatedAt: new Date().toISOString() };
+  const draft = {
+    taskType: $("#writing-type").value,
+    prompt: learningState.prompt,
+    promptId: activePromptData?.id || "",
+    response: $("#writing-response").value,
+    updatedAt: new Date().toISOString()
+  };
   localStorage.setItem(writingDraftKey, JSON.stringify(draft));
   if (showStatus) $("#writing-status").textContent = "Draft tersimpan di perangkat ini.";
 }
@@ -267,16 +354,21 @@ async function loadWritingHistory() {
       $("#writing-response").value = item.response;
       updateWritingMetrics();
       $("#writing-response").focus();
+      renderWritingFeedback(item);
     }));
   } catch (error) { list.innerHTML = `<p class="empty-copy">${escapeHTML(error.message)}</p>`; }
 }
 
-$("#writing-type").addEventListener("change", loadWritingPrompt);
-$("#writing-type").addEventListener("change", () => saveWritingDraft(false));
+$("#writing-type").addEventListener("change", () => {
+  loadWritingPrompt();
+  saveWritingDraft(false);
+});
+
 $("#writing-response").addEventListener("input", () => {
   updateWritingMetrics();
   saveWritingDraft(false);
 });
+
 $("#writing-response").addEventListener("keydown", (e) => {
   if (e.key === "Tab") {
     e.preventDefault();
@@ -290,18 +382,27 @@ $("#writing-response").addEventListener("keydown", (e) => {
 });
 $("#save-writing-draft").addEventListener("click", () => saveWritingDraft(true));
 restoreWritingDraft();
+loadWritingPromptsList();
 
 $("#writing-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const button = $('button[type="submit"]', event.currentTarget);
   button.disabled = true;
   button.dataset.state = "loading";
-  $("#writing-status").textContent = "Menilai struktur, kosakata, dan grammar…";
+  $("#writing-status").textContent = "Menilai 4 kriteria IELTS, struktur kalimat, & kosakata...";
   try {
-    const data = await api("/api/writing", { method: "POST", body: JSON.stringify({ taskType: $("#writing-type").value, prompt: learningState.prompt, response: $("#writing-response").value }) });
+    const data = await api("/api/writing", {
+      method: "POST",
+      body: JSON.stringify({
+        taskType: $("#writing-type").value,
+        prompt: learningState.prompt,
+        response: $("#writing-response").value
+      })
+    });
+    lastWritingSubmission = data;
     renderWritingFeedback(data);
     localStorage.removeItem(writingDraftKey);
-    $("#writing-status").textContent = data.source === "demo" ? "Mode demo aktif; estimasi terbatas pada struktur dasar." : "Feedback tersimpan.";
+    $("#writing-status").textContent = "Feedback evaluasi IELTS selesai.";
   } catch (error) {
     button.dataset.state = "error";
     $("#writing-status").textContent = error.message;
@@ -310,7 +411,212 @@ $("#writing-form").addEventListener("submit", async (event) => {
     if (button.dataset.state !== "error") delete button.dataset.state;
   }
 });
-function accuracyClass(value) { return `meter-${Math.max(1, Math.min(10, Math.round(Number(value || 0) / 10)))}`; }
+
+function renderWritingFeedback(data) {
+  const fb = data.feedback;
+  const container = $("#writing-feedback");
+  container.hidden = false;
+
+  const taskType = data.taskType || "task2";
+  const criteria1 = taskType === "task1" ? "Task Achievement" : "Task Response";
+
+  const sentences = fb.sentences || [];
+  const repetitions = fb.repetitiveWords || [];
+  const struct = fb.structuralAnalysis || {};
+
+  container.innerHTML = `
+    <div class="feedback-hero">
+      <div class="fb-orbit-badge">
+        <span>ESTIMASI BAND</span>
+        <strong>Band ${fb.overallBand.toFixed(1)}</strong>
+        <small>${data.wordCount} kata · ${data.taskType.toUpperCase()}</small>
+      </div>
+      <div class="fb-summary-text">
+        <h3>Evaluasi Performa Writing</h3>
+        <p>${escapeHTML(fb.summary)}</p>
+      </div>
+    </div>
+
+    <!-- 4 IELTS Criteria Cards -->
+    <div class="rubric-grid-4">
+      <div class="rubric-card">
+        <div class="rc-head"><span>${criteria1}</span><strong>Band ${fb.taskResponse.toFixed(1)}</strong></div>
+        <p>Relevansi ide, kelengkapan pembahasan topik, dan kedalaman argumen/data.</p>
+      </div>
+      <div class="rubric-card">
+        <div class="rc-head"><span>Coherence & Cohesion</span><strong>${fb.coherence.toFixed(1)}</strong></div>
+        <p>Alur paragraf, transisi antar-kalimat, dan organisasi logis.</p>
+      </div>
+      <div class="rubric-card">
+        <div class="rc-head"><span>Lexical Resource</span><strong>${fb.lexicalResource.toFixed(1)}</strong></div>
+        <p>Kekayaan kosakata akademis, presisi kolokasi, dan minim repetisi.</p>
+      </div>
+      <div class="rubric-card">
+        <div class="rc-head"><span>Grammar Accuracy</span><strong>${fb.grammar.toFixed(1)}</strong></div>
+        <p>Variasi struktur kalimat (complex/compound) dan akurasi tanda baca.</p>
+      </div>
+    </div>
+
+    <!-- Structural Element Analysis -->
+    <div class="writing-analysis-card">
+      <h4>Pemeriksaan Struktur Esai</h4>
+      <div class="structure-details">
+        <div class="struct-row">
+          <span class="struct-tag ${struct.hasOverviewOrThesis ? "is-found" : "is-missing"}">
+            ${struct.hasOverviewOrThesis ? "✓ Ditemukan" : "✕ Belum Jelas"}
+          </span>
+          <div>
+            <strong>${taskType === "task1" ? "Overview Sentence (Kunci Task 1)" : "Thesis Statement (Kunci Task 2)"}</strong>
+            <p class="struct-quote">${struct.thesisOrOverviewQuote ? `"${escapeHTML(struct.thesisOrOverviewQuote)}"` : "Belum terdeteksi kalimat overview/thesis yang eksplisit. Tambahkan di paragraf awal."}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sentence-by-Sentence Breakdown -->
+    ${sentences.length > 0 ? `
+      <div class="writing-analysis-card">
+        <h4>Analisis Kalimat per Kalimat (${sentences.length} Kalimat)</h4>
+        <div class="sentence-feedback-list">
+          ${sentences.map((s, sIdx) => {
+            const statusClass = s.status === "error" ? "is-error" : (s.status === "warning" ? "is-warning" : "is-good");
+            const tagLabel = s.status === "error" ? "Perlu Koreksi" : (s.status === "warning" ? "Bisa Ditingkatkan" : "Kuat");
+            return `
+              <div class="sentence-item ${statusClass}">
+                <div class="sent-head">
+                  <span class="sent-num">Kalimat ${sIdx + 1}</span>
+                  <span class="sent-tag ${statusClass}">${tagLabel}</span>
+                </div>
+                <p class="sent-orig">${escapeHTML(s.original)}</p>
+                ${s.suggestion ? `<p class="sent-sug">💡 <strong>Saran:</strong> ${escapeHTML(s.suggestion)}</p>` : ""}
+              </div>
+            `;
+          }).join("")}
+        </div>
+      </div>
+    ` : ""}
+
+    <!-- Lexical Repetitions & Synonyms -->
+    ${repetitions.length > 0 ? `
+      <div class="writing-analysis-card">
+        <h4>Kosakata yang Terlalu Sering Diulang</h4>
+        <div class="repetitive-words-grid">
+          ${repetitions.map(rw => `
+            <div class="rep-card">
+              <div class="rep-head"><strong>"${escapeHTML(rw.word)}"</strong><span>Muncul ${rw.count}x</span></div>
+              <div class="rep-synonyms">
+                <span>Alternatif Akademis:</span>
+                <div class="synonym-tags">
+                  ${rw.synonyms.map(syn => `<span class="syn-tag">${escapeHTML(syn)}</span>`).join("")}
+                </div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    ` : ""}
+
+    <!-- Next Steps & Actionable Points -->
+    <div class="writing-action-box">
+      <div>
+        <h4>Rencana Peningkatan Skor</h4>
+        <ul>${fb.nextSteps.map(step => `<li>${escapeHTML(step)}</li>`).join("")}</ul>
+      </div>
+      <button class="btn btn--pear btn--lg" type="button" id="open-revision-workbench-btn">
+        ✍ Tulis Draf Revisi di Workbench
+      </button>
+    </div>
+  `;
+
+  $("#open-revision-workbench-btn")?.addEventListener("click", () => openRevisionWorkbench(data));
+}
+
+// -------------------------------------------------------------
+// Revision Workbench Controller
+// -------------------------------------------------------------
+function openRevisionWorkbench(submission) {
+  const wb = $("#revision-workbench");
+  if (!wb) return;
+
+  wb.hidden = false;
+  $("#workbench-orig-band").textContent = submission.feedback.overallBand.toFixed(1);
+  $("#workbench-orig-text").textContent = submission.response;
+  $("#workbench-rev-editor").value = submission.response;
+  $("#workbench-rev-band").textContent = "—";
+  $("#workbench-delta").textContent = "";
+  $("#workbench-diff-output").hidden = true;
+
+  wb.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+$("#close-revision-workbench")?.addEventListener("click", () => {
+  $("#revision-workbench").hidden = true;
+});
+
+$("#submit-workbench-revision")?.addEventListener("click", async () => {
+  if (!lastWritingSubmission) return;
+
+  const btn = $("#submit-workbench-revision");
+  btn.disabled = true;
+  btn.dataset.state = "loading";
+
+  const revisedText = $("#workbench-rev-editor").value.trim();
+  if (revisedText.length < 30) {
+    showToast("Draf revisi terlalu pendek.");
+    btn.disabled = false;
+    delete btn.dataset.state;
+    return;
+  }
+
+  try {
+    const revResult = await api("/api/writing/revision", {
+      method: "POST",
+      body: JSON.stringify({
+        originalSubmissionId: lastWritingSubmission.id,
+        revisedResponse: revisedText
+      })
+    });
+
+    const origBand = revResult.originalFeedback.overallBand;
+    const newBand = revResult.revisedFeedback.overallBand;
+    const delta = revResult.bandDelta;
+
+    $("#workbench-rev-band").textContent = newBand.toFixed(1);
+    const deltaEl = $("#workbench-delta");
+    if (delta > 0) {
+      deltaEl.textContent = `(+${delta.toFixed(1)} Band Naik!)`;
+      deltaEl.className = "band-delta-badge is-positive";
+    } else if (delta === 0) {
+      deltaEl.textContent = `(Sama · Band ${newBand.toFixed(1)})`;
+      deltaEl.className = "band-delta-badge";
+    } else {
+      deltaEl.textContent = `(${delta.toFixed(1)})`;
+      deltaEl.className = "band-delta-badge is-negative";
+    }
+
+    // Render word diffs
+    const diffContainer = $("#workbench-diff-output");
+    diffContainer.hidden = false;
+    diffContainer.innerHTML = `
+      <h4>Hasil Evaluasi Draf Revisi</h4>
+      <p class="diff-summary">${escapeHTML(revResult.revisedFeedback.summary)}</p>
+      <div class="rubric-mini-grid">
+        <span>Task: <strong>${revResult.revisedFeedback.taskResponse.toFixed(1)}</strong></span>
+        <span>Coherence: <strong>${revResult.revisedFeedback.coherence.toFixed(1)}</strong></span>
+        <span>Lexical: <strong>${revResult.revisedFeedback.lexicalResource.toFixed(1)}</strong></span>
+        <span>Grammar: <strong>${revResult.revisedFeedback.grammar.toFixed(1)}</strong></span>
+      </div>
+    `;
+
+    showToast(`Draf revisi dinilai: Band ${newBand.toFixed(1)} (Delta: ${delta >= 0 ? "+" : ""}${delta.toFixed(1)})`);
+  } catch (err) {
+    showToast("Gagal menilai draf revisi: " + err.message);
+  } finally {
+    btn.disabled = false;
+    delete btn.dataset.state;
+  }
+});
+
 
 if ($("#listen-play")) {
 const listeningTracks = [

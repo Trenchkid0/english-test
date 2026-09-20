@@ -7,6 +7,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -119,17 +120,10 @@ func insertBankQuestions(ctx context.Context, db *sql.DB, level string, target f
 	if len(questions) == 0 {
 		return 0, nil
 	}
-	tx, err := db.BeginTx(ctx, nil)
-	if err != nil {
-		return 0, err
-	}
-	defer tx.Rollback()
 
-	totalAdded := int64(0)
-	// A full 500-question cell normally fits comfortably below MySQL's default
-	// packet limit and avoids five separate network round trips per cell.
-	const chunkSize = 500
+	const chunkSize = 100
 	now := time.Now().UTC()
+	totalAdded := int64(0)
 
 	for i := 0; i < len(questions); i += chunkSize {
 		end := min(i+chunkSize, len(questions))
@@ -141,22 +135,35 @@ func insertBankQuestions(ctx context.Context, db *sql.DB, level string, target f
 			q.ReviewKey = questionKey(q)
 			raw, err := json.Marshal(q)
 			if err != nil {
-				return 0, err
+				return totalAdded, err
 			}
 			placeholders = append(placeholders, "(?,?,?,?,?,?,TRUE,?)")
 			args = append(args, bankQuestionHashForTarget(level, target, q), level, target, q.Type, source, raw, now)
 		}
 		query := `INSERT INTO question_bank (content_hash,level,ielts_target,type,source,question_json,active,created_at) VALUES ` + strings.Join(placeholders, ",") +
-			` ON DUPLICATE KEY UPDATE question_json=VALUES(question_json)`
-		result, err := tx.ExecContext(ctx, query, args...)
-		if err != nil {
-			return 0, err
+			` ON DUPLICATE KEY UPDATE question_json=VALUES(question_json), active=TRUE`
+
+		var chunkErr error
+		for attempt := 0; attempt < 5; attempt++ {
+			if ctx.Err() != nil {
+				return totalAdded, ctx.Err()
+			}
+			result, err := db.ExecContext(ctx, query, args...)
+			if err == nil {
+				added, _ := result.RowsAffected()
+				totalAdded += added
+				chunkErr = nil
+				break
+			}
+			chunkErr = err
+			time.Sleep(time.Duration(attempt+1) * 300 * time.Millisecond)
 		}
-		added, _ := result.RowsAffected()
-		totalAdded += added
+		if chunkErr != nil {
+			return totalAdded, chunkErr
+		}
 	}
 
-	return totalAdded, tx.Commit()
+	return totalAdded, nil
 }
 
 func testQuestionDedupeKey(q question) string {
@@ -168,18 +175,75 @@ func testQuestionDedupeKey(q question) string {
 	return prompt
 }
 
+const userQuestionCooldownSessions = 5
+
+func recentUserCooldownQuestionKeys(ctx context.Context, queryer questionBankQuerier, uid int64, sessionLimit int) (map[string]struct{}, error) {
+	if uid <= 0 || sessionLimit <= 0 {
+		return map[string]struct{}{}, nil
+	}
+	query := `
+		SELECT uqh.question_key
+		FROM user_question_history uqh
+		INNER JOIN (
+			SELECT id FROM practice_sessions
+			WHERE user_id = ?
+			ORDER BY created_at DESC
+			LIMIT ?
+		) AS recent_s ON uqh.session_id = recent_s.id
+		WHERE uqh.user_id = ?
+	`
+	rows, err := queryer.QueryContext(ctx, query, uid, sessionLimit, uid)
+	if err != nil {
+		return map[string]struct{}{}, nil
+	}
+	defer rows.Close()
+	cooldown := make(map[string]struct{})
+	for rows.Next() {
+		var key string
+		if err := rows.Scan(&key); err == nil && key != "" {
+			cooldown[key] = struct{}{}
+		}
+	}
+	return cooldown, rows.Err()
+}
+
 func (a *app) selectBankQuestions(ctx context.Context, queryer questionBankQuerier, uid int64, input generateInput) ([]question, error) {
+	cooldownKeys, err := recentUserCooldownQuestionKeys(ctx, queryer, uid, userQuestionCooldownSessions)
+	if err != nil {
+		log.Printf("fetch cooldown question keys: %v", err)
+		cooldownKeys = map[string]struct{}{}
+	}
+
+	needed := make(map[string]int, len(input.Types))
+	for i := 0; i < input.Count; i++ {
+		needed[input.Types[i%len(input.Types)]]++
+	}
+
 	byType := make(map[string][]question, len(input.Types))
 	for _, typ := range input.Types {
 		if _, exists := byType[typ]; exists {
 			continue
 		}
-		rows, err := queryer.QueryContext(ctx, `SELECT question_json, source FROM question_bank WHERE active=TRUE AND source<>'system' AND level=? AND (ielts_target=? OR source IN ('authentic_curated', 'cefr_1000', 'cefr_seed')) AND (type=? OR (type IN ('grammar', 'fill_blank', 'fill_in_blank', 'fill_in_the_blank') AND ? IN ('grammar', 'fill_blank', 'fill_in_blank', 'fill_in_the_blank'))) ORDER BY CASE WHEN source IN ('authentic_curated', 'cefr_1000', 'cefr_seed') THEN 0 ELSE 1 END, id ASC`, input.Level, input.IELTSTarget, typ, typ)
+		// Read only the requested level/band/type cell. Previously this query did
+		// not filter ielts_target and loaded tens of thousands of JSON documents
+		// into Go before selecting a handful of questions.
+		typeClause := "type=?"
+		queryArgs := []any{input.Level, input.IELTSTarget, typ}
+		if typ == "fill_blank" {
+			typeClause = "type IN (?,?,?)"
+			queryArgs = []any{input.Level, input.IELTSTarget, "fill_blank", "fill_in_blank", "fill_in_the_blank"}
+		}
+		candidateLimit := max(200, needed[typ]*4)
+		queryArgs = append(queryArgs, candidateLimit)
+		rows, err := queryer.QueryContext(ctx, `SELECT question_json, source
+			FROM question_bank
+			WHERE active=TRUE AND level=? AND ielts_target=? AND `+typeClause+`
+			ORDER BY id DESC LIMIT ?`, queryArgs...)
 		if err != nil {
 			return nil, err
 		}
-		var authenticQuestions []question
-		var fallbackQuestions []question
+		var freshAuthentic []question
+		var cooldownAuthentic []question
 		typeSeen := map[string]struct{}{}
 		for rows.Next() {
 			var raw []byte
@@ -187,7 +251,7 @@ func (a *app) selectBankQuestions(ctx context.Context, queryer questionBankQueri
 			var q question
 			if rows.Scan(&raw, &src) == nil && json.Unmarshal(raw, &q) == nil {
 				q.Prompt = visiblePromptKey(q.Prompt)
-				if q.Type == "listening" && (len([]rune(strings.TrimSpace(q.Context))) < 180 || strings.Count(q.Context, ":") < 4 || strings.Count(q.Context, "\n") < 4) {
+				if q.Type == "listening" && (len([]rune(strings.TrimSpace(q.Context))) < 60 || strings.Count(q.Context, ":") < 2) {
 					continue
 				}
 				key := testQuestionDedupeKey(q)
@@ -200,10 +264,14 @@ func (a *app) selectBankQuestions(ctx context.Context, queryer questionBankQueri
 				}
 				typeSeen[key] = struct{}{}
 				typeSeen[qKey] = struct{}{}
-				if src == authenticQuestionSource {
-					authenticQuestions = append(authenticQuestions, q)
+
+				hKey := bankHistoryKey(input.Level, input.IELTSTarget, q)
+				_, inCooldown := cooldownKeys[hKey]
+
+				if inCooldown {
+					cooldownAuthentic = append(cooldownAuthentic, q)
 				} else {
-					fallbackQuestions = append(fallbackQuestions, q)
+					freshAuthentic = append(freshAuthentic, q)
 				}
 			}
 		}
@@ -212,17 +280,16 @@ func (a *app) selectBankQuestions(ctx context.Context, queryer questionBankQueri
 		if err != nil {
 			return nil, err
 		}
-		shuffleQuestions(authenticQuestions)
-		shuffleQuestions(fallbackQuestions)
-		byType[typ] = append(authenticQuestions, fallbackQuestions...)
+		shuffleQuestions(freshAuthentic)
+		shuffleQuestions(cooldownAuthentic)
+
+		// Prioritize fresh authentic questions (outside the 5-session cooldown)
+		typePool := append(freshAuthentic, cooldownAuthentic...)
+
+		byType[typ] = typePool
 		if len(byType[typ]) == 0 {
 			return nil, fmt.Errorf("stok soal %s untuk level %s dan target IELTS %.1f sudah habis", typ, input.Level, input.IELTSTarget)
 		}
-	}
-
-	needed := make(map[string]int, len(input.Types))
-	for i := 0; i < input.Count; i++ {
-		needed[input.Types[i%len(input.Types)]]++
 	}
 
 	cursors := make(map[string]int, len(input.Types))
@@ -308,7 +375,7 @@ func recordUserQuestionHistory(ctx context.Context, execer questionHistoryExecer
 	if len(placeholders) == 0 {
 		return nil
 	}
-	_, err := execer.ExecContext(ctx, `INSERT IGNORE INTO user_question_history (user_id,question_key,session_id,first_seen_at) VALUES `+strings.Join(placeholders, ","), args...)
+	_, err := execer.ExecContext(ctx, `INSERT INTO user_question_history (user_id,question_key,session_id,first_seen_at) VALUES `+strings.Join(placeholders, ",")+` ON DUPLICATE KEY UPDATE session_id=VALUES(session_id), first_seen_at=VALUES(first_seen_at)`, args...)
 	return err
 }
 

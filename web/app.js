@@ -16,6 +16,7 @@ const screens = {
   learning: $("#learning-screen"),
   quiz: $("#quiz-screen"),
   result: $("#result-screen"),
+  mock: $("#mock-screen"),
 };
 
 function escapeHTML(value = "") {
@@ -867,6 +868,7 @@ $("#history-dialog").addEventListener("click", (event) => {
 document.addEventListener("click", (event) => {
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action === "home") showSetup();
+  if (action === "mock") openMockLobby();
   if (action === "learning") openLearning();
   if (action === "history") openHistory();
   if (action === "theme") toggleTheme();

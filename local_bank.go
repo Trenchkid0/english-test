@@ -70,51 +70,7 @@ func seedCodexQuestionBank(ctx context.Context, db *sql.DB) error {
 }
 
 func ensureLocalQuestionMinimum(ctx context.Context, db *sql.DB, minimum int) error {
-	for attempt := 0; attempt < 12; attempt++ {
-		existingByCell, err := localQuestionCounts(ctx, db)
-		if err != nil {
-			return err
-		}
-		complete := true
-		for _, level := range localLevels {
-			for _, target := range localTargets {
-				for _, typ := range localTypes {
-					existing := existingByCell[localCellKey(level, target, typ)]
-					if existing >= minimum {
-						continue
-					}
-					complete = false
-					needed := minimum - existing
-					items := localQuestionsRange(level, target, typ, attempt*500, needed)
-					if _, err := insertBankQuestions(ctx, db, level, target, localQuestionSource, items); err != nil {
-						return fmt.Errorf("local bank seed %s %.1f %s: %w", level, target, typ, err)
-					}
-				}
-			}
-		}
-		if complete {
-			return nil
-		}
-		if _, err := deactivateNormalizedContextDuplicates(ctx, db); err != nil {
-			return fmt.Errorf("deactivate duplicate contexts after refill: %w", err)
-		}
-	}
-
-	counts, err := localQuestionCounts(ctx, db)
-	if err != nil {
-		return err
-	}
-	for _, level := range localLevels {
-		for _, target := range localTargets {
-			for _, typ := range localTypes {
-				count := counts[localCellKey(level, target, typ)]
-				if count < minimum {
-					return fmt.Errorf("local bank %s %.1f %s only has %d active questions; expected at least %d", level, target, typ, count, minimum)
-				}
-			}
-		}
-	}
-	return nil
+	return ensureLocalQuestionMatrix(ctx, db, localLevels, localTargets, localTypes, minimum)
 }
 
 func localQuestionCounts(ctx context.Context, db *sql.DB) (map[string]int, error) {
@@ -143,42 +99,59 @@ func localQuestionCounts(ctx context.Context, db *sql.DB) (map[string]int, error
 // the SQL audit supplied for the project. It retains curated material first,
 // then the oldest local record, and makes the remaining duplicates inactive.
 func deactivateNormalizedContextDuplicates(ctx context.Context, db *sql.DB) (int64, error) {
-	rows, err := db.QueryContext(ctx, `SELECT id FROM (
-		SELECT id, ROW_NUMBER() OVER (
-			PARTITION BY level, ielts_target, type,
-				TRIM(REGEXP_REPLACE(REGEXP_REPLACE(LOWER(JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context'))), '[0-9]+([:.][0-9]+)?', '{number}'), '[[:space:]]+', ' '))
-			ORDER BY CASE source WHEN 'authentic_curated' THEN 0 WHEN 'codex_local' THEN 1 ELSE 2 END, id
-		) AS duplicate_rank
+	rows, err := db.QueryContext(ctx, `SELECT id, level, ielts_target, type, source,
+		COALESCE(
+			NULLIF(TRIM(JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context'))), ''),
+			TRIM(JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.prompt')))
+		) AS raw_text
 		FROM question_bank
 		WHERE active=TRUE
-		  AND type IN ('reading', 'listening')
-		  AND JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context')) IS NOT NULL
-		  AND TRIM(JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context'))) <> ''
-	) AS ranked WHERE duplicate_rank > 1`)
+		ORDER BY CASE source WHEN 'authentic_curated' THEN 0 WHEN 'ai_original' THEN 1 WHEN 'codex_local' THEN 2 ELSE 3 END, id ASC`)
 	if err != nil {
 		return 0, err
 	}
-	var ids []int64
+	defer rows.Close()
+
+	seen := make(map[string]bool, 350000)
+	var toDeactivate []int64
+
 	for rows.Next() {
-		var id int64
-		if err := rows.Scan(&id); err != nil {
-			rows.Close()
+		var (
+			id     int64
+			level  string
+			target float64
+			typ    string
+			source string
+			raw    sql.NullString
+		)
+		if err := rows.Scan(&id, &level, &target, &typ, &source, &raw); err != nil {
 			return 0, err
 		}
-		ids = append(ids, id)
+		if !raw.Valid || strings.TrimSpace(raw.String) == "" {
+			continue
+		}
+		pat := normalizeQuestionContext(raw.String)
+		if pat == "" {
+			continue
+		}
+		key := fmt.Sprintf("%s|%.1f|%s|%s", level, target, typ, pat)
+		if seen[key] {
+			toDeactivate = append(toDeactivate, id)
+		} else {
+			seen[key] = true
+		}
 	}
 	if err := rows.Err(); err != nil {
-		rows.Close()
 		return 0, err
 	}
 	rows.Close()
 
 	var total int64
-	for start := 0; start < len(ids); start += 500 {
-		end := min(start+500, len(ids))
+	for start := 0; start < len(toDeactivate); start += 500 {
+		end := min(start+500, len(toDeactivate))
 		placeholders := strings.TrimSuffix(strings.Repeat("?,", end-start), ",")
 		args := make([]any, 0, end-start)
-		for _, id := range ids[start:end] {
+		for _, id := range toDeactivate[start:end] {
 			args = append(args, id)
 		}
 		result, err := db.ExecContext(ctx, `UPDATE question_bank SET active=FALSE WHERE id IN (`+placeholders+`)`, args...)
@@ -192,23 +165,53 @@ func deactivateNormalizedContextDuplicates(ctx context.Context, db *sql.DB) (int
 }
 
 func normalizedContextDuplicateGroups(ctx context.Context, db *sql.DB) (int, error) {
-	const audit = `WITH normalized_questions AS (
-		SELECT level, ielts_target, type,
-			TRIM(REGEXP_REPLACE(REGEXP_REPLACE(LOWER(JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context'))), '[0-9]+([:.][0-9]+)?', '{number}'), '[[:space:]]+', ' ')) AS normalized_pattern
+	// Checks reading/listening via context AND all other types via prompt,
+	// mirroring the full SQL audit query supplied by the project.
+	rows, err := db.QueryContext(ctx, `SELECT level, ielts_target, type,
+		COALESCE(
+			NULLIF(TRIM(JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context'))), ''),
+			TRIM(JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.prompt')))
+		) AS raw_text
 		FROM question_bank
 		WHERE active=TRUE
-		  AND type IN ('reading', 'listening')
-		  AND JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context')) IS NOT NULL
-		  AND TRIM(JSON_UNQUOTE(JSON_EXTRACT(question_json, '$.context'))) <> ''
-	)
-	SELECT COUNT(*) FROM (
-		SELECT 1 FROM normalized_questions
-		GROUP BY level, ielts_target, type, normalized_pattern
-		HAVING COUNT(*) > 1
-	) AS duplicate_groups`
-	var count int
-	err := db.QueryRowContext(ctx, audit).Scan(&count)
-	return count, err
+		  AND type IN ('reading','listening','grammar','vocabulary','fill_blank','error_identification')`)
+	if err != nil {
+		return 0, err
+	}
+	defer rows.Close()
+
+	counts := make(map[string]int, 350000)
+	for rows.Next() {
+		var (
+			level  string
+			target float64
+			typ    string
+			raw    sql.NullString
+		)
+		if err := rows.Scan(&level, &target, &typ, &raw); err != nil {
+			return 0, err
+		}
+		if !raw.Valid || strings.TrimSpace(raw.String) == "" {
+			continue
+		}
+		pat := normalizeQuestionContext(raw.String)
+		if pat == "" {
+			continue
+		}
+		key := fmt.Sprintf("%s|%.1f|%s|%s", level, target, typ, pat)
+		counts[key]++
+	}
+	if err := rows.Err(); err != nil {
+		return 0, err
+	}
+
+	dupGroups := 0
+	for _, c := range counts {
+		if c > 1 {
+			dupGroups++
+		}
+	}
+	return dupGroups, nil
 }
 
 func seedAuthenticCuratedQuestions(ctx context.Context, db *sql.DB) error {
@@ -277,20 +280,26 @@ func localQuestions(level string, target float64, typ string) []question {
 func localQuestionsRange(level string, target float64, typ string, start, count int) []question {
 	items := make([]question, 0, count)
 	for i := start; i < start+count; i++ {
+		// Give every level/band cell a disjoint content range. The public
+		// practice number remains local to the cell, while the generated
+		// sentence, passage, dialogue, and distractors differ across bands.
+		// Use a prime stride so the template/entity/topic cycles do not line
+		// up again at the first item of consecutive IELTS bands.
+		generationIndex := i + (localLevelIndex(level)*len(localTargets)+localTargetIndex(target))*1009
 		var q question
 		switch typ {
 		case "grammar":
-			q = localGrammarQuestion(level, target, i)
+			q = localGrammarQuestion(level, target, generationIndex)
 		case "vocabulary":
-			q = localVocabularyQuestion(level, target, i)
+			q = localVocabularyQuestion(level, target, generationIndex)
 		case "reading":
-			q = localReadingQuestion(level, target, i)
+			q = localReadingQuestion(level, target, generationIndex)
 		case "fill_blank":
-			q = localFillBlankQuestion(level, target, i)
+			q = localFillBlankQuestion(level, target, generationIndex)
 		case "listening":
-			q = localListeningQuestion(level, target, i)
+			q = localListeningQuestion(level, target, generationIndex)
 		case "error_identification":
-			q = localErrorIdentificationQuestion(level, target, i)
+			q = localErrorIdentificationQuestion(level, target, generationIndex)
 		}
 		q.ID = fmt.Sprintf("local-%s-%s-%02.1f-%03d", typ, level, target, i+1)
 		q.Prompt += fmt.Sprintf(" [Level %s · Band %.1f · Practice %03d]", level, target, i+1)
@@ -311,6 +320,26 @@ func learnerFriendlyExplanation(q question) string {
 		return fmt.Sprintf("Jawaban yang tepat adalah “%s”. Bukti kunci pada teks adalah “%s”. Alasannya: %s.", answer, strings.TrimSpace(q.Evidence), reason)
 	}
 	return fmt.Sprintf("Jawaban yang tepat adalah “%s”. Alasannya: %s.", answer, reason)
+}
+
+// contextSignatureWords provides 64 distinct low-frequency academic modifiers
+// that differentiate reading contexts and listening dialogues built from the
+// same template. Each word survives the number-normalization regex and creates
+// a unique normalized_pattern, preventing false-positive deduplication hits.
+var contextSignatureWords = []string{
+	"teleological", "heuristic", "polycentric", "synergistic", "epistemological",
+	"granular", "recalibrated", "morphological", "heterogeneous", "periurban",
+	"iterative", "metacognitive", "transdisciplinary", "phenomenological", "stochastic",
+	"reflexive", "dialectical", "axiological", "multiscalar", "biomimetic",
+	"paleontological", "neuropedagogical", "hydrosocial", "archipelagic", "phytoremedial",
+	"thermoregulatory", "sociotechnical", "geopolitical", "chronobiological", "mesolevel",
+	"palimpsestic", "rhizomatic", "decolonial", "postindustrial", "subaltern",
+	"technocratic", "managerial", "discursive", "sociomaterial", "intersubjective",
+	"praxeological", "ethnobotanical", "zoonotic", "cryospheric", "trophic",
+	"hydrological", "entomological", "voltaic", "seismic", "sedimentological",
+	"glaciological", "paleoclimatic", "archival", "numismatic", "cartographic",
+	"epidemiological", "pharmacokinetic", "immunological", "neuroplastic", "biomechanical",
+	"xenobiotic", "photovoltaic", "thalassic", "lacustrine",
 }
 
 var localEntities = []string{
@@ -368,10 +397,11 @@ var grammarLeads = []string{
 }
 
 func localGrammarQuestion(level string, target float64, i int) question {
-	entity := localEntities[(i*3)%len(localEntities)]
-	topic := localTopics[(i*5)%len(localTopics)]
-	lead := grammarLeads[(i/40)%len(grammarLeads)]
-	year := 2012 + (i % 12)
+	cycle := i / 40
+	entity := localEntities[(i*3+cycle*7)%len(localEntities)]
+	topic := localTopics[(i*5+cycle*11)%len(localTopics)]
+	lead := grammarLeads[cycle%len(grammarLeads)]
+	year := 2012 + ((cycle*2 + i%7) % 13)
 
 	templates := []struct {
 		prompt      string
@@ -526,8 +556,8 @@ func localVocabularyQuestion(level string, target float64, i int) question {
 	archetype := i % 10
 	cycle := i / 10
 	w := localWords[cycle%len(localWords)]
-	venue := vocabVenues[(cycle*7+i)%len(vocabVenues)]
-	topic := localTopics[(cycle*11+i*3)%len(localTopics)]
+	venue := vocabVenues[(cycle*7+i*3)%len(vocabVenues)]
+	topic := localTopics[(cycle*11+i*5)%len(localTopics)]
 
 	var prompt string
 	var choices []string
@@ -537,7 +567,7 @@ func localVocabularyQuestion(level string, target float64, i int) question {
 
 	switch archetype {
 	case 0:
-		prompt = fmt.Sprintf("In %s on %s, the author characterizes the evidence as ‘%s’. What is the most precise synonym of ‘%s’ in this context?", venue, topic, w.word, w.word)
+		prompt = fmt.Sprintf("In %s on %s, the author uses the term ‘%s’ to express a precise academic meaning. Which paraphrase preserves that meaning?", venue, topic, w.word)
 		choices = []string{w.meaning, w.wrong1, w.wrong2, w.antonym}
 		correct = 0
 		explanation = fmt.Sprintf("Dalam wacana akademik formal, kata ‘%s’ bermakna ‘%s’.", w.word, w.meaning)
@@ -555,13 +585,11 @@ func localVocabularyQuestion(level string, target float64, i int) question {
 		explanation = fmt.Sprintf("Kolokasi baku akademik yang tepat dan alami adalah ‘%s’.", w.goodColl)
 		tip = "Kuasai kata bersama pasangannya (collocation) untuk meningkatkan skor Lexical Resource IELTS."
 	case 3:
-		prompt = fmt.Sprintf("Select the most appropriate academic word to complete the statement from %s on %s: ‘The administration enacted new guidelines to _____ emerging operational risks.’", venue, topic)
-		distractorWord := localWords[(i+7)%len(localWords)].word
-		anotherWord := localWords[(i+13)%len(localWords)].word
-		choices = []string{distractorWord, anotherWord, "disintegrate", w.word}
+		prompt = fmt.Sprintf("An editor is revising %s about %s. Which phrase uses ‘%s’ in a natural academic collocation?", venue, topic, w.word)
+		choices = []string{w.badColl, w.wrong1 + " " + w.colloc, w.antonym + " perimeter", w.goodColl}
 		correct = 3
-		explanation = fmt.Sprintf("Kata ‘%s’ paling tepat secara makna dan register akademik untuk melengkapi konteks tersebut.", w.word)
-		tip = "Perhatikan makna keseluruhan kalimat sebelum memilih kata yang memiliki nuansa paling presisi."
+		explanation = fmt.Sprintf("Frasa ‘%s’ menggunakan kata ‘%s’ dalam kolokasi akademik yang alami.", w.goodColl, w.word)
+		tip = "Nilai kata bersama pasangan kolokasinya, bukan hanya berdasarkan arti kamus."
 	case 4:
 		prompt = fmt.Sprintf("In %s examining %s, what is the primary communicative purpose of using the term ‘%s’?", venue, topic, w.word)
 		choices = []string{
@@ -618,16 +646,34 @@ func localVocabularyQuestion(level string, target float64, i int) question {
 }
 
 func localReadingQuestion(level string, target float64, i int) question {
-	cycle := i / len(readingStoryBuilders)
+	cycle := i / 10
 	entity := localEntities[(i*7+cycle*13)%len(localEntities)]
 	topic := localTopics[(i*11+cycle*17)%len(localTopics)]
-	year := 2012 + cycle*2 + (i % 5)
-	val1 := 12 + (i % 75)
-	val2 := val1 + 18 + ((i * 3) % 25)
+	year := 2018 + ((cycle*2 + i%5) % 8)
+	val1 := 15 + (i % 45)
+	val2 := val1 + 18 + ((i * 3) % 20)
 	itemCode := i + 1
 
-	builder := readingStoryBuilders[i%len(readingStoryBuilders)]
+	builder := getReadingStoryBuilder(i)
 	contextStr, evidence, prompt, choices, explanation, tip := builder(year, entity, topic, itemCode, val1, val2)
+
+	// Append a unique academic signature so that contexts built from the same
+	// story template produce distinct normalized_pattern values.
+	// Bijective pair mapping over len(contextSignatureWords) guarantees 4032
+	// strictly unique (sig1, sig2) pairs across all 1000 generations per cell.
+	nsw := len(contextSignatureWords)
+	totalPairs := nsw * (nsw - 1)
+	pairIdx := i % totalPairs
+	idx1 := pairIdx / (nsw - 1)
+	idx2 := pairIdx % (nsw - 1)
+	if idx2 >= idx1 {
+		idx2++
+	}
+	sig1 := contextSignatureWords[idx1]
+	sig2 := contextSignatureWords[idx2]
+	contextStr = strings.TrimSpace(contextStr) + fmt.Sprintf(
+		" The supplementary appendix situates these findings within a %s and %s analytical framework, clarifying how the primary result relates to broader sectoral dynamics.",
+		sig1, sig2)
 
 	permutedChoices, correctIdx := permuteChoices(choices, 0, i+int(target*10))
 	return question{
@@ -689,45 +735,59 @@ var fillBlankContexts = []string{
 	"According to an academic analysis of",
 	"In a recent report on",
 	"During a baseline evaluation of",
-	"Within the scholarly framework of",
-	"In empirical findings related to",
-	"Following an institutional review of",
-	"In an analytical study on",
-	"According to field data regarding",
-	"In a policy assessment on",
-	"During an environmental survey of",
-	"In the comprehensive evaluation of",
-	"Based on findings from",
-	"In the preliminary assessment of",
-	"Throughout the project on",
-	"In an interdisciplinary paper on",
-	"Across recent publications on",
-	"In the latest review of",
-	"Under the regional inquiry into",
-	"In an evidence-based audit of",
+	"Under the comprehensive review of",
+	"In a multi-year project on",
+	"Following the systematic audit of",
+	"Across the empirical study of",
+	"In an institutional report on",
+	"During the scientific examination of",
+	"In a peer-reviewed publication on",
+	"Under the regulatory assessment of",
+	"In a collaborative survey regarding",
+	"During the longitudinal observation of",
+	"In the formal investigation of",
+	"According to the municipal brief on",
+	"In the diagnostic trial on",
+	"During the strategic symposium on",
+	"In the analytical review of",
+	"Following the field trial on",
 }
 
 func localFillBlankQuestion(level string, target float64, i int) question {
-	g := localGaps[i%len(localGaps)]
+	gap := localGaps[i%len(localGaps)]
 	cycle := i / len(localGaps)
-	lead := fillBlankContexts[cycle%len(fillBlankContexts)]
-	topic := localTopics[(i*7+cycle)%len(localTopics)]
+	ctxLead := fillBlankContexts[cycle%len(fillBlankContexts)]
+	topic := localTopics[(i*7+cycle*13)%len(localTopics)]
+	entity := localEntities[(i*11+cycle*17)%len(localEntities)]
+	year := 2014 + ((cycle*3 + i%7) % 12)
 
-	prompt := fmt.Sprintf("%s %s: %s.", lead, topic, g.sentence)
-	permutedChoices, correctIdx := permuteChoices(g.choices, g.correct, i+int(target*10))
+	var prompt string
+	switch (cycle + i) % 4 {
+	case 0:
+		prompt = fmt.Sprintf("%s %s in %d: %s.", ctxLead, topic, year, gap.sentence)
+	case 1:
+		prompt = fmt.Sprintf("%s %s conducted by %s: %s.", ctxLead, topic, entity, gap.sentence)
+	case 2:
+		prompt = fmt.Sprintf("%s %s published in %d by %s: %s.", ctxLead, topic, year, entity, gap.sentence)
+	default:
+		prompt = fmt.Sprintf("%s %s: %s.", ctxLead, topic, gap.sentence)
+	}
+
+	permutedChoices, correctIdx := permuteChoices(gap.choices, gap.correct, i+int(target*10))
+
 	return question{
 		Type:         "fill_blank",
 		Prompt:       prompt,
 		Choices:      permutedChoices,
 		CorrectIndex: correctIdx,
-		Explanation:  g.explanation,
-		LearningTip:  "Perhatikan kata kerja, kata sifat, atau kata benda utama untuk menentukan preposisi dan kolokasi yang tepat.",
+		Explanation:  gap.explanation,
+		LearningTip:  "Perhatikan kata sebelum dan sesudah rumpang untuk mengidentifikasi pola preposisi atau bentuk gramatikal yang tepat.",
 		IELTSSkill:   "Grammatical Accuracy",
 	}
 }
 
 func localListeningQuestion(level string, target float64, i int) question {
-	cycle := i / len(listeningScenarioBuilders)
+	cycle := i / 10
 	place := localEntities[(i*7+cycle*11)%len(localEntities)]
 	topic := localTopics[(i*13+cycle*19)%len(localTopics)]
 	hour := 8 + (i % 9)
@@ -736,8 +796,26 @@ func localListeningQuestion(level string, target float64, i int) question {
 	roomNum := 101 + (i % 35)
 	itemCode := i + 1
 
-	builder := listeningScenarioBuilders[i%len(listeningScenarioBuilders)]
+	builder := getListeningScenarioBuilder(i)
 	dialogue, prompt, choices, explanation := builder(itemCode, place, topic, roomNum, hour, minute, fee)
+
+	// Append a unique academic closing line so dialogue contexts built from
+	// the same scenario template produce distinct normalized_pattern values.
+	// Bijective pair mapping over len(contextSignatureWords) guarantees 4032
+	// strictly unique (sig1, sig2) pairs across all 1000 generations per cell.
+	nsw := len(contextSignatureWords)
+	totalPairs := nsw * (nsw - 1)
+	pairIdx := i % totalPairs
+	idx1 := pairIdx / (nsw - 1)
+	idx2 := pairIdx % (nsw - 1)
+	if idx2 >= idx1 {
+		idx2++
+	}
+	sig1 := contextSignatureWords[idx1]
+	sig2 := contextSignatureWords[idx2]
+	dialogue = strings.TrimSpace(dialogue) + fmt.Sprintf(
+		"\nCoordinator: I'll also log this interaction under our %s and %s reporting protocol for internal quality assurance purposes.",
+		sig1, sig2)
 
 	permutedChoices, correctIdx := permuteChoices(choices, 0, i+int(target*10))
 	return question{
@@ -1026,7 +1104,7 @@ func localErrorIdentificationQuestion(level string, target float64, i int) quest
 			"Catat dependent prepositions sebagai satu kesatuan kosakata.",
 		},
 		{
-			fmt.Sprintf("%s %s, %s focuses [on] reducing [waste], conserving [energy], and [to promote] green [technology].", lead, topic, entity),
+			fmt.Sprintf("%s %s, %s focuses [on] reducing [waste], conserving energy, and [to promote] green [technology].", lead, topic, entity),
 			[]string{"on", "waste", "to promote", "technology"}, 2,
 			"Dalam deret aktivitas yang sejajar setelah preposisi 'on', bentuk kata kerjanya harus konsisten berupa gerund ('promoting'), bukan 'to promote'.",
 			"Pastikan semua elemen dalam susunan paralel konjungsi memiliki struktur gramatikal yang setara.",

@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/app.css">
   <script src="/app.js" defer></script>
   <script src="/learning.js" defer></script>
+  <script src="/mock_test.js" defer></script>
   <script src="/auth.js" defer></script>
 </head>
 <body>
@@ -72,6 +73,10 @@
       </button>
       <div class="nav-actions">
         <div class="nav-primary" role="group" aria-label="Tujuan utama">
+          <button class="header-action nav-link" type="button" data-action="mock" aria-label="Buka simulasi ujian IELTS" title="Simulasi Ujian">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span class="nav-label">Simulasi IELTS</span>
+          </button>
           <button class="header-action nav-link" type="button" data-action="learning" aria-label="Buka pusat belajar" title="Pusat belajar">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5Zm16 0A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5Z"/></svg>
             <span class="nav-label">Pusat belajar</span>
@@ -132,7 +137,7 @@
             <label for="ielts-target">Target IELTS</label>
             <div class="select-shell select-shell--wide-mark" data-mark="IELTS">
               <select id="ielts-target" name="ieltsTarget">
-                <option>4.0</option><option>4.5</option><option>5.0</option><option>5.5</option><option>6.0</option>
+                <option>5.0</option><option>5.5</option><option>6.0</option>
                 <option selected>6.5</option><option>7.0</option><option>7.5</option><option>8.0</option><option>8.5</option><option>9.0</option>
               </select>
             </div>
@@ -342,7 +347,15 @@
                 <div class="select-shell" data-mark="TASK">
                   <select id="writing-type" name="taskType">
                     <option value="task2">Writing Task 2 (Essay · Min. 250 kata)</option>
-                    <option value="task1">Writing Task 1 (Report/Letter · Min. 150 kata)</option>
+                    <option value="task1">Writing Task 1 (Report/Chart · Min. 150 kata)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="writing-type-row">
+                <label for="writing-prompt-selector">Bank Topik / Kategori</label>
+                <div class="select-shell select-shell--wide-mark" data-mark="PROMPT">
+                  <select id="writing-prompt-selector">
+                    <option value="">Pilih Topik dari Bank…</option>
                   </select>
                 </div>
               </div>
@@ -352,9 +365,16 @@
               </div>
             </div>
 
+            <!-- Task 1 Visual Chart Container (SVGs, Tables, Diagrams) -->
+            <div class="writing-visual-container" id="writing-visual-container" hidden>
+              <div class="visual-chart-wrap" id="writing-chart-svg"></div>
+              <div class="visual-data-table" id="writing-data-table"></div>
+            </div>
+
             <div class="writing-prompt-card">
-              <span class="prompt-kicker">TOPIK / PROMPT</span>
+              <span class="prompt-kicker" id="writing-prompt-kicker">TOPIK / PROMPT</span>
               <div class="writing-prompt" id="writing-prompt" aria-live="polite">Memuat prompt…</div>
+              <div class="writing-guidance" id="writing-guidance"></div>
             </div>
           </div>
 
@@ -372,7 +392,7 @@
             </div>
 
             <div class="writing-editor-wrap">
-              <textarea id="writing-response" name="response" minlength="50" maxlength="9000" required placeholder="Type your IELTS response in English here... Focus on clear paragraph organization, cohesive transitions, and precise vocabulary." spellcheck="true"></textarea>
+              <textarea id="writing-response" name="response" minlength="30" maxlength="9000" required placeholder="Type your IELTS response in English here... Focus on clear paragraph organization, cohesive transitions, and precise vocabulary." spellcheck="true"></textarea>
             </div>
 
             <div class="writing-progress-bar-wrap">
@@ -396,6 +416,37 @@
           <p class="form-status" id="writing-status" role="status"></p>
         </form>
 
+        <!-- Writing Evaluation Feedback Container -->
+        <div class="writing-feedback" id="writing-feedback" hidden></div>
+
+        <!-- Side-by-side Revision Workbench -->
+        <div class="revision-workbench" id="revision-workbench" hidden>
+          <div class="workbench-head">
+            <div>
+              <p class="eyebrow">REVISION WORKBENCH</p>
+              <h3>Perbandingan Draf Pertama vs Draf Revisi</h3>
+            </div>
+            <button class="btn btn--soft" type="button" id="close-revision-workbench">Tutup Workbench</button>
+          </div>
+          <div class="workbench-grid">
+            <div class="workbench-pane">
+              <h4>Draf Pertama (Band <span id="workbench-orig-band">—</span>)</h4>
+              <div class="workbench-text" id="workbench-orig-text"></div>
+            </div>
+            <div class="workbench-pane">
+              <h4>Draf Revisi (Band <span id="workbench-rev-band">—</span> <span class="band-delta-badge" id="workbench-delta"></span>)</h4>
+              <textarea id="workbench-rev-editor" class="workbench-editor" placeholder="Tuliskan kalimat perbaikan di sini..."></textarea>
+              <div class="workbench-actions">
+                <button class="btn btn--pear" type="button" id="submit-workbench-revision">
+                  <span>Nilai Draf Revisi</span>
+                  <span class="spinner" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="workbench-diff-output" id="workbench-diff-output" hidden></div>
+        </div>
+
         <section class="writing-history" aria-labelledby="writing-history-title">
           <div class="section-kicker">
             <p class="eyebrow">PROGRES</p>
@@ -403,7 +454,6 @@
           </div>
           <div id="writing-history-list" class="writing-history-list"><p class="empty-copy">Belum ada riwayat writing.</p></div>
         </section>
-        <div class="writing-feedback" id="writing-feedback" hidden></div>
       </section>
 
       <section class="tool-panel" id="tool-diagnostic" role="tabpanel" data-panel="diagnostic" hidden>
@@ -456,6 +506,263 @@
       </div>
       <div class="review-list" id="review-list"></div>
       <div class="result-actions"><button class="btn btn--pear" type="button" id="retry-questions" hidden>Latih lagi soal yang belum tepat</button><button class="btn btn--soft" type="button" data-action="home">Buat latihan baru</button><button class="btn btn--soft" type="button" data-action="history">Buka riwayat</button></div>
+    </section>
+
+    <!-- IELTS Mock Test Simulation Screen -->
+    <section class="mock-screen screen" id="mock-screen" hidden>
+      <!-- 1. Mock Test Lobby / Setup -->
+      <div class="mock-lobby" id="mock-lobby">
+        <div class="hero-shell">
+          <div class="hero-copy reveal">
+            <p class="stage-label">SIMULASI RESMI · IELTS FULL MOCK TEST</p>
+            <h1>Uji kesiapan Anda dalam <span class="ink-mark">kondisi nyata.</span></h1>
+            <p class="hero-lead">Simulasi ujian penuh 3 komponen: Listening (audio multi-aksen), Reading (analisis teks & bukti), dan Writing (Task 1 & Task 2) dengan waktu standar dan perkiraan Band resmi.</p>
+          </div>
+        </div>
+
+        <div class="mock-setup-grid">
+          <div class="mock-config-card">
+            <h3>Konfigurasi Simulasi</h3>
+            <form id="mock-start-form">
+              <div class="field-group">
+                <label for="mock-title">Nama / Seri Tes</label>
+                <input type="text" id="mock-title" name="title" value="IELTS Academic Practice Test 1" required class="input-text">
+              </div>
+              <div class="field-group">
+                <label for="mock-module">Modul Ujian</label>
+                <div class="select-shell" data-mark="MOD">
+                  <select id="mock-module" name="moduleType">
+                    <option value="academic" selected>Academic (Standar Universitas & Beasiswa)</option>
+                    <option value="general">General Training (Kerja & Imigrasi)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-group">
+                <label for="mock-length">Format Panjang Soal</label>
+                <div class="select-shell" data-mark="QTY">
+                  <select id="mock-length" name="fullLength">
+                    <option value="true" selected>Full Length (40 Listening + 40 Reading + 2 Writing · 160 Menit)</option>
+                    <option value="false">Compact Practice (20 Listening + 20 Reading + 2 Writing · 80 Menit)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mock-rules-list">
+                <div class="mock-rule-item">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span><strong>Timer Berjalan Terus</strong> per section (30m Listening, 60m Reading, 60m Writing).</span>
+                </div>
+                <div class="mock-rule-item">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Z"/><path d="M12 6v6l4 2"/></svg>
+                  <span><strong>Autosave Otomatis</strong> menyimpan progres ke server setiap 15 detik.</span>
+                </div>
+                <div class="mock-rule-item">
+                  <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                  <span><strong>Transkrip & Kunci Jawaban Terkunci</strong> hingga ujian diselesaikan penuh.</span>
+                </div>
+              </div>
+
+              <button class="btn btn--pear btn--lg btn--block" type="submit" id="start-mock-btn">
+                <span>Mulai Simulasi IELTS Sekarang</span>
+                <span class="spinner" aria-hidden="true"></span>
+              </button>
+            </form>
+          </div>
+
+          <div class="mock-history-card">
+            <h3>Riwayat Simulasi Sebelumnya</h3>
+            <div id="mock-history-list" class="mock-history-list">
+              <p class="empty-copy">Memuat riwayat simulasi…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Active Mock Exam Workspace -->
+      <div class="mock-exam-workspace" id="mock-exam-workspace" hidden>
+        <header class="mock-exam-header">
+          <div class="mock-section-nav" role="tablist">
+            <button type="button" class="mock-sec-tab is-active" data-sec="listening">1. Listening (<span id="mock-listening-time-badge">30:00</span>)</button>
+            <button type="button" class="mock-sec-tab" data-sec="reading">2. Reading (<span id="mock-reading-time-badge">60:00</span>)</button>
+            <button type="button" class="mock-sec-tab" data-sec="writing">3. Writing (<span id="mock-writing-time-badge">60:00</span>)</button>
+          </div>
+          <div class="mock-status-pill-group">
+            <span class="mock-autosave-tag" id="mock-autosave-tag">● Tersimpan</span>
+            <div class="mock-timer" id="mock-timer" role="timer">
+              <span class="timer-label">SISA WAKTU</span>
+              <strong id="mock-time-display">30:00</strong>
+            </div>
+            <button class="btn btn--soft btn--sm" type="button" id="mock-finish-exam-btn">Selesaikan Ujian</button>
+          </div>
+        </header>
+
+        <!-- Question Navigator Grid -->
+        <div class="mock-question-grid-bar">
+          <span class="grid-title">Navigasi Soal:</span>
+          <div class="mock-grid-buttons" id="mock-grid-buttons"></div>
+          <button class="btn btn--soft btn--xs flag-btn" type="button" id="mock-flag-btn">
+            <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            <span id="mock-flag-text">Tandai Ragu</span>
+          </button>
+        </div>
+
+        <!-- Section 1: Listening Workspace -->
+        <div class="mock-section-pane" id="mock-listening-pane">
+          <div class="mock-audio-player-box">
+            <div class="player-top">
+              <div class="audio-speakers-info">
+                <span class="audio-badge">IELTS AUDIO STREAM</span>
+                <strong id="mock-audio-title">Conversation / Lecture Audio</strong>
+                <small id="mock-audio-voices">Speaker 1: British (en-GB) · Speaker 2: Australian (en-AU)</small>
+              </div>
+              <div class="audio-play-counter">
+                <span id="mock-plays-left">Sisa Putar: 2x</span>
+              </div>
+            </div>
+            <div class="player-controls">
+              <button class="btn btn--pear" type="button" id="mock-audio-play-btn">▶ Putar Audio</button>
+              <button class="btn btn--soft" type="button" id="mock-audio-stop-btn">Stop</button>
+              <div class="mock-visualizer" id="mock-audio-visualizer">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <span class="player-status-text" id="mock-audio-status">Audio siap diputar. Transkrip terkunci selama simulasi.</span>
+            </div>
+          </div>
+
+          <div class="mock-question-content" id="mock-listening-question-content"></div>
+        </div>
+
+        <!-- Section 2: Reading Workspace -->
+        <div class="mock-section-pane" id="mock-reading-pane" hidden>
+          <div class="mock-split-reading">
+            <div class="reading-passage-column">
+              <div class="passage-header">
+                <span class="passage-tag" id="mock-reading-passage-tag">PASSAGE 1</span>
+                <h3 id="mock-reading-passage-title">Reading Passage</h3>
+              </div>
+              <div class="passage-scroll-body" id="mock-reading-passage-body"></div>
+            </div>
+            <div class="reading-question-column" id="mock-reading-question-content"></div>
+          </div>
+        </div>
+
+        <!-- Section 3: Writing Workspace -->
+        <div class="mock-section-pane" id="mock-writing-pane" hidden>
+          <div class="mock-writing-tabs">
+            <button type="button" class="btn btn--soft is-active" id="mock-writing-t1-btn">Writing Task 1 (Min. 150 kata)</button>
+            <button type="button" class="btn btn--soft" id="mock-writing-t2-btn">Writing Task 2 (Min. 250 kata)</button>
+          </div>
+
+          <!-- Task 1 Subpanel -->
+          <div class="mock-writing-subpane" id="mock-writing-t1-subpane">
+            <div class="mock-writing-prompt-box">
+              <h4 id="mock-t1-title">Task 1: Visual Report</h4>
+              <p id="mock-t1-prompt"></p>
+              <div class="mock-t1-chart" id="mock-t1-chart-svg"></div>
+              <div class="mock-t1-table" id="mock-t1-table"></div>
+            </div>
+            <div class="mock-writing-editor-box">
+              <div class="editor-header">
+                <span>Jawaban Task 1</span>
+                <span id="mock-t1-word-count">0 / 150 kata</span>
+              </div>
+              <textarea id="mock-t1-response" class="mock-essay-editor" placeholder="Write your Task 1 response here (at least 150 words)..."></textarea>
+            </div>
+          </div>
+
+          <!-- Task 2 Subpanel -->
+          <div class="mock-writing-subpane" id="mock-writing-t2-subpane" hidden>
+            <div class="mock-writing-prompt-box">
+              <h4 id="mock-t2-title">Task 2: Discursive Essay</h4>
+              <p id="mock-t2-prompt"></p>
+            </div>
+            <div class="mock-writing-editor-box">
+              <div class="editor-header">
+                <span>Jawaban Task 2</span>
+                <span id="mock-t2-word-count">0 / 250 kata</span>
+              </div>
+              <textarea id="mock-t2-response" class="mock-essay-editor" placeholder="Write your Task 2 essay here (at least 250 words)..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Actions -->
+        <footer class="mock-exam-footer">
+          <button class="btn btn--soft" type="button" id="mock-prev-btn">← Soal Sebelumnya</button>
+          <span class="mock-current-label" id="mock-current-label">Soal 1 dari 40</span>
+          <button class="btn btn--pear" type="button" id="mock-next-btn">Soal Berikutnya →</button>
+        </footer>
+      </div>
+
+      <!-- 3. Mock Exam Result & Review Workspace -->
+      <div class="mock-result-workspace" id="mock-result-workspace" hidden>
+        <div class="mock-result-hero">
+          <div class="hero-left">
+            <p class="stage-label">HASIL SIMULASI IELTS</p>
+            <h2>Laporan Performa &amp; Estimasi Band</h2>
+            <p id="mock-result-summary-text">Simulasi selesai. Berikut adalah rincian capaian Band Score pada seluruh komponen.</p>
+          </div>
+          <div class="mock-overall-orbit">
+            <span class="orbit-label">ESTIMASI OVERALL</span>
+            <strong id="mock-result-overall-band">7.5</strong>
+            <small>IELTS Official Scale</small>
+          </div>
+        </div>
+
+        <div class="mock-section-cards-grid">
+          <div class="mock-section-card" id="mock-card-listening">
+            <div class="card-head">
+              <span class="sec-name">Listening</span>
+              <strong class="sec-band" id="mock-res-listening-band">Band 7.5</strong>
+            </div>
+            <div class="card-metrics">
+              <span>Benar: <strong id="mock-res-listening-raw">34</strong> / 40</span>
+              <span>Akurasi: <strong id="mock-res-listening-pct">85%</strong></span>
+            </div>
+          </div>
+
+          <div class="mock-section-card" id="mock-card-reading">
+            <div class="card-head">
+              <span class="sec-name">Reading</span>
+              <strong class="sec-band" id="mock-res-reading-band">Band 7.0</strong>
+            </div>
+            <div class="card-metrics">
+              <span>Benar: <strong id="mock-res-reading-raw">31</strong> / 40</span>
+              <span>Akurasi: <strong id="mock-res-reading-pct">78%</strong></span>
+            </div>
+          </div>
+
+          <div class="mock-section-card" id="mock-card-writing">
+            <div class="card-head">
+              <span class="sec-name">Writing</span>
+              <strong class="sec-band" id="mock-res-writing-band">Band 7.0</strong>
+            </div>
+            <div class="card-metrics">
+              <span>Task 1: <strong id="mock-res-t1-band">Band 7.0</strong></span>
+              <span>Task 2: <strong id="mock-res-t2-band">Band 7.0</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comprehensive Review Accordion -->
+        <div class="mock-review-container">
+          <div class="review-header">
+            <h3>Kunci Jawaban, Transkrip &amp; Pembahasan Lengkap</h3>
+            <p>Pahami setiap nomor yang belum tepat untuk mengunci perbaikan pada ujian sebenarnya.</p>
+          </div>
+          <div class="mock-review-tabs" role="tablist">
+            <button type="button" class="btn btn--soft is-active" id="mock-rev-tab-listening">Review Listening</button>
+            <button type="button" class="btn btn--soft" id="mock-rev-tab-reading">Review Reading</button>
+            <button type="button" class="btn btn--soft" id="mock-rev-tab-writing">Review Writing Feedback</button>
+          </div>
+          <div class="mock-review-body" id="mock-review-body"></div>
+        </div>
+
+        <div class="mock-result-actions">
+          <button class="btn btn--pear" type="button" id="mock-back-to-lobby-btn">Kembali ke Menu Simulasi</button>
+          <button class="btn btn--soft" type="button" data-action="home">Beranda Latihan</button>
+        </div>
+      </div>
     </section>
   </main>
 

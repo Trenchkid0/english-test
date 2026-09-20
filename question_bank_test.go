@@ -100,3 +100,10 @@ func TestTestQuestionDedupeKey(t *testing.T) {
 	}
 }
 
+func TestUserQuestionCooldownConstant(t *testing.T) {
+	if userQuestionCooldownSessions != 5 {
+		t.Fatalf("expected 5 sessions cooldown, got %d", userQuestionCooldownSessions)
+	}
+}
+
+
