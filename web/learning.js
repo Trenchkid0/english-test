@@ -17,6 +17,12 @@ function formatNumber(value, suffix = "") {
 }
 function learnerPrompt(prompt) { return String(prompt || "").replace(/\s*\[Level[^\]]*\]\s*$/u, "").trim(); }
 
+function accuracyClass(accuracy) {
+  const num = Math.round(Number(accuracy) || 0);
+  const step = Math.max(0, Math.min(10, Math.round(num / 10)));
+  return `meter-${step}`;
+}
+
 function setTool(name) {
   learningState.activeTool = name;
   $$('[role="tab"][data-tool]').forEach((tab) => {
@@ -71,7 +77,10 @@ async function loadDashboard() {
       return `<div class="week-row"><span>${escapeHTML(date)} · ${item.sessions} sesi</span><strong>${item.average}/100</strong></div>`;
     }).join("") : '<p class="empty-copy">Belum ada sesi selesai dalam tujuh hari terakhir.</p>';
     const pulse = $("#skill-pulse-list");
-    pulse.innerHTML = data.weaknesses.length ? data.weaknesses.map((item) => `<div class="skill-pulse-row"><span><strong>${escapeHTML(typeNames[item.type] || item.type)}</strong><small>${item.total} jawaban tercatat</small></span><div class="skill-meter" aria-label="Akurasi ${item.accuracy}%"><i class="skill-meter-fill ${accuracyClass(item.accuracy)}"></i></div><strong>${item.accuracy}%</strong></div>`).join("") : '<p class="empty-copy">Selesaikan latihan untuk melihat peta skill.</p>';
+    pulse.innerHTML = data.weaknesses.length ? data.weaknesses.map((item) => {
+      const acc = Math.max(0, Math.min(100, Math.round(Number(item.accuracy) || 0)));
+      return `<div class="skill-pulse-row"><span><strong>${escapeHTML(typeNames[item.type] || item.type)}</strong><small>${item.total} jawaban tercatat</small></span><div class="skill-meter" aria-label="Akurasi ${acc}%"><i class="skill-meter-fill ${accuracyClass(acc)}" style="width: ${acc}%"></i></div><strong>${acc}%</strong></div>`;
+    }).join("") : '<p class="empty-copy">Selesaikan latihan untuk melihat peta skill.</p>';
   } catch (error) {
     metrics.innerHTML = `<p class="empty-copy">${escapeHTML(error.message)}</p>`;
   }
