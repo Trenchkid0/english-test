@@ -21,6 +21,7 @@ import (
 const (
 	authCookieName = "ruang_kata_session"
 	passwordRounds = 210000
+	authCacheTTL   = 45 * time.Second
 )
 
 var emailPattern = regexp.MustCompile(`^[^\s@]+@[^\s@]+\.[^\s@]+$`)
@@ -30,6 +31,11 @@ type authUser struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 	Role  string `json:"role"`
+}
+
+type cachedAuthSession struct {
+	user      authUser
+	expiresAt time.Time
 }
 
 type authContextKey struct{}
@@ -159,7 +165,9 @@ func (a *app) logout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if cookie, err := r.Cookie(authCookieName); err == nil {
-		_, _ = a.db.ExecContext(r.Context(), `DELETE FROM auth_sessions WHERE token_hash=?`, tokenHash(cookie.Value))
+		key := tokenHash(cookie.Value)
+		_, _ = a.db.ExecContext(r.Context(), `DELETE FROM auth_sessions WHERE token_hash=?`, key)
+		a.removeCachedAuthSession(key)
 	}
 	http.SetCookie(w, &http.Cookie{Name: authCookieName, Value: "", Path: "/", MaxAge: -1, HttpOnly: true, SameSite: http.SameSiteLaxMode, Secure: requestIsHTTPS(r)})
 	writeJSON(w, 200, map[string]bool{"loggedOut": true})
@@ -186,6 +194,7 @@ func (a *app) startAuthSession(w http.ResponseWriter, r *http.Request, user auth
 		return err
 	}
 	http.SetCookie(w, &http.Cookie{Name: authCookieName, Value: token, Path: "/", Expires: expires, MaxAge: 30 * 24 * 60 * 60, HttpOnly: true, SameSite: http.SameSiteLaxMode, Secure: requestIsHTTPS(r)})
+	a.cacheAuthSession(tokenHash(token), user, expires)
 	return nil
 }
 
@@ -216,9 +225,19 @@ func (a *app) requireAuth(next http.Handler) http.Handler {
 			writeError(w, http.StatusUnauthorized, "Silakan masuk untuk melanjutkan.")
 			return
 		}
-		var user authUser
-		err = a.db.QueryRowContext(r.Context(), `SELECT u.id,u.name,u.email,u.role FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=? AND s.expires_at>?`, tokenHash(cookie.Value), time.Now().UTC()).Scan(&user.ID, &user.Name, &user.Email, &user.Role)
-		if err != nil {
+		key := tokenHash(cookie.Value)
+		now := time.Now().UTC()
+		user, cached := a.cachedAuthUser(key, now)
+		if !cached {
+			var sessionExpires time.Time
+			err = a.db.QueryRowContext(r.Context(), `SELECT u.id,u.name,u.email,u.role,s.expires_at FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=? AND s.expires_at>?`, key, now).
+				Scan(&user.ID, &user.Name, &user.Email, &user.Role, &sessionExpires)
+			if err == nil {
+				a.cacheAuthSession(key, user, sessionExpires)
+			}
+		}
+		if err != nil && !cached {
+			a.removeCachedAuthSession(key)
 			http.SetCookie(w, &http.Cookie{Name: authCookieName, Value: "", Path: "/", MaxAge: -1, HttpOnly: true, SameSite: http.SameSiteLaxMode, Secure: requestIsHTTPS(r)})
 			if isHTMLRequest(r) {
 				a.serveErrorPage(w, r, http.StatusUnauthorized,
@@ -234,6 +253,52 @@ func (a *app) requireAuth(next http.Handler) http.Handler {
 		}
 		next.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), authContextKey{}, user)))
 	})
+}
+
+func (a *app) cachedAuthUser(key string, now time.Time) (authUser, bool) {
+	a.authMu.RLock()
+	entry, ok := a.authCache[key]
+	a.authMu.RUnlock()
+	if !ok || !now.Before(entry.expiresAt) {
+		if ok {
+			a.removeCachedAuthSession(key)
+		}
+		return authUser{}, false
+	}
+	return entry.user, true
+}
+
+func (a *app) cacheAuthSession(key string, user authUser, sessionExpires time.Time) {
+	expiresAt := time.Now().UTC().Add(authCacheTTL)
+	if sessionExpires.Before(expiresAt) {
+		expiresAt = sessionExpires
+	}
+	a.authMu.Lock()
+	if a.authCache == nil {
+		a.authCache = make(map[string]cachedAuthSession)
+	}
+	if len(a.authCache) >= 4096 {
+		now := time.Now().UTC()
+		for cachedKey, entry := range a.authCache {
+			if !now.Before(entry.expiresAt) {
+				delete(a.authCache, cachedKey)
+			}
+		}
+		if len(a.authCache) >= 4096 {
+			for cachedKey := range a.authCache {
+				delete(a.authCache, cachedKey)
+				break
+			}
+		}
+	}
+	a.authCache[key] = cachedAuthSession{user: user, expiresAt: expiresAt}
+	a.authMu.Unlock()
+}
+
+func (a *app) removeCachedAuthSession(key string) {
+	a.authMu.Lock()
+	delete(a.authCache, key)
+	a.authMu.Unlock()
 }
 
 func (a *app) requireAdmin(next http.Handler) http.Handler {
@@ -353,6 +418,7 @@ func ensureOwnershipSchema(ctx context.Context, db *sql.DB) error {
 	}
 	for _, item := range []struct{ table, name, columns string }{
 		{"practice_sessions", "idx_sessions_user", "user_id, created_at"},
+		{"practice_sessions", "idx_sessions_user_status_created", "user_id, status, created_at"},
 		{"review_cards", "idx_review_user_due", "user_id, next_review_at"},
 		{"vocabulary_cards", "uq_vocabulary_user_word", "user_id, word"},
 		{"writing_submissions", "idx_writing_user_created", "user_id, created_at"},

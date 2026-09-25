@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 )
 
 func TestPasswordHashRoundTrip(t *testing.T) {
@@ -39,6 +40,20 @@ func TestUserIDFromContext(t *testing.T) {
 	}
 	if got := userID(context.Background()); got != 0 {
 		t.Fatalf("anonymous userID=%d, want 0", got)
+	}
+}
+
+func TestAuthCacheExpiresAndCanBeInvalidated(t *testing.T) {
+	a := &app{}
+	key := "session-key"
+	user := authUser{ID: 42, Name: "Learner"}
+	a.cacheAuthSession(key, user, time.Now().Add(time.Hour))
+	if got, ok := a.cachedAuthUser(key, time.Now()); !ok || got.ID != user.ID {
+		t.Fatalf("cached user=%#v ok=%v", got, ok)
+	}
+	a.removeCachedAuthSession(key)
+	if _, ok := a.cachedAuthUser(key, time.Now()); ok {
+		t.Fatal("invalidated auth cache entry remained available")
 	}
 }
 
@@ -90,13 +105,13 @@ func TestRequireAdminServesHTMLPageForBrowser(t *testing.T) {
 	if !bytes.Contains(recError.Body.Bytes(), []byte("Kembali ke Beranda")) {
 		t.Fatalf("missing action button in HTML error page")
 	}
-	if !bytes.Contains(recError.Body.Bytes(), []byte(`href="/error.css"`)) {
+	if !bytes.Contains(recError.Body.Bytes(), []byte(`href="/error.css?v=20260924"`)) {
 		t.Fatal("error page must load its CSP-compatible stylesheet")
 	}
 	if bytes.Contains(recError.Body.Bytes(), []byte("<style>")) {
 		t.Fatal("error page must not use inline styles blocked by the CSP")
 	}
-	if !bytes.Contains(recError.Body.Bytes(), []byte(`src="/error.js"`)) {
+	if !bytes.Contains(recError.Body.Bytes(), []byte(`src="/error.js?v=20260924"`)) {
 		t.Fatal("error page must load its CSP-compatible script")
 	}
 	if !bytes.Contains(recError.Body.Bytes(), []byte(`class="nav-wrap"`)) ||

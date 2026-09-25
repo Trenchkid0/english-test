@@ -4,12 +4,14 @@ import (
 	"context"
 	"crypto/sha256"
 	"database/sql"
+	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -44,7 +46,17 @@ type adminQuestionFilters struct {
 	SortOrder string
 	Page      int
 	PageSize  int
+	CursorAt  time.Time
+	CursorID  int64
+	HasCursor bool
 }
+
+type cachedQuestionSources struct {
+	items     []string
+	expiresAt time.Time
+}
+
+var adminSearchTokens = regexp.MustCompile(`[\pL\pN]+`)
 
 type questionBankQuerier interface {
 	QueryContext(context.Context, string, ...any) (*sql.Rows, error)
@@ -52,16 +64,6 @@ type questionBankQuerier interface {
 
 type questionHistoryExecer interface {
 	ExecContext(context.Context, string, ...any) (sql.Result, error)
-}
-
-func dedupeQuestionBank(ctx context.Context, db *sql.DB) error {
-	_, err := db.ExecContext(ctx, `DELETE newer FROM question_bank newer JOIN question_bank older
-		ON older.id < newer.id
-		AND older.level = newer.level
-		AND older.ielts_target = newer.ielts_target
-		AND older.type = newer.type
-		AND JSON_UNQUOTE(JSON_EXTRACT(older.question_json, '$.prompt')) = JSON_UNQUOTE(JSON_EXTRACT(newer.question_json, '$.prompt'))`)
-	return err
 }
 
 func seedSystemQuestionBank(ctx context.Context, db *sql.DB) error {
@@ -116,6 +118,12 @@ func bankQuestionHashForTarget(level string, target float64, q question) string 
 	return hex.EncodeToString(sum[:])
 }
 
+func bankPromptHash(q question) string {
+	prompt := strings.ToLower(strings.TrimSpace(q.Prompt))
+	sum := sha256.Sum256([]byte(prompt))
+	return hex.EncodeToString(sum[:])
+}
+
 func insertBankQuestions(ctx context.Context, db *sql.DB, level string, target float64, source string, questions []question) (int64, error) {
 	if len(questions) == 0 {
 		return 0, nil
@@ -130,18 +138,18 @@ func insertBankQuestions(ctx context.Context, db *sql.DB, level string, target f
 		chunk := questions[i:end]
 
 		placeholders := make([]string, 0, len(chunk))
-		args := make([]any, 0, len(chunk)*7)
+		args := make([]any, 0, len(chunk)*9)
 		for _, q := range chunk {
 			q.ReviewKey = questionKey(q)
 			raw, err := json.Marshal(q)
 			if err != nil {
 				return totalAdded, err
 			}
-			placeholders = append(placeholders, "(?,?,?,?,?,?,TRUE,?)")
-			args = append(args, bankQuestionHashForTarget(level, target, q), level, target, q.Type, source, raw, now)
+			placeholders = append(placeholders, "(?,?,?,?,?,?,?,?,TRUE,?)")
+			args = append(args, bankQuestionHashForTarget(level, target, q), level, target, q.Type, source, bankPromptHash(q), q.Prompt, raw, now)
 		}
-		query := `INSERT INTO question_bank (content_hash,level,ielts_target,type,source,question_json,active,created_at) VALUES ` + strings.Join(placeholders, ",") +
-			` ON DUPLICATE KEY UPDATE question_json=VALUES(question_json), active=TRUE`
+		query := `INSERT INTO question_bank (content_hash,level,ielts_target,type,source,prompt_hash,prompt_text,question_json,active,created_at) VALUES ` + strings.Join(placeholders, ",") +
+			` ON DUPLICATE KEY UPDATE prompt_text=VALUES(prompt_text), question_json=VALUES(question_json), active=TRUE`
 
 		var chunkErr error
 		for attempt := 0; attempt < 5; attempt++ {
@@ -492,19 +500,64 @@ func parseAdminQuestionFilters(r *http.Request) adminQuestionFilters {
 	if sortOrder != "asc" {
 		sortOrder = "desc"
 	}
-	return adminQuestionFilters{
+	filters := adminQuestionFilters{
 		Search: search, Level: query.Get("level"), Target: query.Get("target"),
 		Type: query.Get("type"), Source: strings.TrimSpace(query.Get("source")),
 		Status: status, SortOrder: sortOrder, Page: page, PageSize: pageSize,
 	}
+	if cursorAt, cursorID, ok := decodeAdminCursor(query.Get("cursor")); ok {
+		filters.CursorAt, filters.CursorID, filters.HasCursor = cursorAt, cursorID, true
+	}
+	return filters
+}
+
+func encodeAdminCursor(createdAt time.Time, id int64) string {
+	raw := createdAt.UTC().Format(time.RFC3339Nano) + "|" + strconv.FormatInt(id, 10)
+	return base64.RawURLEncoding.EncodeToString([]byte(raw))
+}
+
+func decodeAdminCursor(value string) (time.Time, int64, bool) {
+	raw, err := base64.RawURLEncoding.DecodeString(value)
+	if err != nil {
+		return time.Time{}, 0, false
+	}
+	timestamp, rawID, ok := strings.Cut(string(raw), "|")
+	if !ok {
+		return time.Time{}, 0, false
+	}
+	createdAt, err := time.Parse(time.RFC3339Nano, timestamp)
+	if err != nil {
+		return time.Time{}, 0, false
+	}
+	id, err := strconv.ParseInt(rawID, 10, 64)
+	return createdAt, id, err == nil && id > 0
+}
+
+func fullTextSearchValue(search string) string {
+	tokens := adminSearchTokens.FindAllString(strings.ToLower(search), -1)
+	terms := make([]string, 0, len(tokens))
+	for _, token := range tokens {
+		if len([]rune(token)) >= 3 {
+			terms = append(terms, "+"+token+"*")
+		}
+	}
+	return strings.Join(terms, " ")
 }
 
 func buildAdminQuestionsWhere(filters adminQuestionFilters) (string, []any) {
 	clauses := []string{"1=1"}
 	args := make([]any, 0, 8)
 	if filters.Search != "" {
-		clauses = append(clauses, `(CAST(id AS CHAR)=? OR question_json LIKE ?)`)
-		args = append(args, filters.Search, "%"+filters.Search+"%")
+		if id, err := strconv.ParseInt(filters.Search, 10, 64); err == nil && id > 0 {
+			clauses = append(clauses, "id=?")
+			args = append(args, id)
+		} else if fullText := fullTextSearchValue(filters.Search); fullText != "" {
+			clauses = append(clauses, "MATCH(prompt_text) AGAINST (? IN BOOLEAN MODE)")
+			args = append(args, fullText)
+		} else {
+			clauses = append(clauses, "prompt_text LIKE ?")
+			args = append(args, filters.Search+"%")
+		}
 	}
 	if filters.Level != "" {
 		clauses = append(clauses, "level=?")
@@ -529,6 +582,14 @@ func buildAdminQuestionsWhere(filters adminQuestionFilters) (string, []any) {
 	} else if filters.Status == "inactive" {
 		clauses = append(clauses, "active=FALSE")
 	}
+	if filters.HasCursor {
+		operator := "<"
+		if filters.SortOrder == "asc" {
+			operator = ">"
+		}
+		clauses = append(clauses, `(created_at `+operator+` ? OR (created_at=? AND id `+operator+` ?))`)
+		args = append(args, filters.CursorAt, filters.CursorAt, filters.CursorID)
+	}
 	return strings.Join(clauses, " AND "), args
 }
 
@@ -540,33 +601,20 @@ func (a *app) adminQuestions(w http.ResponseWriter, r *http.Request) {
 	filters := parseAdminQuestionFilters(r)
 	where, args := buildAdminQuestionsWhere(filters)
 
-	var total int
-	if err := a.db.QueryRowContext(r.Context(), `SELECT COUNT(*) FROM question_bank WHERE `+where, args...).Scan(&total); err != nil {
-		writeError(w, http.StatusInternalServerError, "Jumlah soal belum dapat dibaca.")
-		return
-	}
-	pages := 0
-	if total > 0 {
-		pages = (total + filters.PageSize - 1) / filters.PageSize
-		if filters.Page > pages {
-			filters.Page = pages
-		}
-	}
-
 	orderClause := "ORDER BY created_at DESC, id DESC"
 	if filters.SortOrder == "asc" {
 		orderClause = "ORDER BY created_at ASC, id ASC"
 	}
 
-	listArgs := append(append([]any{}, args...), filters.PageSize, (filters.Page-1)*filters.PageSize)
+	listArgs := append(append([]any{}, args...), filters.PageSize+1)
 	rows, err := a.db.QueryContext(r.Context(), `SELECT id,level,ielts_target,type,source,active,created_at,question_json
-		FROM question_bank WHERE `+where+` `+orderClause+` LIMIT ? OFFSET ?`, listArgs...)
+		FROM question_bank WHERE `+where+` `+orderClause+` LIMIT ?`, listArgs...)
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, "Daftar soal belum dapat dibuka.")
 		return
 	}
 	defer rows.Close()
-	items := make([]adminQuestionRecord, 0, filters.PageSize)
+	items := make([]adminQuestionRecord, 0, filters.PageSize+1)
 	for rows.Next() {
 		var item adminQuestionRecord
 		var raw []byte
@@ -585,30 +633,63 @@ func (a *app) adminQuestions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	rows.Close()
-
-	sourceRows, err := a.db.QueryContext(r.Context(), `SELECT DISTINCT source FROM question_bank ORDER BY source`)
+	hasNext := len(items) > filters.PageSize
+	if hasNext {
+		items = items[:filters.PageSize]
+	}
+	nextCursor := ""
+	if hasNext && len(items) > 0 {
+		last := items[len(items)-1]
+		nextCursor = encodeAdminCursor(last.CreatedAt, last.DatabaseID)
+	}
+	sources, err := a.questionSources(r.Context())
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, "Daftar sumber soal belum dapat dibaca.")
 		return
 	}
-	sources := []string{}
-	for sourceRows.Next() {
-		var source string
-		if sourceRows.Scan(&source) == nil {
-			sources = append(sources, source)
-		}
-	}
-	sourceErr := sourceRows.Err()
-	sourceRows.Close()
-	if sourceErr != nil {
-		writeError(w, http.StatusInternalServerError, "Daftar sumber soal terputus saat dibaca.")
-		return
-	}
 
 	writeJSON(w, http.StatusOK, map[string]any{
-		"items": items, "total": total, "page": filters.Page, "pageSize": filters.PageSize,
-		"pages": pages, "sources": sources,
+		"items": items, "page": filters.Page, "pageSize": filters.PageSize,
+		"hasNext": hasNext, "nextCursor": nextCursor, "sources": sources,
 	})
+}
+
+func (a *app) questionSources(ctx context.Context) ([]string, error) {
+	now := time.Now()
+	a.sourceMu.RLock()
+	if now.Before(a.sourceCache.expiresAt) {
+		items := append([]string(nil), a.sourceCache.items...)
+		a.sourceMu.RUnlock()
+		return items, nil
+	}
+	a.sourceMu.RUnlock()
+
+	rows, err := a.db.QueryContext(ctx, `SELECT DISTINCT source FROM question_bank ORDER BY source`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []string{}
+	for rows.Next() {
+		var source string
+		if err := rows.Scan(&source); err != nil {
+			return nil, err
+		}
+		items = append(items, source)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	a.sourceMu.Lock()
+	a.sourceCache = cachedQuestionSources{items: append([]string(nil), items...), expiresAt: now.Add(5 * time.Minute)}
+	a.sourceMu.Unlock()
+	return items, nil
+}
+
+func (a *app) clearQuestionSourceCache() {
+	a.sourceMu.Lock()
+	a.sourceCache = cachedQuestionSources{}
+	a.sourceMu.Unlock()
 }
 
 func (a *app) generateQuestionBank(w http.ResponseWriter, r *http.Request) {
@@ -638,9 +719,6 @@ func (a *app) generateQuestionBank(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 500, "Soal berhasil dibuat tetapi belum dapat disimpan.")
 		return
 	}
-	if err := dedupeQuestionBank(r.Context(), a.db); err != nil {
-		writeError(w, 500, "Soal tersimpan tetapi bank belum dapat dibersihkan dari duplikat.")
-		return
-	}
+	a.clearQuestionSourceCache()
 	writeJSON(w, http.StatusCreated, map[string]any{"added": added, "generated": len(questions), "source": source})
 }

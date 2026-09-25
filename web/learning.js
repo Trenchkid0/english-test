@@ -36,6 +36,7 @@ function setTool(name) {
   if (name === "vocabulary") loadVocabulary();
   if (name === "writing") loadWritingPrompt();
   if (name === "writing") loadWritingHistory();
+  document.dispatchEvent(new CustomEvent("learning:tool", { detail: { name } }));
 }
 
 async function openLearning(tool = "dashboard") {

@@ -1,8 +1,9 @@
 .env
-english-practice
-english-practice.exe
-english-practice-*
+/english-practice
+/english-practice.exe
+/english-practice-*
 bin/
+!dist/english-practice
 data/*
 !data/questions/
 data/questions/*

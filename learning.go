@@ -62,11 +62,11 @@ type vocabularyCard struct {
 }
 
 type SentenceFeedback struct {
-	Index       int    `json:"index"`
-	Sentence    string `json:"sentence"`
-	Status      string `json:"status"` // "strong", "warning", "error"
-	Feedback    string `json:"feedback"`
-	Suggestion  string `json:"suggestion,omitempty"`
+	Index      int    `json:"index"`
+	Sentence   string `json:"sentence"`
+	Status     string `json:"status"` // "strong", "warning", "error"
+	Feedback   string `json:"feedback"`
+	Suggestion string `json:"suggestion,omitempty"`
 }
 
 type StructuralAnalysis struct {
@@ -274,6 +274,9 @@ func storeQuestionSessionTx(ctx context.Context, tx *sql.Tx, uid int64, question
 	if err != nil {
 		return session{}, err
 	}
+	if err := insertSessionQuestions(ctx, tx, s.ID, questions); err != nil {
+		return session{}, err
+	}
 	if err := recordUserQuestionHistory(ctx, tx, uid, s.ID, level, target, questions, now); err != nil {
 		return session{}, err
 	}
@@ -288,7 +291,14 @@ func (a *app) dashboard(w http.ResponseWriter, r *http.Request) {
 	var out dashboardResponse
 	var average sql.NullFloat64
 	uid := userID(r.Context())
-	if err := a.db.QueryRowContext(r.Context(), `SELECT COUNT(*),AVG(score) FROM practice_sessions WHERE user_id=? AND status='completed'`, uid).Scan(&out.CompletedSessions, &average); err != nil {
+	now := time.Now().UTC()
+	if err := a.db.QueryRowContext(r.Context(), `SELECT
+		(SELECT COUNT(*) FROM practice_sessions WHERE user_id=? AND status='completed'),
+		(SELECT AVG(score) FROM practice_sessions WHERE user_id=? AND status='completed'),
+		(SELECT COUNT(*) FROM review_cards WHERE user_id=? AND next_review_at<=?),
+		(SELECT COUNT(*) FROM vocabulary_cards WHERE user_id=?),
+		(SELECT COUNT(*) FROM writing_submissions WHERE user_id=?)`, uid, uid, uid, now, uid, uid).
+		Scan(&out.CompletedSessions, &average, &out.DueReviews, &out.VocabularyCount, &out.WritingCount); err != nil {
 		writeError(w, 500, "Dashboard belum dapat dibuka.")
 		return
 	}
@@ -296,9 +306,6 @@ func (a *app) dashboard(w http.ResponseWriter, r *http.Request) {
 		value := average.Float64
 		out.AverageScore = &value
 	}
-	_ = a.db.QueryRowContext(r.Context(), `SELECT COUNT(*) FROM review_cards WHERE user_id=? AND next_review_at<=?`, uid, time.Now().UTC()).Scan(&out.DueReviews)
-	_ = a.db.QueryRowContext(r.Context(), `SELECT COUNT(*) FROM vocabulary_cards WHERE user_id=?`, uid).Scan(&out.VocabularyCount)
-	_ = a.db.QueryRowContext(r.Context(), `SELECT COUNT(*) FROM writing_submissions WHERE user_id=?`, uid).Scan(&out.WritingCount)
 	out.Weaknesses = a.calculateWeaknesses(r.Context())
 	rows, err := a.db.QueryContext(r.Context(), `SELECT DATE(created_at),COUNT(*),ROUND(AVG(score)) FROM practice_sessions WHERE user_id=? AND status='completed' AND created_at>=DATE_SUB(CURDATE(),INTERVAL 6 DAY) GROUP BY DATE(created_at) ORDER BY DATE(created_at)`, uid)
 	if err == nil {
@@ -322,40 +329,27 @@ func (a *app) dashboard(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *app) calculateWeaknesses(ctx context.Context) []weaknessStat {
-	rows, err := a.db.QueryContext(ctx, `SELECT id FROM practice_sessions WHERE user_id=? AND status='completed' ORDER BY created_at DESC LIMIT 50`, userID(ctx))
+	rows, err := a.db.QueryContext(ctx, `SELECT q.question_type,COUNT(*),
+		SUM(CASE WHEN a.selected_index=q.correct_index THEN 0 ELSE 1 END)
+		FROM (
+			SELECT id FROM practice_sessions
+			WHERE user_id=? AND status='completed'
+			ORDER BY created_at DESC LIMIT 50
+		) recent
+		JOIN practice_session_questions q ON q.session_id=recent.id
+		LEFT JOIN practice_answers a ON a.session_id=q.session_id AND a.question_index=q.question_index
+		GROUP BY q.question_type`, userID(ctx))
 	if err != nil {
 		return []weaknessStat{}
 	}
-	ids := []string{}
+	defer rows.Close()
+	out := []weaknessStat{}
 	for rows.Next() {
-		var id string
-		if rows.Scan(&id) == nil {
-			ids = append(ids, id)
+		var item weaknessStat
+		if rows.Scan(&item.Type, &item.Total, &item.Wrong) == nil && item.Total > 0 {
+			item.Accuracy = int(float64(item.Total-item.Wrong)*100/float64(item.Total) + .5)
+			out = append(out, item)
 		}
-	}
-	rows.Close()
-	stats := map[string]*weaknessStat{}
-	for _, id := range ids {
-		s, err := a.loadSession(ctx, id)
-		if err != nil {
-			continue
-		}
-		for i, q := range s.Questions {
-			item := stats[q.Type]
-			if item == nil {
-				item = &weaknessStat{Type: q.Type}
-				stats[q.Type] = item
-			}
-			item.Total++
-			if selected, ok := s.Answers[i]; !ok || selected != q.CorrectIndex {
-				item.Wrong++
-			}
-		}
-	}
-	out := make([]weaknessStat, 0, len(stats))
-	for _, item := range stats {
-		item.Accuracy = int(float64(item.Total-item.Wrong)*100/float64(item.Total) + .5)
-		out = append(out, *item)
 	}
 	sort.Slice(out, func(i, j int) bool {
 		if out[i].Accuracy == out[j].Accuracy {
@@ -671,17 +665,17 @@ func (a *app) submitWritingRevision(w http.ResponseWriter, r *http.Request) {
 	revID, _ := result.LastInsertId()
 
 	writeJSON(w, 200, map[string]any{
-		"revisionId":     revID,
-		"submissionId":   body.SubmissionID,
-		"revisedText":    body.RevisedText,
-		"revisedWords":   revisedWords,
-		"firstDraftBand": origFeedback.Overall,
-		"revisedBand":    revFeedback.Overall,
-		"bandDelta":      math.Round((revFeedback.Overall-origFeedback.Overall)*10) / 10,
-		"diffs":          diffs,
-		"firstFeedback":  origFeedback,
+		"revisionId":      revID,
+		"submissionId":    body.SubmissionID,
+		"revisedText":     body.RevisedText,
+		"revisedWords":    revisedWords,
+		"firstDraftBand":  origFeedback.Overall,
+		"revisedBand":     revFeedback.Overall,
+		"bandDelta":       math.Round((revFeedback.Overall-origFeedback.Overall)*10) / 10,
+		"diffs":           diffs,
+		"firstFeedback":   origFeedback,
 		"revisedFeedback": revFeedback,
-		"source":         source,
+		"source":          source,
 	})
 }
 
@@ -728,8 +722,8 @@ Return valid JSON with:
 - "sentences": array of objects with { "index": int, "sentence": string, "status": "strong"|"warning"|"error", "feedback": string, "suggestion": string }`, taskType, prompt, response)
 
 		payload := map[string]any{
-			"model": a.cfg.DeepSeekModel,
-			"temperature": 0.2,
+			"model":           a.cfg.DeepSeekModel,
+			"temperature":     0.2,
 			"response_format": map[string]string{"type": "json_object"},
 			"messages": []map[string]string{
 				{"role": "system", "content": "You are an expert IELTS Writing examiner assessing Task 1 and Task 2 with strict rubric adherence."},
@@ -1035,7 +1029,6 @@ func splitSentences(text string) []string {
 	}
 	return sentences
 }
-
 
 func countWords(value string) int {
 	return len(strings.FieldsFunc(value, func(r rune) bool { return unicode.IsSpace(r) }))

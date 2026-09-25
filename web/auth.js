@@ -142,11 +142,9 @@ $("#bank-form").addEventListener("submit", async (event) => {
   }
 });
 
-const originalSetTool = setTool;
-setTool = function setToolWithBank(name) {
-  originalSetTool(name);
-  if (name === "bank") loadQuestionBank();
-};
+document.addEventListener("learning:tool", (event) => {
+  if (event.detail?.name === "bank") loadQuestionBank();
+});
 
 (async function bootstrapAuth() {
   try {

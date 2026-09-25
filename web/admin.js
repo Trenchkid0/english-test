@@ -7,7 +7,7 @@ const typeLabels = {
   fill_blank: "Fill blank", fill_in_blank: "Fill blank", fill_in_the_blank: "Fill blank",
   listening: "Listening", error_identification: "Error identification",
 };
-const catalogueState = { page: 1, pages: 0, total: 0, items: [], request: null };
+const catalogueState = { page: 1, items: [], request: null, cursors: [""], nextCursor: "", hasNext: false };
 
 function escapeHTML(value = "") {
   return String(value).replace(/[&<>'"]/g, (character) => ({
@@ -42,6 +42,8 @@ function restoreFilters() {
     if (value !== null && form.elements[name]) form.elements[name].value = value;
   });
   catalogueState.page = Math.max(1, Number(params.get("page")) || 1);
+  if (Array.isArray(history.state?.cursors)) catalogueState.cursors = history.state.cursors;
+  catalogueState.cursors[catalogueState.page - 1] = params.get("cursor") || "";
 }
 
 function requestParams() {
@@ -52,11 +54,13 @@ function requestParams() {
     if (value && !(key === "status" && value === "all") && !(key === "sort" && value === "desc")) params.set(key, value);
   }
   params.set("page", String(catalogueState.page));
+  const cursor = catalogueState.cursors[catalogueState.page - 1];
+  if (cursor) params.set("cursor", cursor);
   return params;
 }
 
 function syncURL(params) {
-  history.replaceState(null, "", `${location.pathname}?${params.toString()}`);
+  history.replaceState({ cursors: catalogueState.cursors }, "", `${location.pathname}?${params.toString()}`);
 }
 
 function loadingCards() {
@@ -84,9 +88,9 @@ function questionCard(item, index) {
 
 function renderCatalogue(data) {
   catalogueState.page = data.page;
-  catalogueState.pages = data.pages;
-  catalogueState.total = data.total;
   catalogueState.items = data.items || [];
+  catalogueState.hasNext = Boolean(data.hasNext);
+  catalogueState.nextCursor = data.nextCursor || "";
   renderSources(data.sources || []);
   const grid = $("#question-grid");
   grid.setAttribute("aria-busy", "false");
@@ -95,12 +99,12 @@ function renderCatalogue(data) {
   } else {
     grid.innerHTML = catalogueState.items.map(questionCard).join("");
   }
-  const first = data.total ? ((data.page - 1) * data.pageSize) + 1 : 0;
-  const last = Math.min(data.page * data.pageSize, data.total);
-  $("#result-summary").textContent = `${data.total.toLocaleString("id-ID")} soal · menampilkan ${first.toLocaleString("id-ID")}–${last.toLocaleString("id-ID")}`;
-  $("#page-status").textContent = data.pages ? `Halaman ${data.page.toLocaleString("id-ID")} dari ${data.pages.toLocaleString("id-ID")}` : "Tidak ada halaman";
+  const first = catalogueState.items.length ? ((data.page - 1) * data.pageSize) + 1 : 0;
+  const last = first ? first + catalogueState.items.length - 1 : 0;
+  $("#result-summary").textContent = catalogueState.items.length ? `Menampilkan soal ${first.toLocaleString("id-ID")}–${last.toLocaleString("id-ID")}` : "Tidak ada soal yang cocok";
+  $("#page-status").textContent = catalogueState.items.length ? `Halaman ${data.page.toLocaleString("id-ID")}` : "Tidak ada halaman";
   $("#previous-page").disabled = data.page <= 1;
-  $("#next-page").disabled = data.pages === 0 || data.page >= data.pages;
+  $("#next-page").disabled = !catalogueState.hasNext;
 }
 
 function renderLoadError(error) {
@@ -165,15 +169,21 @@ function openDetail(index) {
 $("#filter-form").addEventListener("submit", (event) => {
   event.preventDefault();
   catalogueState.page = 1;
+  catalogueState.cursors = [""];
   loadQuestions();
 });
 $("#reset-filter").addEventListener("click", () => {
   $("#filter-form").reset();
   catalogueState.page = 1;
+  catalogueState.cursors = [""];
   loadQuestions();
 });
 $("#refresh-button").addEventListener("click", loadQuestions);
 function movePage(change) {
+  if (change > 0) {
+    if (!catalogueState.hasNext || !catalogueState.nextCursor) return;
+    catalogueState.cursors[catalogueState.page] = catalogueState.nextCursor;
+  }
   catalogueState.page += change;
   loadQuestions();
   scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });

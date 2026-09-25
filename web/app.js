@@ -11,6 +11,31 @@ const state = {
   listenedQuestions: {},
 };
 
+const featureLoads = new Map();
+
+function loadFeatureScript(name) {
+  if (featureLoads.has(name)) return featureLoads.get(name);
+  const promise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = `/${name}.js?v=20260924`;
+    script.async = true;
+    script.addEventListener("load", resolve, { once: true });
+    script.addEventListener("error", () => reject(new Error("Fitur belum dapat dimuat. Periksa koneksi lalu coba lagi.")), { once: true });
+    document.head.append(script);
+  }).catch((error) => {
+    featureLoads.delete(name);
+    throw error;
+  });
+  featureLoads.set(name, promise);
+  return promise;
+}
+
+async function openFeature(name) {
+  await loadFeatureScript(name);
+  if (name === "learning") return openLearning();
+  if (name === "mock_test") return openMockLobby();
+}
+
 const screens = {
   setup: $("#setup-screen"),
   learning: $("#learning-screen"),
@@ -865,11 +890,16 @@ $("#history-dialog").addEventListener("click", (event) => {
   if (event.target === $("#history-dialog")) $("#history-dialog").close();
 });
 
-document.addEventListener("click", (event) => {
+document.addEventListener("click", async (event) => {
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action === "home") showSetup();
-  if (action === "mock") openMockLobby();
-  if (action === "learning") openLearning();
+  if (action === "mock" || action === "learning") {
+    try {
+      await openFeature(action === "mock" ? "mock_test" : "learning");
+    } catch (error) {
+      showToast(error.message);
+    }
+  }
   if (action === "history") openHistory();
   if (action === "theme") toggleTheme();
 });

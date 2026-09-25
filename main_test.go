@@ -129,6 +129,35 @@ func TestAdminQuestionCatalogueAssetsAreEmbedded(t *testing.T) {
 	}
 }
 
+func TestMainPageLazyLoadsFeatureScripts(t *testing.T) {
+	index, err := webFiles.ReadFile("web/index.html")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if bytes.Contains(index, []byte(`src="/learning.js`)) || bytes.Contains(index, []byte(`src="/mock_test.js`)) {
+		t.Fatal("large feature scripts must not block the initial page")
+	}
+	appSource, err := webFiles.ReadFile("web/app.js")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Contains(appSource, []byte(`loadFeatureScript`)) {
+		t.Fatal("lazy feature loader is missing")
+	}
+}
+
+func TestVersionedStaticAssetsAreImmutable(t *testing.T) {
+	handler := cacheStaticAssets(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
+	req := httptest.NewRequest(http.MethodGet, "/app.js?v=20260924", nil)
+	rec := httptest.NewRecorder()
+	handler.ServeHTTP(rec, req)
+	if got := rec.Header().Get("Cache-Control"); got != "public, max-age=31536000, immutable" {
+		t.Fatalf("Cache-Control=%q", got)
+	}
+}
+
 func TestListeningAudioStopsWhenQuestionOrScreenChanges(t *testing.T) {
 	source, err := webFiles.ReadFile("web/app.js")
 	if err != nil {

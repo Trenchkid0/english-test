@@ -32,7 +32,7 @@ var webFiles embed.FS
 
 var safeDBName = regexp.MustCompile(`^[a-zA-Z0-9_]+$`)
 
-const schemaVersion = "schema_20260920_question_bank_performance_v2"
+const schemaVersion = "schema_20260924_runtime_performance_v3"
 
 type config struct {
 	Addr, DBHost, DBPort, DBUser, DBPassword, DBName string
@@ -46,6 +46,10 @@ type app struct {
 	skipReviewSchedule bool
 	mu                 sync.Mutex
 	hits               map[string][]time.Time
+	authMu             sync.RWMutex
+	authCache          map[string]cachedAuthSession
+	sourceMu           sync.RWMutex
+	sourceCache        cachedQuestionSources
 }
 
 type generateInput struct {
@@ -178,11 +182,13 @@ func runServer(cfg config) error {
 		return err
 	}
 	defer db.Close()
-	checkCtx, cancelCheck := context.WithTimeout(context.Background(), 5*time.Second)
-	err = ensureSchemaCurrent(checkCtx, db)
-	cancelCheck()
-	if err != nil {
-		return err
+	if os.Getenv("AUTO_MIGRATE") == "1" {
+		checkCtx, cancelCheck := context.WithTimeout(context.Background(), 2*time.Minute)
+		err = ensureSchemaCurrent(checkCtx, db)
+		cancelCheck()
+		if err != nil {
+			return err
+		}
 	}
 
 	a := &app{db: db, cfg: cfg, client: &http.Client{Timeout: 65 * time.Second}, hits: map[string][]time.Time{}}
@@ -216,7 +222,7 @@ func runServer(cfg config) error {
 	mux.HandleFunc("/error", a.serveGenericErrorPage)
 	mux.HandleFunc("/error.html", a.serveGenericErrorPage)
 	assets, _ := fs.Sub(webFiles, "web")
-	mux.Handle("/", http.FileServer(http.FS(assets)))
+	mux.Handle("/", cacheStaticAssets(http.FileServer(http.FS(assets))))
 
 	srv := &http.Server{Addr: cfg.Addr, Handler: securityHeaders(mux), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 75 * time.Second, WriteTimeout: 75 * time.Second, IdleTimeout: 60 * time.Second}
 	log.Printf("IELTS practice listening on %s", cfg.Addr)
@@ -597,9 +603,12 @@ func migrate(ctx context.Context, db *sql.DB) error {
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
 		`CREATE TABLE IF NOT EXISTS question_bank (
 			id BIGINT AUTO_INCREMENT PRIMARY KEY, content_hash CHAR(64) NOT NULL, level VARCHAR(4) NOT NULL,
-			ielts_target DECIMAL(2,1) NOT NULL DEFAULT 6.5, type VARCHAR(30) NOT NULL, source VARCHAR(20) NOT NULL, question_json JSON NOT NULL,
+			ielts_target DECIMAL(2,1) NOT NULL DEFAULT 6.5, type VARCHAR(30) NOT NULL, source VARCHAR(20) NOT NULL,
+			prompt_hash CHAR(64) NULL, prompt_text TEXT NULL, question_json JSON NOT NULL,
 			active BOOLEAN NOT NULL DEFAULT TRUE, created_at DATETIME(6) NOT NULL,
-			UNIQUE KEY uq_question_content (content_hash), INDEX idx_question_pick (active,level,ielts_target,type)
+			UNIQUE KEY uq_question_content (content_hash),
+			UNIQUE KEY uq_question_prompt (level,ielts_target,type,prompt_hash),
+			FULLTEXT KEY ft_question_prompt (prompt_text), INDEX idx_question_pick (active,level,ielts_target,type)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
 		`CREATE TABLE IF NOT EXISTS user_question_history (
 			user_id BIGINT NOT NULL, question_key CHAR(64) NOT NULL, session_id VARCHAR(36) NOT NULL,
@@ -620,6 +629,12 @@ func migrate(ctx context.Context, db *sql.DB) error {
 			session_id VARCHAR(36) NOT NULL, question_index INT NOT NULL, selected_index INT NOT NULL,
 			answered_at DATETIME(6) NOT NULL, PRIMARY KEY (session_id, question_index),
 			CONSTRAINT fk_answer_session FOREIGN KEY (session_id) REFERENCES practice_sessions(id) ON DELETE CASCADE
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
+		`CREATE TABLE IF NOT EXISTS practice_session_questions (
+			session_id VARCHAR(36) NOT NULL, question_index INT NOT NULL, question_type VARCHAR(30) NOT NULL,
+			choices_count INT NOT NULL, correct_index INT NOT NULL,
+			PRIMARY KEY (session_id,question_index), INDEX idx_session_question_type (question_type),
+			CONSTRAINT fk_session_question_session FOREIGN KEY (session_id) REFERENCES practice_sessions(id) ON DELETE CASCADE
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
 		`CREATE TABLE IF NOT EXISTS review_cards (
 			card_key CHAR(64) PRIMARY KEY, question_json JSON NOT NULL, mastery INT NOT NULL DEFAULT 0,
@@ -679,6 +694,40 @@ func migrate(ctx context.Context, db *sql.DB) error {
 			return fmt.Errorf("question bank target migration: %w", err)
 		}
 	}
+	for _, column := range []struct{ name, definition string }{
+		{name: "prompt_hash", definition: "CHAR(64) NULL AFTER source"},
+		{name: "prompt_text", definition: "TEXT NULL AFTER prompt_hash"},
+	} {
+		var exists int
+		if err := db.QueryRowContext(ctx, `SELECT COUNT(*) FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='question_bank' AND column_name=?`, column.name).Scan(&exists); err != nil {
+			return fmt.Errorf("question bank column %s check: %w", column.name, err)
+		}
+		if exists == 0 {
+			if _, err := db.ExecContext(ctx, `ALTER TABLE question_bank ADD COLUMN `+column.name+` `+column.definition); err != nil {
+				return fmt.Errorf("question bank column %s migration: %w", column.name, err)
+			}
+		}
+	}
+	if _, err := db.ExecContext(ctx, `UPDATE question_bank SET prompt_text=JSON_UNQUOTE(JSON_EXTRACT(question_json,'$.prompt')) WHERE prompt_text IS NULL`); err != nil {
+		return fmt.Errorf("question bank prompt search backfill: %w", err)
+	}
+	if exists, err := indexExists(ctx, db, "question_bank", "uq_question_prompt"); err != nil {
+		return err
+	} else if !exists {
+		if _, err := db.ExecContext(ctx, `ALTER TABLE question_bank ADD UNIQUE KEY uq_question_prompt (level,ielts_target,type,prompt_hash)`); err != nil {
+			return fmt.Errorf("question bank prompt uniqueness migration: %w", err)
+		}
+	}
+	if _, err := db.ExecContext(ctx, `UPDATE IGNORE question_bank SET prompt_hash=SHA2(LOWER(TRIM(prompt_text)),256) WHERE prompt_hash IS NULL AND prompt_text IS NOT NULL`); err != nil {
+		return fmt.Errorf("question bank prompt hash backfill: %w", err)
+	}
+	if exists, err := indexExists(ctx, db, "question_bank", "ft_question_prompt"); err != nil {
+		return err
+	} else if !exists {
+		if _, err := db.ExecContext(ctx, `ALTER TABLE question_bank ADD FULLTEXT INDEX ft_question_prompt (prompt_text)`); err != nil {
+			return fmt.Errorf("question bank prompt search index migration: %w", err)
+		}
+	}
 	lookupIndexExists, err := indexExists(ctx, db, "question_bank", "idx_question_bank_lookup")
 	if err != nil {
 		return fmt.Errorf("question bank lookup index check: %w", err)
@@ -710,6 +759,9 @@ func migrate(ctx context.Context, db *sql.DB) error {
 		}
 	}
 	if err := ensureOwnershipSchema(ctx, db); err != nil {
+		return err
+	}
+	if err := backfillSessionQuestions(ctx, db); err != nil {
 		return err
 	}
 	if err := backfillUserQuestionHistory(ctx, db); err != nil {
@@ -819,9 +871,7 @@ func (a *app) createSession(w http.ResponseWriter, r *http.Request) {
 			writeError(w, http.StatusInternalServerError, "Soal baru berhasil dibuat tetapi belum dapat disimpan ke bank.")
 			return
 		}
-		if err := dedupeQuestionBank(r.Context(), a.db); err != nil {
-			log.Printf("dedupe generated question bank: %v", err)
-		}
+		a.clearQuestionSourceCache()
 		notice = fmt.Sprintf("%d soal dibuat dengan DeepSeek; %d soal baru disimpan ke bank.", len(questions), added)
 	default:
 		questions, err = a.selectBankQuestions(r.Context(), a.db, uid, input)
@@ -853,6 +903,11 @@ func (a *app) createSession(w http.ResponseWriter, r *http.Request) {
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'in_progress', ?)`, id, uid, now, now, input.Level, input.IELTSTarget, input.DurationMinutes, typeJSON, source, qJSON)
 	if err != nil {
 		log.Printf("insert session: %v", err)
+		writeError(w, 500, "Sesi belum dapat disimpan.")
+		return
+	}
+	if err = insertSessionQuestions(r.Context(), sessionTx, id, questions); err != nil {
+		log.Printf("insert session question metadata: %v", err)
 		writeError(w, 500, "Sesi belum dapat disimpan.")
 		return
 	}
@@ -918,7 +973,19 @@ func (a *app) saveAnswer(w http.ResponseWriter, r *http.Request, id string, inde
 	if err := decodeJSON(w, r, &body); err != nil {
 		return
 	}
-	s, err := a.loadSession(r.Context(), id)
+	if index < 0 || body.SelectedIndex < 0 {
+		writeError(w, 422, "Pilihan jawaban tidak valid.")
+		return
+	}
+	var status string
+	var createdAt time.Time
+	var durationMinutes, choicesCount, answeredCount int
+	err := a.db.QueryRowContext(r.Context(), `SELECT s.status,s.created_at,s.duration_minutes,q.choices_count,
+		(SELECT COUNT(*) FROM practice_answers a WHERE a.session_id=s.id)
+		FROM practice_sessions s
+		JOIN practice_session_questions q ON q.session_id=s.id AND q.question_index=?
+		WHERE s.id=? AND s.user_id=?`, index, id, userID(r.Context())).
+		Scan(&status, &createdAt, &durationMinutes, &choicesCount, &answeredCount)
 	if errors.Is(err, sql.ErrNoRows) {
 		writeError(w, 404, "Sesi tidak ditemukan.")
 		return
@@ -927,32 +994,43 @@ func (a *app) saveAnswer(w http.ResponseWriter, r *http.Request, id string, inde
 		writeError(w, 500, "Sesi belum dapat dibuka.")
 		return
 	}
-	if s.Status != "in_progress" {
+	if status != "in_progress" {
 		writeError(w, 409, "Sesi ini sudah selesai.")
 		return
 	}
-	if time.Now().After(s.CreatedAt.Add(time.Duration(s.DurationMinutes) * time.Minute)) {
+	if time.Now().After(createdAt.Add(time.Duration(durationMinutes) * time.Minute)) {
 		writeError(w, 410, "Waktu sesi sudah habis. Nilai latihan untuk melihat hasil.")
 		return
 	}
-	if index < 0 || index >= len(s.Questions) || body.SelectedIndex < 0 || body.SelectedIndex >= len(s.Questions[index].Choices) {
+	if body.SelectedIndex >= choicesCount {
 		writeError(w, 422, "Pilihan jawaban tidak valid.")
 		return
 	}
-	_, err = a.db.ExecContext(r.Context(), `INSERT INTO practice_answers (session_id, question_index, selected_index, answered_at)
+	result, err := a.db.ExecContext(r.Context(), `INSERT INTO practice_answers (session_id, question_index, selected_index, answered_at)
 		VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE selected_index=VALUES(selected_index), answered_at=VALUES(answered_at)`, id, index, body.SelectedIndex, time.Now().UTC())
 	if err != nil {
 		writeError(w, 500, "Jawaban belum tersimpan. Coba sekali lagi.")
 		return
 	}
-	writeJSON(w, 200, map[string]any{"saved": true, "answeredCount": len(s.Answers) + boolIntMap(s.Answers, index)})
+	rowsAffected, _ := result.RowsAffected()
+	if rowsAffected == 1 {
+		answeredCount++
+	}
+	writeJSON(w, 200, map[string]any{"saved": true, "answeredCount": answeredCount})
 }
 
-func boolIntMap(m map[int]int, key int) int {
-	if _, ok := m[key]; ok {
-		return 0
-	}
-	return 1
+func cacheStaticAssets(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch strings.ToLower(filepath.Ext(r.URL.Path)) {
+		case ".css", ".js", ".svg", ".woff", ".woff2", ".ttf", ".eot":
+			if r.URL.Query().Get("v") != "" {
+				w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
+			} else {
+				w.Header().Set("Cache-Control", "public, max-age=3600")
+			}
+		}
+		next.ServeHTTP(w, r)
+	})
 }
 
 func (a *app) completeSession(w http.ResponseWriter, r *http.Request, id string) {
@@ -1028,11 +1106,26 @@ func (a *app) retrySession(w http.ResponseWriter, r *http.Request, id string) {
 	newSession.PublicQuestions = publicQuestions(questions)
 	qJSON, _ := json.Marshal(questions)
 	typeJSON, _ := json.Marshal(types)
-	_, err = a.db.ExecContext(r.Context(), `INSERT INTO practice_sessions
+	tx, err := a.db.BeginTx(r.Context(), nil)
+	if err != nil {
+		writeError(w, 500, "Latihan ulang belum dapat dibuat.")
+		return
+	}
+	defer tx.Rollback()
+	_, err = tx.ExecContext(r.Context(), `INSERT INTO practice_sessions
 		(id, user_id, created_at, updated_at, level, ielts_target, duration_minutes, question_types, source, status, questions_json)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'review', 'in_progress', ?)`, newSession.ID, userID(r.Context()), now, now, newSession.Level, newSession.IELTSTarget, duration, typeJSON, qJSON)
 	if err != nil {
 		log.Printf("insert retry session: %v", err)
+		writeError(w, 500, "Latihan ulang belum dapat dibuat.")
+		return
+	}
+	if err := insertSessionQuestions(r.Context(), tx, newSession.ID, questions); err != nil {
+		log.Printf("insert retry question metadata: %v", err)
+		writeError(w, 500, "Latihan ulang belum dapat dibuat.")
+		return
+	}
+	if err := tx.Commit(); err != nil {
 		writeError(w, 500, "Latihan ulang belum dapat dibuat.")
 		return
 	}
@@ -1132,6 +1225,56 @@ func (a *app) loadSession(ctx context.Context, id string) (session, error) {
 		}
 	}
 	return s, rows.Err()
+}
+
+func insertSessionQuestions(ctx context.Context, execer questionHistoryExecer, sessionID string, questions []question) error {
+	if len(questions) == 0 {
+		return nil
+	}
+	const chunkSize = 100
+	for start := 0; start < len(questions); start += chunkSize {
+		end := min(start+chunkSize, len(questions))
+		placeholders := make([]string, 0, end-start)
+		args := make([]any, 0, (end-start)*5)
+		for index := start; index < end; index++ {
+			q := questions[index]
+			placeholders = append(placeholders, "(?,?,?,?,?)")
+			args = append(args, sessionID, index, q.Type, len(q.Choices), q.CorrectIndex)
+		}
+		if _, err := execer.ExecContext(ctx, `INSERT INTO practice_session_questions
+			(session_id,question_index,question_type,choices_count,correct_index) VALUES `+strings.Join(placeholders, ",")+
+			` ON DUPLICATE KEY UPDATE question_type=VALUES(question_type),choices_count=VALUES(choices_count),correct_index=VALUES(correct_index)`, args...); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func backfillSessionQuestions(ctx context.Context, db *sql.DB) error {
+	rows, err := db.QueryContext(ctx, `SELECT s.id,s.questions_json FROM practice_sessions s
+		WHERE NOT EXISTS (SELECT 1 FROM practice_session_questions q WHERE q.session_id=s.id LIMIT 1)`)
+	if err != nil {
+		return fmt.Errorf("session question metadata backfill query: %w", err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var sessionID string
+		var raw []byte
+		if err := rows.Scan(&sessionID, &raw); err != nil {
+			return fmt.Errorf("session question metadata backfill scan: %w", err)
+		}
+		var questions []question
+		if err := json.Unmarshal(raw, &questions); err != nil {
+			return fmt.Errorf("session %s question metadata backfill: %w", sessionID, err)
+		}
+		if err := insertSessionQuestions(ctx, db, sessionID, questions); err != nil {
+			return fmt.Errorf("session %s question metadata insert: %w", sessionID, err)
+		}
+	}
+	if err := rows.Err(); err != nil {
+		return fmt.Errorf("session question metadata backfill: %w", err)
+	}
+	return nil
 }
 
 func publicQuestions(items []question) []publicQuestion {

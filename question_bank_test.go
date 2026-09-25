@@ -4,6 +4,7 @@ import (
 	"net/http/httptest"
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestBankQuestionHashSeparatesLevels(t *testing.T) {
@@ -69,11 +70,33 @@ func TestBuildAdminQuestionsWhereKeepsValuesParameterized(t *testing.T) {
 		Source: "codex_local", Status: "active",
 	}
 	where, args := buildAdminQuestionsWhere(filters)
-	wantWhere := "1=1 AND (CAST(id AS CHAR)=? OR question_json LIKE ?) AND level=? AND ielts_target=? AND type=? AND source=? AND active=TRUE"
+	wantWhere := "1=1 AND MATCH(prompt_text) AGAINST (? IN BOOLEAN MODE) AND level=? AND ielts_target=? AND type=? AND source=? AND active=TRUE"
 	if where != wantWhere {
 		t.Fatalf("where=%q, want %q", where, wantWhere)
 	}
-	wantArgs := []any{"present%", "%present%%", "B2", 7.5, "grammar", "codex_local"}
+	wantArgs := []any{"+present*", "B2", 7.5, "grammar", "codex_local"}
+	if !reflect.DeepEqual(args, wantArgs) {
+		t.Fatalf("args=%#v, want %#v", args, wantArgs)
+	}
+}
+
+func TestAdminQuestionCursorRoundTrip(t *testing.T) {
+	createdAt := time.Date(2026, 9, 24, 12, 30, 0, 123, time.UTC)
+	encoded := encodeAdminCursor(createdAt, 42)
+	gotTime, gotID, ok := decodeAdminCursor(encoded)
+	if !ok || !gotTime.Equal(createdAt) || gotID != 42 {
+		t.Fatalf("cursor round trip failed: time=%v id=%d ok=%v", gotTime, gotID, ok)
+	}
+}
+
+func TestBuildAdminQuestionsWhereUsesKeysetCursor(t *testing.T) {
+	cursorAt := time.Date(2026, 9, 24, 12, 30, 0, 0, time.UTC)
+	where, args := buildAdminQuestionsWhere(adminQuestionFilters{SortOrder: "desc", HasCursor: true, CursorAt: cursorAt, CursorID: 99})
+	want := "1=1 AND (created_at < ? OR (created_at=? AND id < ?))"
+	if where != want {
+		t.Fatalf("where=%q, want %q", where, want)
+	}
+	wantArgs := []any{cursorAt, cursorAt, int64(99)}
 	if !reflect.DeepEqual(args, wantArgs) {
 		t.Fatalf("args=%#v, want %#v", args, wantArgs)
 	}
@@ -105,5 +128,3 @@ func TestUserQuestionCooldownConstant(t *testing.T) {
 		t.Fatalf("expected 5 sessions cooldown, got %d", userQuestionCooldownSessions)
 	}
 }
-
-
