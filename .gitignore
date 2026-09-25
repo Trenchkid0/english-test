@@ -3,7 +3,7 @@
 /english-practice.exe
 /english-practice-*
 bin/
-!dist/english-practice
+!dist/*
 data/*
 !data/questions/
 data/questions/*
