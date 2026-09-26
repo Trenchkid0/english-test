@@ -84,8 +84,15 @@ svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-
 .header-action[data-state="success"] { background: var(--color-success-soft); color: var(--color-ink); }
 .header-action.is-hover { background: var(--color-paper-2); color: var(--color-ink); }
 .header-action.is-focus { outline: 3px solid var(--color-focus); outline-offset: 3px; }
-.word-character { display: grid; place-items: center; width: 1.9rem; height: 1.9rem; background: var(--color-accent); border-radius: var(--radius-input); }
-.word-character span { width: .7rem; height: .28rem; border-radius: var(--radius-pill); background: var(--color-accent-ink); transform: rotate(-5deg); }
+.word-character { display: grid; place-items: center; width: 1.9rem; height: 1.9rem; background: var(--color-accent); border-radius: var(--radius-input); color: var(--color-logo-icon, var(--color-accent-ink)); flex-shrink: 0; }
+.word-character svg { display: block; width: 58%; height: 58%; }
+[data-theme="dark"] .word-character,
+[data-theme="dark"] .brand .word-character,
+[data-theme="dark"] .auth-brand .word-character,
+[data-theme="dark"] .auth-card-brand .word-character,
+[data-theme="dark"] .session-gate-mark {
+  color: #ffffff !important;
+}
 .moon-icon { display: none; }
 [data-theme="dark"] .sun-icon { display: none; }
 [data-theme="dark"] .moon-icon { display: block; }
@@ -2076,15 +2083,8 @@ input[type="range"]:disabled { opacity: .55; cursor: not-allowed; }
   font-weight: 600;
 }
 .session-gate-mark {
-  display: grid;
   width: 2.5rem;
   height: 2.5rem;
-  place-items: center;
-  color: var(--color-accent-ink);
-  background: var(--color-accent);
-  border-radius: var(--radius-input);
-  font-family: var(--font-display);
-  font-weight: 700;
 }
 .auth-story, .auth-entry { min-width: 0; padding: clamp(1.25rem, 5vw, 4.5rem); }
 .auth-story {
@@ -2095,8 +2095,49 @@ input[type="range"]:disabled { opacity: .55; cursor: not-allowed; }
   background: var(--color-ink);
   color: var(--color-paper);
 }
-.auth-brand { display: inline-flex; align-items: center; gap: var(--space-sm); width: fit-content; color: inherit; text-decoration: none; font-weight: 700; white-space: nowrap; }
-.brand-mark { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-input); }
+.auth-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: fit-content;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: var(--text-md);
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+.auth-brand .word-character {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-logo-icon, var(--color-accent-ink));
+  transition: transform var(--dur-short) var(--ease-out);
+}
+[data-theme="dark"] .auth-story {
+  background: oklch(13% 0.015 250);
+  color: var(--color-ink);
+}
+[data-theme="dark"] .auth-story .eyebrow,
+[data-theme="dark"] .auth-story .auth-steps li,
+[data-theme="dark"] .auth-promise > p:last-child {
+  color: var(--color-ink-soft);
+}
+.auth-card-brand {
+  display: none;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-block-end: var(--space-md);
+  color: var(--color-ink);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.auth-card-brand .word-character {
+  width: 1.9rem;
+  height: 1.9rem;
+}
+@media (max-width: 59.99rem) {
+  .auth-card-brand { display: inline-flex; }
+}
 .eyebrow { margin: 0 0 var(--space-sm); color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-xs); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
 .auth-story .eyebrow { color: var(--color-paper-3); }
 .auth-promise h1 { max-width: 11ch; font-size: clamp(2.7rem, 7vw, 5.6rem); }
@@ -2164,7 +2205,8 @@ input[type="range"]:disabled { opacity: .55; cursor: not-allowed; }
 
 @media (hover: hover) and (pointer: fine) {
   .auth-tabs button:hover { background: var(--color-paper-2); }
-  .auth-brand:hover .brand-mark { transform: translateY(-1px); }
+  .auth-brand:hover .brand-mark,
+  .auth-brand:hover .word-character { transform: translateY(-1px); }
   .brand:hover .word-character { transform: translateY(-1px); }
   .header-action:not([data-state]):hover { background: var(--color-paper-2); color: var(--color-ink); }
   .logout-button:not([data-state]):hover { background: var(--color-error-soft); color: var(--color-error); }

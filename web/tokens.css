@@ -11,6 +11,7 @@
   --color-accent: oklch(66% 0.19 32);
   --color-accent-deep: oklch(48% 0.16 30);
   --color-accent-ink: oklch(20% 0.012 250);
+  --color-logo-icon: var(--color-accent-ink);
   --color-cyan: oklch(52% 0.12 250);
   --color-cyan-soft: oklch(94% 0.025 250);
   --color-coral: oklch(66% 0.19 32);
@@ -82,6 +83,7 @@
   --color-accent: oklch(72% 0.16 32);
   --color-accent-deep: oklch(55% 0.15 30);
   --color-accent-ink: oklch(15% 0.012 250);
+  --color-logo-icon: #ffffff;
   --color-cyan: oklch(75% 0.14 235);
   --color-cyan-soft: oklch(27% 0.055 235);
   --color-coral: oklch(72% 0.16 32);

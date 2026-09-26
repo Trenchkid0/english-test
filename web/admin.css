@@ -30,15 +30,13 @@ svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: 
   gap: var(--space-sm);
   color: var(--color-muted);
 }
-.admin-gate span {
-  display: grid;
-  width: 3rem;
-  height: 3rem;
-  place-items: center;
-  color: var(--color-accent-ink);
-  background: var(--color-accent);
-  border-radius: var(--radius-input);
-  font-weight: 700;
+.admin-gate .word-character {
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--color-logo-icon, var(--color-accent-ink));
+}
+[data-theme="dark"] .admin-gate .word-character {
+  color: var(--color-logo-icon, #ffffff);
 }
 .admin-gate p { margin: 0; }
 
@@ -78,14 +76,22 @@ svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: 
   height: 1.9rem;
   background: var(--color-accent);
   border-radius: var(--radius-input);
+  color: var(--color-logo-icon, var(--color-accent-ink));
   flex: 0 0 auto;
 }
-.word-character span {
-  width: .7rem;
-  height: .28rem;
-  border-radius: var(--radius-pill);
-  background: var(--color-accent-ink);
-  transform: rotate(-5deg);
+.word-character svg {
+  display: block;
+  width: 58%;
+  height: 58%;
+}
+[data-theme="dark"] .word-character,
+[data-theme="dark"] .admin-brand .word-character,
+[data-theme="dark"] .admin-gate .word-character {
+  color: #ffffff !important;
+}
+.admin-brand .word-character {
+  width: 1.9rem;
+  height: 1.9rem;
 }
 .account-initial {
   display: grid;
@@ -131,8 +137,8 @@ svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: 
 .icon-button {
   position: relative;
   display: inline-grid;
-  width: var(--control-height);
-  height: var(--control-height);
+  width: 2.75rem;
+  height: 2.75rem;
   place-items: center;
   padding: 0;
   color: var(--color-ink-soft);
@@ -140,7 +146,11 @@ svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: 
   border: var(--rule-hair) solid transparent;
   border-radius: var(--radius-pill);
   cursor: pointer;
-  transition: transform var(--dur-micro) var(--ease-out), opacity var(--dur-micro) var(--ease-out);
+  transition: transform var(--dur-micro) var(--ease-out), opacity var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+.icon-button:hover {
+  color: var(--color-ink);
+  background: var(--color-paper-2);
 }
 .icon-button svg { width: 1.25rem; height: 1.25rem; }
 .icon-button:active { transform: translateY(1px); }
@@ -201,7 +211,7 @@ svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: 
   border-radius: var(--radius-input);
 }
 .input-shell { position: relative; display: block; min-width: 0; }
-.input-shell svg { position: absolute; inset-block-start: 50%; inset-inline-start: var(--space-md); width: 1.2rem; height: 1.2rem; transform: translateY(-50%); pointer-events: none; }
+.input-shell svg { position: absolute; inset-block-start: 50%; inset-inline-start: var(--space-md); width: 1.2rem; height: 1.2rem; transform: translateY(-50%); pointer-events: none; color: var(--color-muted); }
 input, select {
   width: 100%;
   height: var(--control-height);
@@ -420,6 +430,7 @@ input[data-state="loading"], select[data-state="loading"] { cursor: progress; }
 @media (min-width: 40rem) {
   .admin-nav { grid-template-columns: auto minmax(12rem, 28rem) auto; }
   .admin-brand > span:last-child, .nav-search { display: inline-flex; }
+  #mobile-search-toggle { display: none; }
   .catalogue-head { grid-template-columns: minmax(0, 1.25fr) minmax(16rem, .75fr); align-items: end; }
   .question-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .question-card, .question-skeleton { padding: var(--space-lg); border-inline-end: var(--rule-hair) solid var(--color-rule); }

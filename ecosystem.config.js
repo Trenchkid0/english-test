@@ -78,7 +78,7 @@ module.exports = {
     {
       name: "english-test",
       cwd: "/media/devmon/sda1-usb-JMicron_Tech_DD5/Rio/english-test",
-      script: "./bin/english-practice-linux",
+      script: "./dist/english-practice-arm64",
       instances: 1,
       exec_mode: "fork",
       autorestart: true,
