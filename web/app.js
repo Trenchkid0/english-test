@@ -650,69 +650,6 @@ async function finishSession(timedOut = false) {
   }
 }
 
-function animateScore(target) {
-  const output = $("#score-value");
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { output.textContent = target; return; }
-  const start = performance.now();
-  const tick = (now) => {
-    const progress = Math.min(1, (now - start) / 700);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    output.textContent = Math.round(target * eased);
-    if (progress < 1) requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
-}
-
-async function openHistory() {
-  const dialog = $("#history-dialog");
-  dialog.showModal();
-  $("#history-list").innerHTML = '<p class="empty-copy">Memuat riwayat…</p>';
-  try {
-    const items = await api("/api/sessions");
-    if (!items.length) {
-      $("#history-list").innerHTML = '<p class="empty-copy">Belum ada sesi. Buat latihan pertama untuk mulai mengisi arsip belajar.</p>';
-      return;
-    }
-    $("#history-list").innerHTML = items.map((item) => {
-      const date = new Intl.DateTimeFormat("id-ID", { dateStyle: "medium", timeStyle: "short" }).format(new Date(item.createdAt));
-      const progress = item.status === "completed" ? `${item.score}/100` : `${item.answeredCount}/${item.questionCount}`;
-		const action = item.status === "completed" ? "Buka review" : "Lanjutkan";
-      const source = sourceLabel(item.source);
-      return `<button class="history-row" type="button" data-session-id="${escapeHTML(item.id)}">
-		<span><strong>${escapeHTML(item.level)} · target IELTS ${item.ieltsTarget}</strong><span>${date} · ${action} · ${escapeHTML(source)}</span></span>
-        <strong class="history-score">${progress}</strong>
-      </button>`;
-    }).join("");
-    $$(".history-row", $("#history-list")).forEach((row) => row.addEventListener("click", () => loadSession(row.dataset.sessionId, row)));
-  } catch (error) {
-    $("#history-list").innerHTML = `<p class="empty-copy">${escapeHTML(error.message)}</p>`;
-  }
-}
-
-async function loadSession(id, button) {
-  button.disabled = true;
-  button.dataset.state = "loading";
-  try {
-    const data = await api(`/api/sessions/${encodeURIComponent(id)}`);
-    state.session = data.session;
-    state.review = data.review || [];
-    $("#history-dialog").close();
-    if (state.session.status === "completed") {
-      renderResults();
-    } else {
-      const firstEmpty = state.session.questions.findIndex((_, index) => state.session.answers[String(index)] === undefined && state.session.answers[index] === undefined);
-      state.index = firstEmpty < 0 ? state.session.questions.length - 1 : firstEmpty;
-      startQuiz();
-    }
-  } catch (error) {
-    button.dataset.state = "error";
-    showToast(error.message);
-  } finally {
-    button.disabled = false;
-    if (button.dataset.state !== "error") delete button.dataset.state;
-  }
-}
-
 function renderResults(timedOut = false) {
   clearInterval(state.timerID);
   showScreen("result");
@@ -810,35 +747,354 @@ function animateScore(target) {
   requestAnimationFrame(tick);
 }
 
+const historyState = {
+  items: [],
+  filter: "all",
+  search: "",
+  sort: "newest",
+  inited: false,
+};
+
+function formatFriendlyDate(dateInput) {
+  if (!dateInput) return "-";
+  const d = new Date(dateInput);
+  const now = new Date();
+  const isToday = d.toDateString() === now.toDateString();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const isYesterday = d.toDateString() === yesterday.toDateString();
+
+  const timeStr = new Intl.DateTimeFormat("id-ID", { hour: "2-digit", minute: "2-digit" }).format(d);
+  if (isToday) return `Hari ini, ${timeStr}`;
+  if (isYesterday) return `Kemarin, ${timeStr}`;
+  const dateStr = new Intl.DateTimeFormat("id-ID", {
+    day: "numeric",
+    month: "short",
+    year: d.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
+  }).format(d);
+  return `${dateStr}, ${timeStr}`;
+}
+
+function getRatingTier(score) {
+  if (score >= 85) return { label: "Sangat Baik", classModifier: "high" };
+  if (score >= 70) return { label: "Baik", classModifier: "mid" };
+  return { label: "Perlu Latihan", classModifier: "low" };
+}
+
+function renderHistorySkeletons() {
+  const list = $("#history-list");
+  if (!list) return;
+  list.innerHTML = `
+    <div class="history-skeleton-card" aria-hidden="true"></div>
+    <div class="history-skeleton-card" aria-hidden="true"></div>
+    <div class="history-skeleton-card" aria-hidden="true"></div>
+  `;
+}
+
+function updateHistoryMetrics() {
+  const items = historyState.items;
+  const total = items.length;
+  const completed = items.filter((i) => i.status === "completed").length;
+  const pending = items.filter((i) => i.status !== "completed").length;
+  const completedWithScore = items.filter((i) => i.status === "completed" && typeof i.score === "number");
+  const avgScore = completedWithScore.length
+    ? Math.round(completedWithScore.reduce((sum, item) => sum + (item.score || 0), 0) / completedWithScore.length)
+    : null;
+  const completionRate = total ? Math.round((completed / total) * 100) : 0;
+
+  const totalEl = $("#hist-stat-total");
+  const compEl = $("#hist-stat-completed");
+  const rateEl = $("#hist-stat-comp-rate");
+  const avgEl = $("#hist-stat-avg");
+  const pendEl = $("#hist-stat-pending");
+
+  if (totalEl) totalEl.textContent = total;
+  if (compEl) compEl.textContent = completed;
+  if (rateEl) rateEl.textContent = `${completionRate}% tuntas`;
+  if (avgEl) avgEl.textContent = avgScore !== null ? `${avgScore}` : "-";
+  if (pendEl) pendEl.textContent = pending;
+
+  const countAll = $("#filter-count-all");
+  const countComp = $("#filter-count-completed");
+  const countPend = $("#filter-count-pending");
+  if (countAll) countAll.textContent = total;
+  if (countComp) countComp.textContent = completed;
+  if (countPend) countPend.textContent = pending;
+}
+
+function renderHistoryView() {
+  const list = $("#history-list");
+  if (!list) return;
+
+  if (!historyState.items.length) {
+    list.innerHTML = `
+      <div class="history-empty-state">
+        <div class="history-empty-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="M6 6h10"></path>
+            <path d="M6 10h7"></path>
+          </svg>
+        </div>
+        <h3 class="history-empty-title">Belum ada riwayat latihan</h3>
+        <p class="history-empty-desc">Selesaikan sesi latihan pertama Anda untuk mulai memetakan perkembangan IELTS personal di sini.</p>
+        <button class="btn btn--pear" type="button" id="hist-empty-start-btn" style="margin-top:0.5rem;">Mulai Latihan Baru</button>
+      </div>
+    `;
+    const btn = $("#hist-empty-start-btn");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        $("#history-dialog").close();
+        showSetup();
+      });
+    }
+    return;
+  }
+
+  // Filter
+  const filtered = historyState.items.filter((item) => {
+    if (historyState.filter === "completed" && item.status !== "completed") return false;
+    if (historyState.filter === "in_progress" && item.status === "completed") return false;
+
+    if (historyState.search) {
+      const q = historyState.search.toLowerCase().trim();
+      const level = (item.level || "").toLowerCase();
+      const source = (sourceLabel(item.source) || "").toLowerCase();
+      const target = `target ${item.ieltsTarget || ""}`.toLowerCase();
+      const dateStr = formatFriendlyDate(item.createdAt).toLowerCase();
+      if (!level.includes(q) && !source.includes(q) && !target.includes(q) && !dateStr.includes(q)) {
+        return false;
+      }
+    }
+    return true;
+  });
+
+  // Sort
+  filtered.sort((a, b) => {
+    if (historyState.sort === "oldest") return new Date(a.createdAt) - new Date(b.createdAt);
+    if (historyState.sort === "highest_score") return (b.score ?? -1) - (a.score ?? -1);
+    if (historyState.sort === "lowest_score") return (a.score ?? 999) - (b.score ?? 999);
+    return new Date(b.createdAt) - new Date(a.createdAt); // newest
+  });
+
+  if (!filtered.length) {
+    list.innerHTML = `
+      <div class="history-empty-state">
+        <div class="history-empty-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <h3 class="history-empty-title">Tidak ada riwayat yang cocok</h3>
+        <p class="history-empty-desc">Coba sesuaikan kata kunci pencarian atau ubah tab status di atas.</p>
+        <button class="btn btn--soft" type="button" id="reset-hist-filter" style="margin-top:0.4rem;">Reset Filter</button>
+      </div>
+    `;
+    const resetBtn = $("#reset-hist-filter");
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        historyState.filter = "all";
+        historyState.search = "";
+        const searchInput = $("#history-search");
+        if (searchInput) searchInput.value = "";
+        $$(".history-tab").forEach((tab) => {
+          const isAll = tab.dataset.histFilter === "all";
+          tab.classList.toggle("is-active", isAll);
+          tab.setAttribute("aria-selected", isAll ? "true" : "false");
+        });
+        renderHistoryView();
+      });
+    }
+    return;
+  }
+
+  list.innerHTML = filtered
+    .map((item) => {
+      const isCompleted = item.status === "completed";
+      const dateFormatted = formatFriendlyDate(item.createdAt);
+      const source = sourceLabel(item.source);
+      const totalQ = item.questionCount || 10;
+      const answeredQ = item.answeredCount || 0;
+      const progressPercent = Math.min(100, Math.round((answeredQ / totalQ) * 100));
+
+      let scoreHTML = "";
+      if (isCompleted) {
+        const score = item.score ?? 0;
+        const tier = getRatingTier(score);
+        scoreHTML = `
+          <div class="history-score-badge history-score-badge--${tier.classModifier}">
+            <div class="history-score-badge__val">${score}<span style="font-size:0.8rem; font-weight:500; opacity:0.7;">/100</span></div>
+            <span class="history-score-badge__label">${tier.label}</span>
+          </div>
+        `;
+      } else {
+        scoreHTML = `
+          <div class="history-score-badge">
+            <div class="history-score-badge__val" style="color:var(--color-accent); font-size:1.15rem;">${answeredQ}<span style="font-size:0.8rem; opacity:0.75;">/${totalQ}</span></div>
+            <span class="history-score-badge__label">Soal Terjawab</span>
+          </div>
+        `;
+      }
+
+      const progressSection = !isCompleted
+        ? `
+        <div class="history-card__progress-wrap">
+          <div class="history-progress-track" aria-hidden="true">
+            <div class="history-progress-fill" style="width: ${progressPercent}%;"></div>
+          </div>
+          <span class="history-progress-caption">${progressPercent}% tuntas (${answeredQ}/${totalQ})</span>
+        </div>
+      `
+        : "";
+
+      const statusBadge = isCompleted
+        ? `
+        <span class="history-status-tag history-status-tag--completed">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Selesai
+        </span>
+      `
+        : `
+        <span class="history-status-tag history-status-tag--pending">
+          <span class="history-pulse-dot" aria-hidden="true"></span>
+          Sedang Berjalan
+        </span>
+      `;
+
+      const actionButton = isCompleted
+        ? `
+        <button class="history-card__btn history-card__btn--review" type="button" aria-label="Buka review sesi ${escapeHTML(item.level)}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Buka Review
+        </button>
+      `
+        : `
+        <button class="history-card__btn history-card__btn--resume" type="button" aria-label="Lanjutkan sesi latihan ${escapeHTML(item.level)}">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Lanjutkan
+        </button>
+      `;
+
+      return `
+        <article class="history-row history-card" tabindex="0" role="button" data-session-id="${escapeHTML(item.id)}" aria-label="Sesi ${escapeHTML(item.level)} target IELTS ${item.ieltsTarget} ${isCompleted ? 'selesai' : 'sedang berjalan'}">
+          <div class="history-card__main">
+            <div class="history-card__meta-top">
+              ${statusBadge}
+              <span class="history-card__date">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                ${dateFormatted}
+              </span>
+            </div>
+
+            <div class="history-card__title-row">
+              <span class="history-pill history-pill--level">${escapeHTML(item.level)}</span>
+              <span class="history-pill history-pill--target">🎯 IELTS ${item.ieltsTarget}</span>
+              <span class="history-pill history-pill--source">${escapeHTML(source)}</span>
+            </div>
+
+            ${progressSection}
+          </div>
+
+          <div class="history-card__action-col">
+            ${scoreHTML}
+            ${actionButton}
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+
+  $$(".history-card", list).forEach((card) => {
+    const sessionId = card.dataset.sessionId;
+    const triggerAction = () => loadSession(sessionId, card);
+    card.addEventListener("click", () => triggerAction());
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        triggerAction();
+      }
+    });
+  });
+}
+
+function initHistoryControls() {
+  if (historyState.inited) return;
+  historyState.inited = true;
+
+  // Filter tabs
+  $$(".history-tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      $$(".history-tab").forEach((t) => {
+        t.classList.remove("is-active");
+        t.setAttribute("aria-selected", "false");
+      });
+      tab.classList.add("is-active");
+      tab.setAttribute("aria-selected", "true");
+      historyState.filter = tab.dataset.histFilter || "all";
+      renderHistoryView();
+    });
+  });
+
+  // Search input
+  const searchInput = $("#history-search");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      historyState.search = e.target.value;
+      renderHistoryView();
+    });
+  }
+
+  // Sort select
+  const sortSelect = $("#history-sort");
+  if (sortSelect) {
+    sortSelect.addEventListener("change", (e) => {
+      historyState.sort = e.target.value;
+      renderHistoryView();
+    });
+  }
+}
+
 async function openHistory() {
   const dialog = $("#history-dialog");
+  if (!dialog) return;
+  initHistoryControls();
   dialog.showModal();
-  $("#history-list").innerHTML = '<p class="empty-copy">Memuat riwayat…</p>';
+  renderHistorySkeletons();
   try {
     const items = await api("/api/sessions");
-    if (!items.length) {
-      $("#history-list").innerHTML = '<p class="empty-copy">Belum ada sesi. Buat latihan pertama untuk mulai mengisi arsip belajar.</p>';
-      return;
-    }
-    $("#history-list").innerHTML = items.map((item) => {
-      const date = new Intl.DateTimeFormat("id-ID", { dateStyle: "medium", timeStyle: "short" }).format(new Date(item.createdAt));
-      const progress = item.status === "completed" ? `${item.score}/100` : `${item.answeredCount}/${item.questionCount}`;
-		const action = item.status === "completed" ? "Buka review" : "Lanjutkan";
-      const source = sourceLabel(item.source);
-      return `<button class="history-row" type="button" data-session-id="${escapeHTML(item.id)}">
-		<span><strong>${escapeHTML(item.level)} · target IELTS ${item.ieltsTarget}</strong><span>${date} · ${action} · ${escapeHTML(source)}</span></span>
-        <strong class="history-score">${progress}</strong>
-      </button>`;
-    }).join("");
-    $$(".history-row", $("#history-list")).forEach((row) => row.addEventListener("click", () => loadSession(row.dataset.sessionId, row)));
+    historyState.items = Array.isArray(items) ? items : [];
+    updateHistoryMetrics();
+    renderHistoryView();
   } catch (error) {
-    $("#history-list").innerHTML = `<p class="empty-copy">${escapeHTML(error.message)}</p>`;
+    const list = $("#history-list");
+    if (list) {
+      list.innerHTML = `
+        <div class="history-empty-state">
+          <h3 class="history-empty-title">Gagal memuat riwayat</h3>
+          <p class="history-empty-desc">${escapeHTML(error.message)}</p>
+          <button class="btn btn--soft" type="button" id="hist-retry-load-btn" style="margin-top:0.5rem;">Coba Lagi</button>
+        </div>
+      `;
+      const retryBtn = $("#hist-retry-load-btn");
+      if (retryBtn) retryBtn.addEventListener("click", openHistory);
+    }
   }
 }
 
 async function loadSession(id, button) {
-  button.disabled = true;
-  button.dataset.state = "loading";
+  if (button) {
+    button.disabled = true;
+    button.dataset.state = "loading";
+  }
   try {
     const data = await api(`/api/sessions/${encodeURIComponent(id)}`);
     state.session = data.session;
@@ -852,11 +1108,13 @@ async function loadSession(id, button) {
       startQuiz();
     }
   } catch (error) {
-    button.dataset.state = "error";
+    if (button) button.dataset.state = "error";
     showToast(error.message);
   } finally {
-    button.disabled = false;
-    if (button.dataset.state !== "error") delete button.dataset.state;
+    if (button) {
+      button.disabled = false;
+      if (button.dataset.state !== "error") delete button.dataset.state;
+    }
   }
 }
 

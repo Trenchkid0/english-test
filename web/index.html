@@ -8,10 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/tokens.css?v=20260924">
-  <link rel="stylesheet" href="/app.css?v=20260924">
-  <script src="/app.js?v=20260924" defer></script>
-  <script src="/auth.js?v=20260924" defer></script>
+  <link rel="stylesheet" href="/tokens.css?v=20260926">
+  <link rel="stylesheet" href="/app.css?v=20260926">
+  <script src="/app.js?v=20260926" defer></script>
+  <script src="/auth.js?v=20260926" defer></script>
 </head>
 <body>
   <div class="session-gate" id="session-gate" role="status">
@@ -783,9 +783,87 @@
   </footer>
   </div>
 
-  <dialog id="history-dialog" class="history-dialog">
-    <div class="dialog-head"><div><p class="stage-label">ARSIP BELAJAR</p><h2>Riwayat latihan</h2></div><button class="icon-button" id="close-history" aria-label="Tutup riwayat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
-    <div class="history-list" id="history-list"><p class="empty-copy">Memuat riwayat…</p></div>
+  <dialog id="history-dialog" class="history-dialog" aria-labelledby="history-title">
+    <div class="history-dialog__frame">
+      <div class="history-dialog__head">
+        <div class="history-head__info">
+          <div class="history-head__badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>ARSIP PERSONAL</span>
+          </div>
+          <h2 id="history-title" class="history-head__title">Riwayat & Arsip Latihan</h2>
+          <p class="history-head__subtitle">Pantau progres skor, pelajari kembali review jawaban, atau lanjutkan sesi tertunda.</p>
+        </div>
+        <button class="icon-button history-dialog__close" id="close-history" aria-label="Tutup riwayat" title="Tutup">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+
+      <!-- Quick Metrics Analytics -->
+      <div class="history-metrics-bar" id="history-metrics" aria-label="Statistik latihan">
+        <div class="history-metric-item">
+          <span class="history-metric-label">Total Sesi</span>
+          <div class="history-metric-val" id="hist-stat-total">-</div>
+          <span class="history-metric-sub">Sesi tercatat</span>
+        </div>
+        <div class="history-metric-item">
+          <span class="history-metric-label">Selesai</span>
+          <div class="history-metric-val history-metric-val--success" id="hist-stat-completed">-</div>
+          <span class="history-metric-sub" id="hist-stat-comp-rate">-</span>
+        </div>
+        <div class="history-metric-item">
+          <span class="history-metric-label">Rata-rata Skor</span>
+          <div class="history-metric-val history-metric-val--score" id="hist-stat-avg">-</div>
+          <span class="history-metric-sub">Dari sesi tuntas</span>
+        </div>
+        <div class="history-metric-item">
+          <span class="history-metric-label">Dapat Dilanjutkan</span>
+          <div class="history-metric-val history-metric-val--pending" id="hist-stat-pending">-</div>
+          <span class="history-metric-sub">Sesi tertunda</span>
+        </div>
+      </div>
+
+      <!-- Controls & Toolbar -->
+      <div class="history-toolbar">
+        <div class="history-tabs" role="tablist" aria-label="Filter status sesi">
+          <button type="button" class="history-tab is-active" data-hist-filter="all" role="tab" aria-selected="true">
+            Semua <span class="history-tab-count" id="filter-count-all">0</span>
+          </button>
+          <button type="button" class="history-tab" data-hist-filter="completed" role="tab" aria-selected="false">
+            Selesai <span class="history-tab-count" id="filter-count-completed">0</span>
+          </button>
+          <button type="button" class="history-tab" data-hist-filter="in_progress" role="tab" aria-selected="false">
+            Sedang Berjalan <span class="history-tab-count" id="filter-count-pending">0</span>
+          </button>
+        </div>
+
+        <div class="history-tools">
+          <div class="history-search-wrap">
+            <svg class="history-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="search" id="history-search" class="history-search-input" placeholder="Cari level, sumber, atau tanggal…" aria-label="Cari riwayat">
+          </div>
+          <select id="history-sort" class="history-sort-select" aria-label="Urutkan riwayat">
+            <option value="newest">Terbaru</option>
+            <option value="oldest">Terlama</option>
+            <option value="highest_score">Skor Tertinggi</option>
+            <option value="lowest_score">Skor Terendah</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Scrollable Cards Feed -->
+      <div class="history-content-scroll">
+        <div class="history-list" id="history-list">
+          <p class="empty-copy">Memuat riwayat…</p>
+        </div>
+      </div>
+    </div>
   </dialog>
 
   <div class="toast" id="toast" role="alert" hidden><span></span><button type="button">Tutup</button></div>
