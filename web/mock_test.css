@@ -27,6 +27,25 @@
   padding: var(--space-xl);
 }
 
+.mock-series-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.625rem 0.875rem;
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  user-select: none;
+}
+
+.mock-series-badge .badge-dot {
+  background: var(--color-accent-deep);
+  flex-shrink: 0;
+}
+
 .mock-rules-list {
   display: grid;
   gap: var(--space-md);

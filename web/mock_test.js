@@ -190,12 +190,21 @@ async function resumeOrOpenMock(id, status) {
 // -------------------------------------------------------------
 // Mock Start Form & Lifecycle
 // -------------------------------------------------------------
+$("#mock-module")?.addEventListener("change", (e) => {
+  const seriesName = $("#mock-series-name");
+  if (seriesName) {
+    seriesName.textContent = e.target.value === "general"
+      ? "IELTS General Training Practice Test"
+      : "IELTS Academic Practice Test";
+  }
+});
+
 $("#mock-start-form")?.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const form = e.currentTarget;
-  const title = $("#mock-title").value.trim() || "IELTS Academic Practice Test";
   const moduleType = $("#mock-module").value;
   const fullLength = $("#mock-length").value === "true";
+  const defaultTitle = moduleType === "general" ? "IELTS General Training Practice Test" : "IELTS Academic Practice Test";
+  const title = $("#mock-series-name")?.textContent?.trim() || defaultTitle;
 
   const btn = $("#start-mock-btn");
   btn.disabled = true;

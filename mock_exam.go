@@ -255,11 +255,15 @@ func (a *app) createMockTest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if body.Title == "" {
-		body.Title = fmt.Sprintf("IELTS Academic Mock Test #%s", time.Now().Format("02 Jan 15:04"))
-	}
 	if body.ModuleType == "" {
 		body.ModuleType = "academic"
+	}
+	if body.Title == "" {
+		modName := "Academic"
+		if body.ModuleType == "general" {
+			modName = "General Training"
+		}
+		body.Title = fmt.Sprintf("IELTS %s Practice Test", modName)
 	}
 
 	countPerSection := 20
