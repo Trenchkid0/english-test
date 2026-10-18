@@ -4,6 +4,7 @@ module.exports = {
       name: "backend-monet",
       cwd: "/media/devmon/sda1-usb-JMicron_Tech_DD5/Rio/finance/backend",
       script: "./racks-backend",
+      interpreter: "none",        // <--- WAJIB DITAMBAHKAN AGAR PM2 TIDAK MEMAKAI /bin/sh
       autorestart: true,
       watch: false
     },
@@ -78,14 +79,14 @@ module.exports = {
     {
       name: "english-test",
       cwd: "/media/devmon/sda1-usb-JMicron_Tech_DD5/Rio/english-test",
-      script: "./dist/english-practice-arm64",
+      script: "./bin/english-practice-linux",
       instances: 1,
       exec_mode: "fork",
       autorestart: true,
       watch: false,
       max_memory_restart: "500M",
       env: {
-        APP_ADDR: ":8080"
+        APP_ADDR: ":8082"
       }
     }
   ]

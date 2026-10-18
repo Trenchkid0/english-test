@@ -787,13 +787,54 @@ func (a *app) health(w http.ResponseWriter, r *http.Request) {
 		methodNotAllowed(w, http.MethodGet)
 		return
 	}
+	dbStart := time.Now()
 	ctx, cancel := context.WithTimeout(r.Context(), 2*time.Second)
 	defer cancel()
+
+	dbStatus := "UP"
+	var dbLatencyMs float64
 	if err := a.db.PingContext(ctx); err != nil {
-		writeError(w, http.StatusServiceUnavailable, "Database belum siap.")
-		return
+		dbStatus = "DOWN"
+	} else {
+		dbLatencyMs = float64(time.Since(dbStart).Nanoseconds()) / 1e6
 	}
-	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+
+	aiStatus := "UP"
+	if a.cfg.DeepSeekKey == "" {
+		aiStatus = "UNCONFIGURED"
+	}
+
+	res := map[string]interface{}{
+		"status":    dbStatus,
+		"service":   "english-practice",
+		"timestamp": time.Now().Format(time.RFC3339),
+		"components": map[string]interface{}{
+			"database": map[string]interface{}{
+				"status":    dbStatus,
+				"latencyMs": dbLatencyMs,
+				"name":      a.cfg.DBName,
+			},
+			"deepseek_ai": map[string]interface{}{
+				"status": aiStatus,
+				"model":  a.cfg.DeepSeekModel,
+			},
+		},
+		"apis": []map[string]interface{}{
+			{"name": "Auth API", "path": "/api/auth/login", "method": "POST", "status": "UP"},
+			{"name": "Reviews API", "path": "/api/reviews", "method": "GET", "status": dbStatus},
+			{"name": "Sessions API", "path": "/api/sessions", "method": "GET/POST", "status": dbStatus},
+			{"name": "Vocabulary API", "path": "/api/vocabulary", "method": "GET", "status": dbStatus},
+			{"name": "Writing API", "path": "/api/writing", "method": "GET/POST", "status": dbStatus},
+			{"name": "Mock Tests API", "path": "/api/mock-tests", "method": "GET", "status": dbStatus},
+			{"name": "Question Bank API", "path": "/api/question-bank", "method": "GET/POST", "status": dbStatus},
+		},
+	}
+
+	statusCode := http.StatusOK
+	if dbStatus == "DOWN" {
+		statusCode = http.StatusServiceUnavailable
+	}
+	writeJSON(w, statusCode, res)
 }
 
 func (a *app) sessions(w http.ResponseWriter, r *http.Request) {
