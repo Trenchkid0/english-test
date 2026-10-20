@@ -106,14 +106,12 @@ function showSetup() {
 function updateSetupSummary() {
   const count = Number($("#count").value);
   const countInput = $("#count");
-  const questionMode = $('input[name="questionMode"]:checked', $("#practice-form"))?.value || "bank";
   const progress = ((count - Number(countInput.min)) / (Number(countInput.max) - Number(countInput.min))) * 100;
   [...countInput.classList].filter((name) => name.startsWith("range-progress-")).forEach((name) => countInput.classList.remove(name));
   countInput.classList.add(`range-progress-${Math.round(progress)}`);
   $("#count-output").value = `${count} soal`;
   $("#summary-count").textContent = `${count} pertanyaan`;
-  const source = questionMode === "deepseek" ? "soal baru" : "bank soal";
-  $("#summary-detail").textContent = `${$("#level").value} · target ${$("#ielts-target").value} · ${$("#duration").value} menit · ${source}`;
+  $("#summary-detail").textContent = `${$("#level").value} · target ${$("#ielts-target").value} · ${$("#duration").value} menit`;
 }
 
 updateSetupSummary();
@@ -123,7 +121,8 @@ $("#practice-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   const types = $$('input[name="types"]:checked', form).map((input) => input.value);
-  const questionMode = $('input[name="questionMode"]:checked', form).value;
+  const questionModeInput = $('input[name="questionMode"]:checked', form) || $('input[name="questionMode"]', form);
+  const questionMode = questionModeInput?.value || "bank";
   const typeField = $(".type-field");
   if (!types.length) {
     typeField.setAttribute("aria-invalid", "true");
@@ -137,7 +136,7 @@ $("#practice-form").addEventListener("submit", async (event) => {
   const status = $("#form-status");
   button.disabled = true;
   button.dataset.state = "loading";
-  $(".btn-label", button).textContent = questionMode === "deepseek" ? "Membuat soal baru…" : "Membuka bank soal…";
+  $(".btn-label", button).textContent = questionMode === "deepseek" ? "Membuat soal baru…" : "Menyiapkan latihan…";
   status.textContent = questionMode === "deepseek" ? "DeepSeek sedang menyusun soal dan akan menyimpannya ke bank." : "Memilih soal tersimpan sesuai level dan fokus Anda.";
 
   try {

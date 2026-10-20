@@ -8,10 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/tokens.css?v=20260926_03">
-  <link rel="stylesheet" href="/app.css?v=20260926_03">
-  <script src="/app.js?v=20260926_03" defer></script>
-  <script src="/auth.js?v=20260926_03" defer></script>
+  <link rel="stylesheet" href="/tokens.css?v=20261020_01">
+  <link rel="stylesheet" href="/app.css?v=20261020_01">
+  <script src="/app.js?v=20261020_01" defer></script>
+  <script src="/auth.js?v=20261020_01" defer></script>
 </head>
 <body>
   <div class="session-gate" id="session-gate" role="status">
@@ -110,109 +110,168 @@
 
   <main id="app" tabindex="-1">
     <section class="setup-screen screen" id="setup-screen">
-      <div class="hero-shell">
-        <div class="hero-copy reveal">
-          <p class="stage-label">1.0 · ATUR LATIHAN</p>
+      <div class="studio-hero reveal">
+        <div class="studio-hero-main">
+          <p class="stage-label">1.0 · RUANG LATIHAN HARIAN</p>
           <h1>English yang tumbuh karena <span class="ink-mark">dipakai.</span></h1>
-          <p class="hero-lead">Buat satu sesi kecil. Jawab dengan tenang. Simpan setiap kesalahan untuk dipelajari lagi sebelum IELTS.</p>
+          <p class="hero-lead">Atur sesi latihan personal sesuai kebutuhan Anda. Jawab bertahap dengan tenang, dan simpan setiap evaluasi untuk review IELTS Anda.</p>
         </div>
-        <aside class="today-note reveal" aria-label="Prinsip latihan">
-          <span class="note-dot" aria-hidden="true"></span>
-          <p>Nilai menunjukkan posisi. Pembahasan menunjukkan langkah berikutnya.</p>
-        </aside>
+        <div class="studio-meta-bar">
+          <div class="studio-meta-pill">
+            <span class="badge-dot"></span>
+            <span>Bank Soal Siap Digunakan</span>
+          </div>
+          <div class="studio-quick-actions" role="group" aria-label="Akses Cepat Workspace">
+            <button class="studio-quick-btn" type="button" data-action="mock" title="Buka Simulasi Penuh IELTS">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Simulasi IELTS</span>
+            </button>
+            <button class="studio-quick-btn" type="button" data-action="learning" title="Buka Meja Belajar">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5Zm16 0A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5Z"/></svg>
+              <span>Meja Belajar</span>
+            </button>
+            <button class="studio-quick-btn" type="button" data-action="history" title="Buka Riwayat Latihan">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.6M4 4v4.6h4.6M12 7.5V12l3 2"/></svg>
+              <span>Riwayat</span>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <form class="practice-form" id="practice-form" novalidate>
-        <div class="form-main">
-          <div class="field-group">
-            <label for="level">Level saat ini</label>
-            <div class="select-shell" data-mark="Aa">
-              <select id="level" name="level">
-                <option value="A1">A1 · Pemula</option><option value="A2">A2 · Dasar</option>
-                <option value="B1" selected>B1 · Menengah</option><option value="B2">B2 · Menengah atas</option>
-                <option value="C1">C1 · Mahir</option><option value="C2">C2 · Sangat mahir</option>
-              </select>
+      <form class="studio-form" id="practice-form" novalidate>
+        <input type="hidden" name="questionMode" value="bank">
+
+        <!-- 01 · TARGET & LEVEL -->
+        <div class="studio-row">
+          <div class="studio-row-label">
+            <span class="studio-num">01</span>
+            <div>
+              <h3>Target &amp; Level</h3>
+              <p>Tingkat kemahiran CEFR dan target skor IELTS Anda.</p>
             </div>
-            <p class="field-help">Bank soal tersimpan disaring berdasarkan level ini.</p>
           </div>
+          <div class="studio-row-content">
+            <div class="studio-grid-2">
+              <div class="field-group">
+                <label for="level">Level CEFR Saat Ini</label>
+                <div class="select-shell" data-mark="Aa">
+                  <select id="level" name="level">
+                    <option value="A1">A1 · Pemula (Beginner)</option>
+                    <option value="A2">A2 · Dasar (Elementary)</option>
+                    <option value="B1" selected>B1 · Menengah (Intermediate)</option>
+                    <option value="B2">B2 · Menengah Atas (Upper Intermediate)</option>
+                    <option value="C1">C1 · Mahir (Advanced)</option>
+                    <option value="C2">C2 · Sangat Mahir (Proficient)</option>
+                  </select>
+                </div>
+                <p class="field-help">Bank soal tersimpan disaring berdasarkan level ini.</p>
+              </div>
 
-          <div class="field-group">
-            <label for="ielts-target">Target IELTS</label>
-            <div class="select-shell select-shell--wide-mark" data-mark="IELTS">
-              <select id="ielts-target" name="ieltsTarget">
-                <option>5.0</option><option>5.5</option><option>6.0</option>
-                <option selected>6.5</option><option>7.0</option><option>7.5</option><option>8.0</option><option>8.5</option><option>9.0</option>
-              </select>
+              <div class="field-group">
+                <label for="ielts-target">Target Band IELTS</label>
+                <div class="select-shell select-shell--wide-mark" data-mark="IELTS">
+                  <select id="ielts-target" name="ieltsTarget">
+                    <option>5.0</option><option>5.5</option><option>6.0</option>
+                    <option selected>6.5</option><option>7.0</option><option>7.5</option><option>8.0</option><option>8.5</option><option>9.0</option>
+                  </select>
+                </div>
+                <p class="field-help">Soal diselaraskan dengan standar kompleksitas band target.</p>
+              </div>
             </div>
-            <p class="field-help">Soal bergaya persiapan IELTS, bukan salinan soal resmi.</p>
-          </div>
-
-          <fieldset class="field-group type-field">
-            <legend>Tipe latihan</legend>
-            <div class="choice-chips">
-              <label><input type="checkbox" name="types" value="grammar" checked><span>Grammar</span></label>
-              <label><input type="checkbox" name="types" value="vocabulary" checked><span>Vocabulary</span></label>
-              <label><input type="checkbox" name="types" value="reading" checked><span>Reading</span></label>
-              <label><input type="checkbox" name="types" value="fill_blank" checked><span>Fill the blank</span></label>
-              <label><input type="checkbox" name="types" value="listening" checked><span>Listening</span></label>
-              <label><input type="checkbox" name="types" value="error_identification" checked><span>Error Identification</span></label>
-            </div>
-            <p class="field-help" id="types-help">Pilih minimal satu tipe.</p>
-          </fieldset>
-
-          <fieldset class="field-group source-field">
-            <legend>Sumber soal</legend>
-            <div class="source-options">
-              <label>
-                <input type="radio" name="questionMode" value="bank" checked>
-                <span><strong>Ambil dari bank</strong><small>Cepat dan tidak memakai API.</small></span>
-              </label>
-              <label>
-                <input type="radio" name="questionMode" value="deepseek">
-                <span><strong>Buat soal baru</strong><small>DeepSeek membuat lalu menyimpannya ke bank.</small></span>
-              </label>
-            </div>
-            <p class="field-help">Soal baru tetap tersedia untuk sesi berikutnya.</p>
-          </fieldset>
-
-          <div class="field-group range-field">
-            <div class="label-row"><label for="count">Jumlah soal</label><output id="count-output" for="count">10 soal</output></div>
-            <div class="range-shell">
-              <input type="range" id="count" name="count" min="5" max="30" step="5" value="10">
-            </div>
-            <div class="range-stops" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span></div>
-          </div>
-
-          <div class="field-group">
-            <label for="duration">Waktu latihan</label>
-            <div class="select-shell" data-mark="MIN">
-              <select id="duration" name="durationMinutes">
-                <option value="5">5 menit</option><option value="10">10 menit</option><option value="15" selected>15 menit</option>
-                <option value="20">20 menit</option><option value="30">30 menit</option><option value="45">45 menit</option><option value="60">60 menit</option>
-              </select>
-            </div>
-            <p class="field-help">Timer tetap berjalan bila halaman ditutup. Sesi dapat dilanjutkan dari riwayat.</p>
           </div>
         </div>
 
-        <div class="form-commit">
-          <div class="session-summary" aria-live="polite">
-            <p class="summary-title">Sesi berikutnya</p>
-            <strong id="summary-count">10 pertanyaan</strong>
-            <span id="summary-detail">B1 · target 6.5 · 15 menit</span>
+        <!-- 02 · FOKUS MATERI -->
+        <div class="studio-row">
+          <div class="studio-row-label">
+            <span class="studio-num">02</span>
+            <div>
+              <h3>Fokus Latihan</h3>
+              <p>Pilih komponen keterampilan yang ingin dilatih pada sesi ini.</p>
+            </div>
           </div>
-          <button class="btn btn--pear btn--lg" type="submit" id="generate-button">
-            <span class="btn-label">Mulai latihan</span><span class="spinner" aria-hidden="true"></span>
-          </button>
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <div class="studio-row-content">
+            <fieldset class="field-group type-field">
+              <div class="studio-chip-group">
+                <label><input type="checkbox" name="types" value="grammar" checked><span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h7"/></svg>Grammar</span></label>
+                <label><input type="checkbox" name="types" value="vocabulary" checked><span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Vocabulary</span></label>
+                <label><input type="checkbox" name="types" value="reading" checked><span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Reading</span></label>
+                <label><input type="checkbox" name="types" value="fill_blank" checked><span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>Fill the Blank</span></label>
+                <label><input type="checkbox" name="types" value="listening" checked><span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>Listening</span></label>
+                <label><input type="checkbox" name="types" value="error_identification" checked><span><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Error Identification</span></label>
+              </div>
+              <p class="field-help" id="types-help">Pilih minimal satu tipe latihan.</p>
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- 03 · BEBAN & WAKTU -->
+        <div class="studio-row">
+          <div class="studio-row-label">
+            <span class="studio-num">03</span>
+            <div>
+              <h3>Beban &amp; Durasi</h3>
+              <p>Alokasi jumlah pertanyaan dan target waktu pengerjaan.</p>
+            </div>
+          </div>
+          <div class="studio-row-content">
+            <div class="studio-grid-2">
+              <div class="field-group range-field">
+                <div class="label-row"><label for="count">Jumlah Soal</label><output id="count-output" for="count">10 soal</output></div>
+                <div class="range-shell">
+                  <input type="range" id="count" name="count" min="5" max="30" step="5" value="10">
+                </div>
+                <div class="range-stops" aria-hidden="true"><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span></div>
+              </div>
+
+              <div class="field-group">
+                <label for="duration">Waktu Latihan</label>
+                <div class="select-shell" data-mark="MIN">
+                  <select id="duration" name="durationMinutes">
+                    <option value="5">5 menit</option><option value="10">10 menit</option><option value="15" selected>15 menit</option>
+                    <option value="20">20 menit</option><option value="30">30 menit</option><option value="45">45 menit</option><option value="60">60 menit</option>
+                  </select>
+                </div>
+                <p class="field-help">Timer tetap sinkron bila halaman ditutup. Sesi dapat dilanjutkan dari riwayat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STUDIO LAUNCHPAD DOCK -->
+        <div class="studio-launch-dock">
+          <div class="launch-summary-left">
+            <span class="launch-kicker">RINGKASAN SESI PILIHAN</span>
+            <div class="launch-main-specs">
+              <strong id="summary-count" class="launch-count">10 pertanyaan</strong>
+              <span class="launch-bullet" aria-hidden="true">·</span>
+              <span id="summary-detail" class="launch-details">B1 · target 6.5 · 15 menit</span>
+            </div>
+          </div>
+          <div class="launch-action-right">
+            <button class="btn btn--pear btn--lg" type="submit" id="generate-button">
+              <span class="btn-label">Mulai latihan</span><span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+
+        <!-- STUDIO PRINCIPLES FOOTNOTE -->
+        <div class="studio-principles">
+          <div class="principle-item">
+            <span class="principle-mark">01</span>
+            <p><strong>Autosave Otomatis:</strong> Progres jawaban tersimpan per nomor. Dapat dijeda dan dilanjutkan kapan saja.</p>
+          </div>
+          <div class="principle-item">
+            <span class="principle-mark">02</span>
+            <p><strong>Pembahasan Mendalam:</strong> Analisis pola kalimat, tata bahasa, dan tips strategi dibuka setelah selesai.</p>
+          </div>
+          <div class="principle-item">
+            <span class="principle-mark">03</span>
+            <p><strong>Spaced-Repetition:</strong> Setiap jawaban salah dijadwalkan ulang di Meja Belajar (H+1, H+3, H+7, H+14).</p>
+          </div>
         </div>
       </form>
-
-      <div class="workflow-rail" aria-label="Alur belajar">
-        <div class="workflow-step is-current"><span>1.0</span><p><strong>Atur</strong><br>Pilih beban yang masuk akal.</p></div>
-        <div class="workflow-step"><span>2.0</span><p><strong>Kerjakan</strong><br>Jawaban tersimpan per soal.</p></div>
-        <div class="workflow-step"><span>3.0</span><p><strong>Pahami</strong><br>Buka kembali alasan dan tipsnya.</p></div>
-      </div>
     </section>
 
     <section class="learning-screen screen" id="learning-screen" hidden>
